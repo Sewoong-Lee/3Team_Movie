@@ -1,5 +1,5 @@
 package three.team.movie.controller;
 
-public class test1 {
+public class sample {
 
 }
