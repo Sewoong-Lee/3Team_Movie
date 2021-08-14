@@ -48,17 +48,20 @@
 	
 	<!-- 이메일 인증 객체 생성 -->
 	<!-- username : 나의 이메일 -->
+	<!-- 크롬 브라우저에서 기입한 정보로 구글 로그인 되어있어야만 적용됨.-->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com"/>
 		<property name="port" value="587"/>
-		<property name="username" value="stpnlsw@gmail.com"/>
-		<property name="password" value="090355lsw!"/>
+		<property name="username" value="ruddms5576@gmail.com"/>
+		<property name="password" value="thinkidea3#"/>
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
 				<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+                                <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
 			</props>
 		</property>
 	</bean>
