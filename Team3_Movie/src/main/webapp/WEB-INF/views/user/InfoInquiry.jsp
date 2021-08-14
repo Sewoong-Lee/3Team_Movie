@@ -8,8 +8,8 @@
 <title>CCV</title>
 <script type="text/javascript">
 	$(function(){
-		$('#clickState').click(function(){
-			$(this).attr('class'). 
+		$('.clickState').on('click', function(){
+			$(this).addClass('clicked');
 		});
 	});
 </script>
@@ -46,8 +46,8 @@
 <%@ include file = "../include/header.jsp" %>
 	<h2>내 정보 찾기</h2>
 <ul>
-	<li><a href="" class = "clickState clicked" id = "findId">아이디 찾기</a></li>
-	<li><a href="" class = "clickState clicked" id = "findPw">비밀번호 찾기</a></li>
+	<li><a href="" class = "clickState" id = "findId">아이디 찾기</a></li>
+	<li><a href="" class = "clickState" id = "findPw">비밀번호 찾기</a></li>
 </ul>
 	<div>
 		
