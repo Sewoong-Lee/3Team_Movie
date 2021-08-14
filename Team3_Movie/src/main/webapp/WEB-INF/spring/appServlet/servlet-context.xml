@@ -19,6 +19,7 @@
 	<!-- 리소스의 매핑정보 알리아스 -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/uploadimg/**" location="file:///D:/upload/" />
+	<resources mapping="/video/**" location="file:///D:/upload/video/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
