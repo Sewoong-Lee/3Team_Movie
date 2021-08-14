@@ -6,7 +6,9 @@
 	<!-- 저장시 null 허용 -->
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
+		<setting name="jdbcTypeForNull" value="DOUBLE"/>
 	</settings>
+
 	
 	<!-- 알리아스 설정 -->
  	<typeAliases>
