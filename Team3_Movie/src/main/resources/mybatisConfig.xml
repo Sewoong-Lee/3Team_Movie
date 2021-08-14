@@ -11,5 +11,7 @@
 	<!-- 알리아스 설정 -->
  	<typeAliases>
 		<!-- <typeAlias type="org.spring.my.dto.Board" alias="Board"/> -->
+		<typeAlias type="three.team.movie.dto.Mv_city" alias="Mv_city"/>
+		<typeAlias type="three.team.movie.dto.Cinema" alias="Cinema"/>
 	</typeAliases>
 </configuration>
