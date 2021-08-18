@@ -82,7 +82,7 @@ function setThumbnail(e) {
 						<c:forEach var = "genre" items= "${genreList}">
 							<c:set var="check" value="false"/>
 								<c:forEach var = "tag" items = '${tagList}'>
-								<c:if test="${genre.GENRE_CODE eq tag.TAG_CODE}">
+								<c:if test="${genre.GENRE_CODE eq tag.GENRE_CODE}">  <!-- 오른쪽 테그 수정함 -->
 									<c:set var="check" value="true"/>
 									<input type = "checkbox" class = "tag" name = "tag" value = "${genre.GENRE_CODE}" checked="checked">${genre.GENRE_NAME}<br>
 								</c:if>

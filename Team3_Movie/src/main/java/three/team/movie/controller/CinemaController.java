@@ -55,13 +55,13 @@ public class CinemaController {
 	// 예매 준비 폼으로
 	//********영화 디테일에서 영화 순번 받아와야함
 	@GetMapping("city")
-	public void city(Model model, Mv_sales mv_sales) { 
+	public void city(Model model, Mv_sales mv_sales , int movie_num) { 
 		//영화 순번 하드코딩
-		int movie_num = 1;
+//		int movie_num = 1; //잠깐 하드코딩
 		// 지역 리스트 가져오기
 		List<Mv_city> citylist = cinemaservice.cityselectlist();
 		// 예매 가능 날짜 가져오기
-		List<Mv_time> timelist = cinemaservice.timeselectlist();
+		List<Mv_time> timelist = cinemaservice.timeselectlist(movie_num);
 		logger.info(citylist.toString());
 		logger.info("timelist: " + timelist.toString());
 		model.addAttribute("citylist", citylist);

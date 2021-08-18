@@ -3,14 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="three.team.movie.User_tagMapper">
-	<insert id="tagSelected">
-		insert into MV_USER_TAG values(#{user_id},#{tag})
+	<insert id="tagSelected" >
+		insert into MV_USER_TAG(GENRE_CODE,USER_ID) values(#{tag},#{user_id})
 	</insert>
 	
 	<select id="getUserTag" resultType="java.util.HashMap">
-		SELECT UT.USER_ID, UT.TAG_CODE, G.GENRE_NAME
+		SELECT UT.USER_ID, UT.GENRE_CODE, G.GENRE_NAME
 		FROM MV_USER_TAG UT join MV_GENRE G
-		on(UT.TAG_CODE = G.GENRE_CODE)
+		on(UT.GENRE_CODE = G.GENRE_CODE)
 		WHERE USER_ID = #{user_id}
 	</select>
 	

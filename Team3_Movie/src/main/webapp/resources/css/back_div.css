@@ -1,0 +1,12 @@
+@charset "UTF-8";
+#back_color_body{
+	background-color: #1a1313;
+}
+#back_div{
+	width: 100%;
+	max-width: 80%;
+	margin: auto;
+}
+/* #back_color_div{
+	background-color: #1a1313;
+} */

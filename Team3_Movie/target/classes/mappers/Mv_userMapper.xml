@@ -36,4 +36,19 @@
 		UPDATE MV_USER SET PASSWD = #{bCryptPw}
 		WHERE USER_ID = #{user_id}
 	</update>
+	
+	<select id="getsaleslist" resultType="java.util.Map">
+		select * 
+	    from MV_TIME MT
+	    join MV_SALES MS
+	      on MT.TIME_CODE = MS.TIME_CODE
+	    JOIN MV_MOVIE_DATA MMD
+	      ON MT.MOVIE_NUM = MMD.MOVIE_NUM
+	    JOIN MV_USER MU
+	      ON MS.USER_ID = MU.USER_ID
+	    JOIN CINEMA CI
+	      ON MT.CINEMA_CODE = CI.CINEMA_CODE
+		WHERE MS.USER_ID = #{user_id}
+		order by SAL_NUM DESC
+	</select>
 </mapper>

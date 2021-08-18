@@ -16,6 +16,7 @@
 		where TIME_DAY BETWEEN TO_CHAR(sysdate,'YYYY-MM-DD') 
 		AND TO_CHAR(sysdate+7,'YYYY-MM-DD')
 		AND ROWID IN (SELECT MAX(ROWID) FROM MV_TIME GROUP BY TIME_DAY)
+		AND MOVIE_NUM = #{movie_num}
 		ORDER BY TIME_DAY
 	</select>
 	<select id="saletimelist" resultType="three.team.movie.dto.Mv_time">

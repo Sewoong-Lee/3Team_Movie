@@ -294,17 +294,8 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
  	</div>
  <!-- 	페이징 처리 -->
 	<div class="paging paging1"> 
-	 	 <!-- 이전버튼 --> 
-<%-- 		<c:forEach  var="i"  begin="${mvUser_Page.startPage}" end="${mvUser_Page.endPage}">
-			<c:if test="${mvUser_Page.curPageListUser==i}">
-				<a href="#" curPageListUser="${i}" class="uList" >${i}</a>
-			</c:if>
-			<c:if test="${mvUser_Page.curPageListUser!=i}">
-				<a href="#" curPageListUser="${i}" class="uList" >${i}</a>
-			</c:if>
-		</c:forEach>  --%>
-		<!-- 다음버튼 --> 
  	</div>
+ 	
  	<h2></h2>
   <!-- 전체영화리스트 -->
 	<h2 align="center" style="padding-top: 30;">인기(최신) 상영작</h2>
@@ -312,7 +303,7 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
 	 	<c:forEach var="list" items="${movieList}">
 	 		<div class="TotListDiv">
  				<a href="${path}/moviedata/detail?movie_num=${list.movie_num}"> 
- 					<img alt="이미지링크" src=" ${list.movie_poster_link} " width="150px"></a>
+ 					<img alt="이미지링크" src=" ${list.movie_poster_link}" width="150px"> </a>
  				<span>${list.movie_name}</span>	
 	 		</div>
  		</c:forEach>
@@ -320,22 +311,7 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
  
  <!-- 	페이징 처리 -->
  	<div class="paging paging2">
-<%--  		<c:if test="${mv_Page.startPage != 1}">
-		<a href="#" curPage="${mv_Page.startPage-1}"  class="aList" >이전</a>
-		</c:if>
-		<c:forEach  var="i"  begin="${mv_Page.startPage}" end="${mv_Page.endPage}">
-			<c:if test="${mv_Page.curPage==i}">
-				<a href="#" curPage="${i}" class="aList" >${i}</a>
-			</c:if>
-			<c:if test="${mv_Page.curPage!=i}">
-				<a href="#" curPage="${i}" class="aList" >${i}</a>
-			</c:if>
-		</c:forEach>
-		<c:if test="${mv_Page.totPage > mv_Page.endPage}">
-			<a href="#" curPage="${mv_Page.endPage+1}"  class="aList" >다음</a>
-		</c:if>
- --%> 	</div>
-
+ 	</div>
 
 </body>
 </html>

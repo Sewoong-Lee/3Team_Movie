@@ -1,5 +1,6 @@
 package three.team.movie.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -47,6 +48,12 @@ public class Mv_userDAOImpl implements Mv_userDAO{
 	@Override
 	public void updatePw(Map<String, String> newPwMap) {
 		sqlSession.update("three.team.movie.Mv_userMapper.updatePw", newPwMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> getsaleslist(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("three.team.movie.Mv_userMapper.getsaleslist", user_id);
 	}
 
 

@@ -24,5 +24,7 @@ public interface Mv_userService {
 
 	public void updatePw(String user_id, String newPw);
 
+	public List<Map<String, Object>> getsaleslist(String user_id);
+
 
 }

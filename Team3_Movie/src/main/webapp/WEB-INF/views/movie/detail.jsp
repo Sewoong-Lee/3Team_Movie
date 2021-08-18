@@ -142,9 +142,10 @@ function rederReplyDetail(data) {
 	//예매클릭 햇을때 
 	$('#Ticketing').click(function(e) {
 		e.preventDefault()
-		var MOVIE_NUM = ${movieDetail.MOVIE_NUM} 
-		alert(MOVIE_NUM);
+		var movie_num = ${movieDetail.MOVIE_NUM};
+		alert(movie_num);
 		alert("예매");
+		location.href="${path}/cinema/city?movie_num="+movie_num;
 	});
 	
 	//페이지 번호 클릭시 

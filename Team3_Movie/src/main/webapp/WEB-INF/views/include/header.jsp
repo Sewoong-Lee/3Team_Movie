@@ -37,32 +37,29 @@
 		<button class="dropbtn">극장</button>
 			<div class="dropdown-content">
 				<a href="#">전체 극장</a>
-				<a href="#">가까운 영화관</a>
 			</div>
 		</div>
 	  
 		<div class="dropdown">
 		<button class="dropbtn">영화</button>
 			<div class="dropdown-content">
-				<a href="#">박스 오피스</a>
-			        <a href="#">상영 예정작</a>
-			        <a href="#">전체 영화</a>
+			        <a href="#">취향</a>
+			        <a href="${path}/moviedata/">전체 영화</a>
 			</div>
 		</div>
 	  
 		<div class="dropdown">
 		<button class="dropbtn">이벤트</button>
 			<div class="dropdown-content">
-				<a href="#">진행 중 이벤트</a>
-				<a href="#">지난 이벤트</a>
+				<a href="${path}/board/">이벤트 페이지</a>
+				<!-- <a href="#">지난 이벤트</a> -->
 			</div>
 		</div>
 	    
 		<div class="dropdown">
 		<button class="dropbtn">나의 CCV</button>
 			<div class="dropdown-content" id = "myCcv">
-				<a href="#">영화 예매 내역</a>
-				<a href="#">이벤트 참여 내역</a>
+				<a href="${path}/user/saleslist">영화 예매 내역</a>
 				<a href="${path}/user/myInfo?user_id=${sessionScope.user_id}">나의 정보</a>
 			</div>
 		</div>
