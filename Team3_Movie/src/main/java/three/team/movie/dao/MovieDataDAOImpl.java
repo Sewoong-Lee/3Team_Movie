@@ -1,5 +1,6 @@
 package three.team.movie.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,15 @@ public class MovieDataDAOImpl implements MovieDataDAO{
 	public Double starRating(int movie_num) {
 	
 		return sqlsession.selectOne("org.spring.my.MovieMapper.starRating",movie_num);
+	}
+
+	//유튜브 링크 인서트
+	@Override
+	public void youtubeLink_Inset(String youtube_link ,int movie_num) { 
+		Map<String, Object> youtubemap = new HashMap<String, Object>();
+		youtubemap.put("youtube_link",youtube_link);
+		youtubemap.put("movie_num",movie_num);
+		sqlsession.update("org.spring.my.MovieMapper.youtubeLink_Inset",youtubemap);
 	}
 	
 	

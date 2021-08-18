@@ -45,6 +45,12 @@ public class ReplyServiceImpl implements ReplyService{
 		replyDAO.modify(reply);
 	}
 
+	//회원 세션아이디 게시물번호 일치여부 확인 
+	@Override
+	public int selectOneUpCheck(int mr_num, String user_id) {
+		return replyDAO.selectOneUpCheck(mr_num,user_id);
+	}
+
 
 
 }

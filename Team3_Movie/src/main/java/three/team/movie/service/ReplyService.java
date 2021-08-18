@@ -17,5 +17,7 @@ public interface ReplyService {
 
 	public void modify(Mv_movie_reply reply); //원본글 수정
 
+	public int selectOneUpCheck(int mr_num, String user_id); //게시물 번호 회원 세션아이디 일치여부 확인 
+
 
 }

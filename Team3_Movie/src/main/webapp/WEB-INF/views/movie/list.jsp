@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
 <c:set var="path" value="${pageContext.request.contextPath}"/>      
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script> 
+<%-- <%@ include file = "../include/header.jsp" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,6 @@ $(function() {
 		$('.uList').click(function(e) {
 			e.preventDefault();
 			var curPageListUser = $(this).attr('curPageListUser');
-			alert(curPageListUser);
 			ajaxListUser(curPageListUser);
 		});	
 		/*  ajaxListUser(1);  */
@@ -38,17 +38,14 @@ $(function() {
 		$('.aList').click(function(e) {
 			e.preventDefault();
 			var curPage = $(this).attr('curPage');	
-			alert(curPage);
 			ajaxListTotAjax(curPage);
 		});
 /* 		ajaxListTotAjax(1); */
 		ajaxListTotAjax(${sessionScope.curpageTot});
 });
 
-
 //ajax 영화리스트 
 function ajaxListTotAjax(curPage) {
-	alert(curPage);
 	var ajaxParm = {
 		url:'${path}/moviedata/listTotAjax?curPage='+curPage,
 		type:'get',
@@ -58,7 +55,6 @@ function ajaxListTotAjax(curPage) {
 		},
 		error: function(err){
 			console.log(err);
-			alert("실패");
 		}
 	};
 	$.ajax(ajaxParm);
@@ -74,7 +70,6 @@ function ajaxListUser(curPageListUser) {
 			renderUserMovie(data);
 		},
 		error: function(err) {
-			alert('실패');
 			console.log(err);
 		}
 	};
@@ -198,7 +193,6 @@ function renderUserMovie(data) {
 		e.preventDefault();
 		var curPageListUser = $(this).attr('curPageListUser');	
 		curPageListUser;
-		alert(curPageListUser);
 		ajaxListUser(curPageListUser);
 	}); 
 
@@ -208,15 +202,14 @@ function renderUserMovie(data) {
 <style>
 .userListDiv {
 	display: inline-block;
-	margin: 30px;
+	margin-bottom: 40;
 }
 .TotListDiv{
 	display: inline-block;
-	margin: 30px;
+	margin-bottom: 40;
 }
 .paging {
 	text-align: center;
-	margin: 30px;
 }
 .paging a {
     font-size: 19px;
@@ -233,6 +226,7 @@ function renderUserMovie(data) {
  }
 #Nextpage{
 	margin-left: 20px;
+/* 	background-color: gainsboro; */
 	background-color: gainsboro;
 }
 #Befpage{
@@ -248,13 +242,13 @@ function renderUserMovie(data) {
 }
 #userListWrap{
 	text-align: center;
-	color: #925e5e;
+	color: white;
     font-weight: bold;
     font-size: 18px;
 }
 #TotListWrap{
 	text-align: center;
-	color: #925e5e;
+	color: white;
     font-weight: bold;
     font-size: 18px;
 }
@@ -268,12 +262,34 @@ function renderUserMovie(data) {
 	margin: auto;
 }
 
+.userListDiv span{
+	margin-top: 10px;
+	width: 260px;
+}
+.TotListDiv span{
+	margin-top: 10px;
+	width: 260px;
+}
+#back_color_body{
+   background-color: #1a1313;
+}
+#back_div{
+   width: 100%;
+   max-width: 80%;
+   margin: auto;
+}
+img[src]{
+	border: 1px solid white;
+	border-radius:10px;
+}
+
+
 
 </style>
 
 
 </head>
-<body>
+<body id="back_color_body">
 ${sessionScope.curpageUser}:유저 컬페이지 <br>
  ${sessionScope.curpageTot}:전체 컬페이지 수 <br>
  ${sessionScope.user_id} <br>
@@ -287,24 +303,13 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
 	 	<c:forEach var="UserList" items="${movieListUser}">
 	 		<div class="userListDiv">
 		 		<a href="${path}/moviedata/detail?movie_num=${UserList.MOVIE_NUM}" > 
-		 			<img alt="이미지" src="${UserList.MOVIE_POSTER_LINK}" width="150px"></a>
+		 			<img class="imgList" alt="이미지" src="${UserList.MOVIE_POSTER_LINK}" width="150px"></a>
 		 		<span>${UserList.MOVIE_NAME}</span>
 	 		</div> 
 	 	</c:forEach>
  	</div>
  <!-- 	페이징 처리 -->
-	<div class="paging paging1"> 
-	 	 <!-- 이전버튼 --> 
-<%-- 		<c:forEach  var="i"  begin="${mvUser_Page.startPage}" end="${mvUser_Page.endPage}">
-			<c:if test="${mvUser_Page.curPageListUser==i}">
-				<a href="#" curPageListUser="${i}" class="uList" >${i}</a>
-			</c:if>
-			<c:if test="${mvUser_Page.curPageListUser!=i}">
-				<a href="#" curPageListUser="${i}" class="uList" >${i}</a>
-			</c:if>
-		</c:forEach>  --%>
-		<!-- 다음버튼 --> 
- 	</div>
+	<div class="paging paging1"> </div>
  	<h2></h2>
   <!-- 전체영화리스트 -->
 	<h2 align="center" style="padding-top: 30;">인기(최신) 상영작</h2>
@@ -317,24 +322,8 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
 	 		</div>
  		</c:forEach>
 	</div>
- 
  <!-- 	페이징 처리 -->
- 	<div class="paging paging2">
-<%--  		<c:if test="${mv_Page.startPage != 1}">
-		<a href="#" curPage="${mv_Page.startPage-1}"  class="aList" >이전</a>
-		</c:if>
-		<c:forEach  var="i"  begin="${mv_Page.startPage}" end="${mv_Page.endPage}">
-			<c:if test="${mv_Page.curPage==i}">
-				<a href="#" curPage="${i}" class="aList" >${i}</a>
-			</c:if>
-			<c:if test="${mv_Page.curPage!=i}">
-				<a href="#" curPage="${i}" class="aList" >${i}</a>
-			</c:if>
-		</c:forEach>
-		<c:if test="${mv_Page.totPage > mv_Page.endPage}">
-			<a href="#" curPage="${mv_Page.endPage+1}"  class="aList" >다음</a>
-		</c:if>
- --%> 	</div>
+ <div class="paging paging2"></div>
 
 
 </body>

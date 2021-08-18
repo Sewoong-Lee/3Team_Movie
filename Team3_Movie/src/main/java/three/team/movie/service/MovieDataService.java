@@ -16,5 +16,7 @@ public interface MovieDataService {
 
 	public Map<String, Object> replyPaging(int movie_num, int curPage); //게시물 페이징
 
+	public Map<String, Object> selectMainList(Mv_Page page); //메인리스트로 
+
 
 }

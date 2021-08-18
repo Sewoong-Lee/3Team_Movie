@@ -41,6 +41,7 @@ public class CinemaController {
 
 	}
 	
+	
 	//지역을 누르면 영화관 보이게
 	@ResponseBody
 	@GetMapping("city/{city_code}")
