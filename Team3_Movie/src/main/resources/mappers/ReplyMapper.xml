@@ -12,7 +12,7 @@
 	<update id="update">
 		update MV_MOVIE_REPLY
 		set CONTENT = #{content}
-		where MR_NUM = #{mr_num}  
+		where MR_NUM = #{mr_num}
 	</update>
  	
  	<delete id="delete">
@@ -45,6 +45,15 @@
 		from MV_MOVIE_REPLY mr inner JOIN MV_MOVIE_DATA mm on(mr.MOVIE_NUM = mm.MOVIE_NUM)
 		where mr.MOVIE_NUM = #{movie_num}
 	</select>
+
+	<!-- 회원 아이디 게시물번호 일치여부 확인 -->
+	<select id="selectOneUpcheck" resultType="int">
+		select count(*) recnt
+		from MV_MOVIE_REPLY
+		where MR_NUM =#{mr_num}
+		and USER_ID=#{user_id}
+	</select>
+
 
 
 </mapper>

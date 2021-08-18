@@ -27,7 +27,7 @@ public class MovieDataServiceImpl implements MovieDataService{
 		return movieDataDAO.selectOne(movie_num);//영화 한건조회 detail
 	}
 
-	//영화 전체 리스트 
+	//영화 전체 리스트(회원관심 리스트랑 같이 출력됨)
 	@Override
 	public Map<String, Object> selectList(Mv_Page page) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -44,8 +44,23 @@ public class MovieDataServiceImpl implements MovieDataService{
 		return returnMap;
 	}
 	
-	
-	
+	//메인 리스트 
+	@Override
+	public Map<String, Object> selectMainList(Mv_Page page) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		//영화 전체 갯수 구하기
+		int totCnt = movieDataDAO.selectTotCnt(page);
+		System.out.println("전체리스트 수====="+totCnt);
+		//페이징 처리
+		page.setPerPage(10);
+		Mv_Page paging = paging(page,totCnt);
+		
+		System.out.println("전체페이지===="+paging);
+		returnMap.put("list", movieDataDAO.selectList(paging));
+		returnMap.put("paging", paging);
+		return returnMap;
+	}
 	
 	//회원관심 영화리스트 
 	@Override
@@ -105,20 +120,27 @@ public class MovieDataServiceImpl implements MovieDataService{
 		int totreplycnt = replyDAO.totReplCnt(movie_num);
 		System.out.println("전체게시물"+totreplycnt);
 		Mv_Page page = new Mv_Page();
+		
 		page.setPerPage(10);//10개 게시물로 
-		page.setCurPageReply(curPageReply);
+		page.setCurPage(curPageReply);
 		Mv_Page replypage =paging(page,totreplycnt);
+		replypage.setCurPageReply(replypage.getCurPage());
 		
 		System.out.println("게시물 페이징==="+replypage);
+		
 		Map<String, Object> replyMap =new HashMap<String, Object>();
 		replyMap.put("replypage", replypage);
 		System.out.println("replyMap============="+replyMap);
 		return replyMap;
 	}
+
+
 	
 	
 	
 	
 	
 }
+
+
 

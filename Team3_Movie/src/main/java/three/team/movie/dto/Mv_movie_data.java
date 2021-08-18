@@ -1,6 +1,7 @@
 package three.team.movie.dto;
 
 import java.util.Date;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -17,6 +18,10 @@ public class Mv_movie_data {
 	private String actor_name;	
 	private Date reg_date; 	
 	private Date modify_date; 	 
+	private String youtube_link;
+	
+	private Map<String, String> findmap;
+	
 	
 }
 

@@ -36,7 +36,6 @@ public class BoardController {
 	public String addsession(MV_Board_Page mv_board_page, Model model) { 
 		//모델을 생성해서 @SessionAttributes 에 생성
 		model.addAttribute("mv_board_page", mv_board_page);  //맨 위의 @SessionAttributes("page")에도 생성
-		
 		return "redirect:boardlist";  //세션에 저장후 리스트 실행
 	}
 	
@@ -92,7 +91,6 @@ public class BoardController {
 		Map<String, Object> board_list = boardService.selectone(board_num);
 		model.addAttribute("board_list", board_list);
 		
-		
 		return "board/boardmodify";
 	}
 	
@@ -104,7 +102,6 @@ public class BoardController {
 		
 		mv_board.setIp(request.getRemoteAddr());
 		boardService.board_update(mv_board, filedeletelist);
-		
 		
 		return "redirect:boardlist";
 	}

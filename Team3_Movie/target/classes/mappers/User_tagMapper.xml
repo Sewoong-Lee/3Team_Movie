@@ -18,3 +18,5 @@
 		delete from MV_USER_TAG where user_id = #{user_id}
 	</delete>
 </mapper>
+
+

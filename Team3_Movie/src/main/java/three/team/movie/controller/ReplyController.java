@@ -47,6 +47,8 @@ public class ReplyController {
 	public String add(@RequestBody Mv_movie_reply reply, HttpServletRequest request,HttpSession session) {
 		String user_id = (String) session.getAttribute("user_id");
 		System.out.println("유저아이디: "+user_id);
+		String re_userid =reply.getUser_id();
+		
 		reply.setUser_id(user_id);
 		reply.setIp(request.getRemoteAddr());
 		logger.info(reply.toString());
@@ -102,11 +104,23 @@ public class ReplyController {
 //		}
 //	}
 	
-	//원본댓글 수정 post
+	//원본댓글 수정 
+	//post
 	@ResponseBody
 	@RequestMapping("modify")
-	public void update(@ModelAttribute Mv_movie_reply reply,RedirectAttributes rattr) {
+	public void update(@ModelAttribute Mv_movie_reply reply,RedirectAttributes rattr, HttpSession session) {
 		rattr.addFlashAttribute("msg","수정을 완료하였습니다");
+		
+		// 파라미터로 넘어온 글넘버 AND 세션 유저아이디 셀렉트 있으면 1 update
+		int mr_num = reply.getMr_num();
+		String user_id = (String) session.getAttribute("user_id");
+		
+		//글 넘버+ 세션유저아디 check
+		int upCheck = replyService.selectOneUpCheck(mr_num,user_id);
+		if(upCheck!=1) {
+			rattr.addFlashAttribute("msg","아이디가 일치하지 않습니다");
+			return;
+		}
 		replyService.modify(reply);
 	}
 	

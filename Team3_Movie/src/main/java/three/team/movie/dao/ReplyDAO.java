@@ -18,6 +18,8 @@ public interface ReplyDAO {
 	public void modify(Mv_movie_reply reply); //원본글 수정
 
 	public int totReplCnt(int movie_num); //영화 게시물 수 구하기 
+
+	public int selectOneUpCheck(int mr_num, String user_id); //회원 세션아이디 게시물번호 일치여부 확인 
 	
 	
 }

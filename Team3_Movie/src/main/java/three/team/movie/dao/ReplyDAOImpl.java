@@ -1,5 +1,6 @@
 package three.team.movie.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +50,15 @@ public class ReplyDAOImpl implements ReplyDAO{
 	@Override
 	public int totReplCnt(int movie_num){
 		return sqlSession.selectOne("org.spring.my.ReplyMapper.totReplCnt",movie_num);
+	}
+	
+	//회원 세션아이디 게시물번호 일치여부 확인 
+	@Override
+	public int selectOneUpCheck(int mr_num, String user_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mr_num", mr_num);
+		map.put("user_id", user_id);
+		return sqlSession.selectOne("org.spring.my.ReplyMapper.selectOneUpcheck",map);
 	}
 	
 
