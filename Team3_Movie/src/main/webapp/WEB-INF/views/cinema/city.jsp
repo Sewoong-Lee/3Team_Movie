@@ -1,24 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include.jsp" %>
+<%@ include file="../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	
+	/* 스크롤바 지우기
+	div::-webkit-scrollbar {
+	    display: none;
+	} */
+	
+	#back_div{
+		color: white;
+	}
+	
+	/* 체크박스 css */
+	/* 체크박스 숨기기 */
+	/* #seats_list .seatsname input[type="checkbox"] {display: none;} */
+	
+	/* 체크 안된 체크박스에 배경 넣기 */
+	#seats_list input[type="checkbox"]{
+		/* display: inline-block; width:30px; height: 30px; background: #fa3062;
+		cursor: pointer; border-radius: 6px; */
+		
+		cursor: pointer;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		outline: 0;
+		background: #053a0f;
+		height: 30px;
+		width: 30px;
+		border: 1px solid white;
+	}
+	
 	/* 하이퍼링크 밑줄 및 글색 변경 */
 	a {
 		text-decoration-line: none;
-		color: black;
+		color: white;
 	}
+	
+	/* 가격 박스 */
 	#salesbtnbox{
 		width: 150px;
 		height: 200px;
 		text-align: center;
 		margin:0 auto;
 	}
+	#price{
+		width: 100px;
+	}
+	
+	/* 날짜 박스 */
+	#timelist_box{
+		background-color: 424242;
+	}
+	
+	/* 마스터 박스 */
+	#master_div{
+		display: flex;
+		
+	}
+	
+	
 	.moviecitybox{
+		overflow-y: scroll;
+ 
+		flex-direction: column;
+		justify-content: space-around;
+		
+		border:10px;
+		border-color:white;
+		margin : 20px;
+		background-color: 424242;
+		float: left;
+		width: 120px;
+		height: 200px;
+		text-align: center;
+		font-size: medium;
+	}
+	.movie_cinema_box{
+		overflow-y: scroll;
+	
+		flex-direction: column;
+		justify-content: space-around;
+		
+		border:10px;
+		border-color:white;
+		margin : 20px;
+		background-color: 424242;
 		float: left;
 		width: 150px;
 		height: 200px;
@@ -26,8 +99,22 @@
 		font-size: medium;
 	}
 	.movieseatsbox{
+		margin : 20px;
+		background-color: 424242;
 		float: left;
 		width: 300px;
+		height: 200px;
+		
+		text-align: center;
+		font-size: medium;
+	}
+	.movie_time_box {
+		overflow-y: scroll;
+		
+		margin : 20px;
+		background-color: 424242;
+		float: left;
+		width: 450px;
 		height: 200px;
 		text-align: center;
 		font-size: medium;
@@ -36,31 +123,34 @@
 	/* 선택시 배경색 변경 */
 	#select_style{
 		font-size: large;
-		background-color: navy;
+		background-color: #1a1313;
 		color: white;
 	}
 	/* 카카오페이 버튼 변경 */
 	#salesbtn{
 		border: 0;
 		outline: 0;
-		background-color: white;
+		background-color: #1a1313;
 	}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <!-- 영화관 리스트 탬플릿 -->
 <script id="replylist_template" type="text/x-handlebars-template">
+	<br>
 	{{#each .}}
      <li><a href="{{cinema_code}}" class="cinemaname">{{cinema_name}}</a></li><br>
      {{/each}}
 </script>
 <!-- 상영 시간 리스트 탬플릿 -->
 <script id="sale_time_template" type="text/x-handlebars-template">
+	<br>
 	{{#each .}}
-     <li><a href="{{time_code}}" class="timename">상영일 : {{time_day}} <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상영 시간 : {{time_time}}</a></li><br>
+     <li><a href="{{time_code}}" class="timename">상영일 : {{time_day}} &nbsp;&nbsp;&nbsp; {{time_time}}</a></li><br>
      {{/each}}
 </script>
 <!-- 전체 좌석 리스트 탬플릿 -->
 <script id="seats_list_template" type="text/x-handlebars-template">
+	<br>
 	{{#each .}}
 		{{#if @index % 4 == 0}}
 			<br>
@@ -103,6 +193,9 @@ $(function() {
 			success:function(data){
 				console.log(data);
 				//alert('성공');
+				/* $('#city_name_list').before('<br>'); */
+				$('#city_name_list').attr('class', 'movie_cinema_box'); //박스에 클래스 추가 (css 사용)
+				
 				var source = $('#replylist_template').html();
 				var template = Handlebars.compile(source);
 		       	$('#city_name_list').html(template(data));
@@ -141,6 +234,8 @@ $(function() {
 			success:function(data){
 				console.log(data);
 				
+				$('#sale_time_list').attr('class', 'movie_time_box'); //박스에 클래스 추가 (css 사용)
+				
 				var source = $('#sale_time_template').html();
 				var template = Handlebars.compile(source);
 		       	$('#sale_time_list').html(template(data));
@@ -171,11 +266,13 @@ $(function() {
 			success:function(data){
 				console.log(data);
 				
-				$("#seats_list").text('스크린').append('<br>');
+				$('#seats_list').attr('class', 'movieseatsbox'); //박스에 클래스 추가 (css 사용)
+				
+				$("#seats_list").text('Screen').append('<br>');
 				
 				var cnt = 1;
 				var results = data;
-	            var str = '';
+	            var str = '<br>';
 	            $.each(results, function(i){
 	                /* str += '<button class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code+'</button>&nbsp;&nbsp;'; */
 	                //예매좌석 이라면
@@ -184,7 +281,7 @@ $(function() {
 	                	str += '<input type="checkbox" name="seats_code" class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code;
 	                }else{
 	                	//예약 좌석 이라면
-	                	 str += '<input type="checkbox" disabled value="'+results[i].seats_code+'">'+results[i].seats_code;
+	                	 str += '<input type="checkbox" class="Already_seatsname" disabled value="'+results[i].seats_code+'">'+results[i].seats_code;
 	                }
 	                
 	                //str += '<input type="checkbox" name="seats_code" class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code;
@@ -195,7 +292,7 @@ $(function() {
 	           });
 	         
 	           $("#seats_list").append(str);
-		       	
+		       $('.Already_seatsname').css('background-color', '#1a1313'); 
 			},
 			error:function(err){
 				console.log(err);
@@ -250,6 +347,19 @@ $(function() {
   		
   	});
   	
+  	//좌석 선택시 색상 바꾸기
+  	$('#seats_list').on('click','.seatsname',function(){
+  		
+  		//좌석 취소하면 초록으로
+  		if(!$(this).is( ":checked")){
+  			$(this).css('background-color', '#053a0f'); 
+		//좌석 선택하면 하늘색으로
+  		}else{
+  			$(this).css('background-color', '#432b7e'); 
+  		}
+		
+  	});
+  	
   	
   	
   	
@@ -258,16 +368,19 @@ $(function() {
 
 </script>
 </head>
-<body>
-	<h2>영화 예매</h2>
+<body id="back_color_body">
+<%@ include file = "../include/header.jsp" %>
+<div id="back_div">
+	<br>
+	<h2 id="title">영화 예매</h2>
 	<form method="post" action="${path}/KakaoService" name="cinemaform" id="cinemaform">
 	<%-- <form action="${path}/cinema/sales" name="cinemaform" id="cinemaform"> --%>
-	받은 영화 순번 <input type="number" id="movie_num" value="${movie_num}" name="movie_num"> <br>
-	선택한 날짜 코드 <input type="text" id="selectday" value=""><br>
-	선택한 지역 코드 <input type="text" id="city_code" value="" name="city_code"><br>
-	선택한 영화관 코드 <input type="text" id="cinema_code" value="" name="cinema_code"><br>
-	선택한 시간 코드 <input type="text" id="time_code" value="" name="time_code"><br>
-	<div>
+	<!-- 받은 영화 순번 --> <input type="hidden" id="movie_num" value="${movie_num}" name="movie_num"> <br>
+	<!-- 선택한 날짜 코드 --> <input type="hidden" id="selectday" value=""><br>
+	<!-- 선택한 지역 코드 --> <input type="hidden" id="city_code" value="" name="city_code"><br>
+	<!-- 선택한 영화관 코드 --> <input type="hidden" id="cinema_code" value="" name="cinema_code"><br>
+	<!-- 선택한 시간 코드 --> <input type="hidden" id="time_code" value="" name="time_code"><br>
+	<div id="timelist_box">
 	<c:forEach var="timelist" items="${timelist}">
 		<!-- 공백값 넣어줌 -->
 		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -276,24 +389,31 @@ $(function() {
 	</c:forEach>
 	</div>
 	<br>
-	<div class="moviecitybox">
+	
+	<div id="master_div">
+	
+	<div class="moviecitybox" >
+	<br>
 	<c:forEach var="citylist" items="${citylist}">
 		<li><a href="${citylist.city_code}" class="cityname">${citylist.city_name}</a></li> <br>
 	</c:forEach>
 	</div >
-	<div id="city_name_list" class="moviecitybox">
+	<div id="city_name_list"> <!-- class="movie_cinema_box" -->
 	</div>
-	<div id="sale_time_list" class="movieseatsbox">
+	<div id="sale_time_list"><!-- class="movie_time_box" -->
 	</div>
-	<div id="seats_list" class="movieseatsbox">
+	<div id="seats_list" ><!-- class="movieseatsbox" -->
+	</div>
+	
 	</div>
 	<br>
 	<h4></h4>
 	<div id="salesbtnbox">
-	결제 가격 <input type="number" id="price" value="" name="price" readonly="readonly">
-	<br>
+	Price <input type="number" id="price" value="" name="price" readonly="readonly">
+	<br><br>
 	<button id="salesbtn"> <img alt="" src="/movie/resources/img/payment_icon_yellow_small.png"></button>
 	</div>
 	</form>
+</div><!-- back_div -->
 </body>
 </html>

@@ -79,7 +79,7 @@
 		 		<div style="display: inline-block; margin: 0 20px;">
 		 			<div>
 			 			<a href="${path}/moviedata/detail?movie_num=${list.movie_num}"> 
-			 			<img alt="이미지링크" src=" ${list.movie_poster_link} " width="220px"></a>
+			 			<img alt="이미지링크" src=" ${list.movie_poster_link} " width="150px"></a>
 			 		</div>
 				 	<div style=" margin-top: 10px;
 					 	 text-align: center;

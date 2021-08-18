@@ -36,9 +36,9 @@ public class CinemaServiceimpl implements CinemaService{
 	}
 
 	@Override
-	public List<Mv_time> timeselectlist() {
+	public List<Mv_time> timeselectlist(int movie_num) {
 		
-		return cinemaDAO.timeselectlist();
+		return cinemaDAO.timeselectlist(movie_num);
 	}
 
 	@Override

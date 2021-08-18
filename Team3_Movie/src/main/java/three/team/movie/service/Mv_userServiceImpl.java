@@ -156,4 +156,9 @@ public class Mv_userServiceImpl implements Mv_userService{
 		mv_userDAO.updatePw(newPwMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> getsaleslist(String user_id) {
+		return mv_userDAO.getsaleslist(user_id);
+	}
+
 }

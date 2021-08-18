@@ -179,5 +179,13 @@ public class Mv_userController {
 		return "redirect:/CCV";
 	}
 	
+	@GetMapping("saleslist")
+	public void getsaleslist(HttpSession session, Model model) {
+		String user_id = (String) session.getAttribute("user_id");
+		List<Map<String, Object>> saleslist = mv_userService.getsaleslist(user_id);
+		
+		model.addAttribute("saleslist", saleslist);
+	}
+	
 	
 }

@@ -5,4 +5,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>  
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="${path}/resources/css/back_div.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="${path}/resources/css/title.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
+

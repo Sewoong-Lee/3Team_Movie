@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include.jsp" %>
+<%@ include file="../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +10,35 @@
 <style type="text/css">
 	input{
 		width: 80%;
+		height: 40px;
+		font-size: small;
 	}
 	textarea {
 		width: 80%;
+		height: 150px;
+		font-size: small;
+	}
+	
+	/* 버튼 css */
+	.button {
+	   background-color: #d3af71;
+	   color: white;
+	   width: 120px;
+	   height: 40px;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 16px;
+	   margin: 4px 2px;
+	   transition-duration: 0.4s;
+	   cursor: pointer;
+	   border: 2px solid #d3af71;
+		}
+	
+	.button:hover {
+	   background-color: white;
+	   color: black;
+	   cursor: pointer;
 	}
 
 </style>
@@ -23,7 +49,7 @@
 		$('#btnfileadd').click(function(e) {
 			//alert('추가');
 			e.preventDefault();  //버튼의 기본기능 제거
-			$('#filelist').append('<li><input type="file" name="files" class="files"><button class="btnfileremove">삭제</button></li>');
+			$('#filelist').append('<li><input type="file" name="files" class="files"><button class="button btnfileremove">삭제</button></li>');
 			
 		});
 		
@@ -43,7 +69,7 @@
 		$('#btnsave').click(function(e) {
 			e.preventDefault();
 			
-			if($('#userid').val() == ''){
+			if($('#user_id').val() == ''){
 				alert('로그인을 해요.');
 			}else if($('#subject').val() == ''){
 				alert('제목 입력');
@@ -60,14 +86,16 @@
 
 </script>
 </head>
-<body>
-	<h2>등록페이지 임당</h2>
+<body id="back_color_body">
+<%@ include file = "../include/header.jsp" %>
+<div id="back_div">
+	<h2 id="title">이벤트 게시물 등록</h2>
 	
 	<form action="${path}/board/boardadd" method="post" name="addform" enctype="multipart/form-data">
 		<table id="board_table">
 			<tr>
 				<th>작성자 아이디</th>
-				<td> <input type="text" name="user_id" id="user_id" value="ddd" readonly> </td>
+				<td> <input type="text" name="user_id" id="user_id" value="${sessionScope.user_id}" readonly> </td>
 				<%-- <td> <input type="text" name="user_id" id="user_id" value="${sessionScope.userid}" readonly> </td> --%>
 			</tr>
 			<tr>
@@ -81,16 +109,16 @@
 			<tr>
 				<th>파일</th>
 				<td>
-				<div><button id="btnfileadd">파일 추가</button></div>
+				<div><button class="button" id="btnfileadd">파일 추가</button></div>
 				<ol id="filelist">
-					<li><input type="file" name="files" class="files"><button class="btnfileremove">삭제</button></li>
+					<li><input type="file" name="files" class="files"><button class="button btnfileremove">삭제</button></li>
 				</ol>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2"> 
-				<button id="btnsave">저장</button> 
-				<button type="reset">취소</button>
+				<button class="button" id="btnsave">저장</button> 
+				<button class="button" type="reset">취소</button>
 				</td>
 			</tr>
 		
@@ -98,6 +126,6 @@
 	
 	
 	</form>	
-	
+</div><!-- back_div -->
 </body>
 </html>

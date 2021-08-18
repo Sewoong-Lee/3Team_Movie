@@ -1,5 +1,6 @@
 package three.team.movie.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import three.team.movie.dto.Mv_user;
@@ -18,5 +19,7 @@ public interface Mv_userDAO {
 	public void update(Map<String, Object> newInfoMap);
 
 	public void updatePw(Map<String, String> newPwMap);
+
+	public List<Map<String, Object>> getsaleslist(String user_id);
 
 }

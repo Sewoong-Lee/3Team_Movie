@@ -32,8 +32,8 @@ public class CinemaDAOimpl implements CinemaDAO {
 	}
 
 	@Override
-	public List<Mv_time> timeselectlist() {
-		return SqlSession.selectList("three.team.movie.CinemaMapper.timeselectlist");
+	public List<Mv_time> timeselectlist(int movie_num) {
+		return SqlSession.selectList("three.team.movie.CinemaMapper.timeselectlist", movie_num);
 	}
 
 	@Override

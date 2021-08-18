@@ -54,11 +54,11 @@ public class BoardController {
 	}
 	//이벤트 공지 등록
 	@PostMapping("boardadd")
-	public String eventadd(Mv_board mv_board, HttpServletRequest request) throws Exception{
+	public String eventadd(Mv_board mv_board, HttpServletRequest request, HttpSession session) throws Exception{
 		//사용자의 아이피 주입
 		mv_board.setIp(request.getRemoteAddr());
-		//request.getAttribute("user_id");
-		mv_board.setUser_id("ddd");  //잠깐 하드코딩
+		String user_id = (String) session.getAttribute("user_id");
+		mv_board.setUser_id(user_id);  
 		boardService.insert(mv_board);
 		
 		return "redirect:boardlist";
@@ -67,8 +67,7 @@ public class BoardController {
 	@GetMapping("boarddetail")
 	public void  eventdetail(Model model, int board_num, HttpSession seeeion) {
 		logger.info(board_num+"");
-		//String user_id =(String) seeeion.getAttribute("user_id");
-		String user_id = "ddd"; //잠깐 하드코딩
+		String user_id =(String) seeeion.getAttribute("user_id");
 		boardService.readcountadd(board_num, user_id);
 		
 		Map<String, Object> board_detail_map = boardService.selectone(board_num);

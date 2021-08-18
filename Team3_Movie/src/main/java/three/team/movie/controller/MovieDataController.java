@@ -37,7 +37,7 @@ import three.team.movie.service.MovieDataService;
 import three.team.movie.service.ReplyService;
 
 
-@Controller()
+@Controller
 @RequestMapping("moviedata")
 @SessionAttributes("page") 
 public class MovieDataController {
@@ -62,12 +62,20 @@ public class MovieDataController {
 	
 	//페이지 생성 
 	@RequestMapping("/")
-	public String home(Mv_Page mv_Page,Model model,HttpSession session) {
+	public String home(Mv_Page mv_Page,Model model,HttpSession session, HttpServletRequest request) {
+		String user_id = (String) session.getAttribute("user_id");
+		System.out.println("user_id"+user_id);
 		model.addAttribute("mv_Page",mv_Page);
 		session.setAttribute("curpageTot",1);
 		session.setAttribute("curpageUser",1);
-		session.setAttribute("user_id","ssm1234"); // 세션아이디 임의등록 
-		return "redirect:list";
+		
+		if(user_id != null) {
+			return "redirect:listuser";
+		}else {
+			return "redirect:list";
+		}
+		
+		
 	}
 	
 	//상세조회 폼으로 detail 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include.jsp" %>
+<%@ include file="../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,51 +8,53 @@
 <title>Insert title here</title>
 <link href="${path}/resources/css/table.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
 <style type="text/css">
+	#title{
+		color: white;
+		text-align: center;
+	}
 	
 	/* 하이퍼링크 밑줄 및 색 변경 */
 	a {
 		text-decoration-line: none;
-		color: black;
+		color: white;
 	}
 	
 	/* 페이지 선택 하면 */
 	#acurpage{
 		font-size: large;
-		background-color: navy;
+		background-color: #000000;
 		color: white;
 	}
 	
-	/* 테이블 css */
-	#board_table {
-	  font-family: Arial, Helvetica, sans-serif;
-	  border-collapse: collapse;
-	  width: 100%;
-	  max-width: 80%;
-	  margin: auto;
-	  
+	#center {  
+		display :flex;
+		align-items : center;
+		justify-content : center;
+		font-family: Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.button {
+	   background-color: #d3af71;
+	   color: white;
+	   width: 120px;
+	   height: 40px;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 16px;
+	   margin: 4px 2px;
+	   transition-duration: 0.4s;
+	   cursor: pointer;
+	   border: 2px solid #d3af71;
+		}
+	
+	.button:hover {
+	   background-color: white;
+	   color: black;
+	   cursor: pointer;
 	}
 	
-	#board_table td, #customers th {
-	  border: 1px solid #ddd;
-	  padding: 8px;
-	}
-	
-	#board_table tr:nth-child(even){background-color: #f2f2f2;}
-	
-	#board_table tr:hover {background-color: #ddd;}
-	
-	#board_table th {
-	  padding-top: 12px;
-	  padding-bottom: 12px;
-	  text-align: center;
-	  background-color: navy;
-	  color: white;
-	}
-	#board_table td {
-	  padding-top: 12px;
-	  padding-bottom: 12px;
-	  text-align: center;
-	}
 </style>
 <script type="text/javascript">
 	
@@ -82,15 +84,18 @@
 
 </script>
 </head>
-<body>
-	<h2>EVENT</h2>
+<body id="back_color_body">
+<%@ include file = "../include/header.jsp" %>
+	<div id="back_div">
+	<h2 id="title">EVENT</h2>
 	<form action="${path}/board/boardadd">
 	<!-- <input name="user_id" value="${sessionScope.user_id}"> --><!-- 가져갈 유저 아이디 -->
 	
-	<%-- <c:if test="${sessionScope.admin == 1}"> --%>
-	<button>공지 등록</button>
-	<%-- </c:if> --%>
+	<c:if test="${sessionScope.admin == 0}">
+	<button class="button">공지 등록</button>
+	</c:if>
 	</form>
+	<hr>
 	<table id="board_table">
 		<tr> 
 			<th>번호</th>
@@ -125,7 +130,7 @@
 	<c:if test="${mv_board_page.totpage > mv_board_page.endpage}">
 		<a href="${mv_board_page.endpage+1}" class="alist">다음</a>
 	</c:if>
-	
+	<div id="center">
 	<form action="${path}/board/boardlist">
 		<select name="findkey" id="findkey">
 			<option value="subject" ${mv_board_page.findkey == 'subject' ? 'selected' : ''}>제목</option>
@@ -137,7 +142,8 @@
 		<input type="hidden" name="curpage" value="1"><!-- 세션에 현재 페이지의 값이 저장되어 조회를 할 경우에 현재 페이지 초기화 -->
 		<button>검색</button>
 	</form>
-	
+	</div><!-- crnter -->
+	</div><!-- back_div -->
 	
 </body>
 </html>

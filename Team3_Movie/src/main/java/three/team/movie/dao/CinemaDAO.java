@@ -15,7 +15,7 @@ public interface CinemaDAO {
 
 	public List<Cinema> cinemaselectlist(String city_code);
 
-	public List<Mv_time> timeselectlist();
+	public List<Mv_time> timeselectlist(int movie_num);
 
 	public List<Mv_time> saletimelist(Map<String, Object> timemap);
 
