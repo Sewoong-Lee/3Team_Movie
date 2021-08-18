@@ -26,5 +26,7 @@ public interface Mv_userService {
 
 	public List<Map<String, Object>> getsaleslist(String user_id);
 
+	public Mv_user findMyId(String email);
+
 
 }

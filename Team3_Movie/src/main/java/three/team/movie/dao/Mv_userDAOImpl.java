@@ -55,6 +55,12 @@ public class Mv_userDAOImpl implements Mv_userDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("three.team.movie.Mv_userMapper.getsaleslist", user_id);
 	}
+	
+	@Override
+	public Mv_user findMyId(String email) {
+		return sqlSession.selectOne("three.team.movie.Mv_userMapper.findMyId", email);
+
+	}
 
 
 }

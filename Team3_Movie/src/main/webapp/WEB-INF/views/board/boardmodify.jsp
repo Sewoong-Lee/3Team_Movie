@@ -1,62 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/include.jsp" %>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="${path}/resources/css/table.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
-<style type="text/css">
-/* 	.img_div{
-		width: 600px;
-		margin: auto;
-	} */
-	input{
-		width: 80%;
-		height: 40px;
-		font-size: small;
-	}
-	input[type=checkbox]{
-		margin:15px;
-		width: 20px;
-		height: 20px;
-		font-size: small;
-	}
-	textarea {
-		width: 80%;
-		height: 150px;
-		font-size: small;
-	}
-	/* 버튼 css */
-	.button {
-	   background-color: #d3af71;
-	   color: white;
-	   width: 120px;
-	   height: 40px;
-	   text-align: center;
-	   text-decoration: none;
-	   display: inline-block;
-	   font-size: 16px;
-	   margin: 4px 2px;
-	   transition-duration: 0.4s;
-	   cursor: pointer;
-	   border: 2px solid #d3af71;
-		}
-	
-	.button:hover {
-	   background-color: white;
-	   color: black;
-	   cursor: pointer;
-	}
-</style>
 <script type="text/javascript">
 	$(function() {
 		//파일 추가버튼
 		$('#btnfileadd').click(function(e) {
 			//alert('추가');
 			e.preventDefault();  //버튼의 기본기능 제거
-			$('#filelist').append('<li><input type="file" name="files" class="files"><button class="button btnfileremove">삭제</button></li>');
+			$('#filelist').append('<li><input type="file" name="files" class="files"><button class="btnfileremove">삭제</button></li>');
 			
 		});
 		
@@ -93,11 +50,9 @@
 	
 </script>
 </head>
-<body id="back_color_body">
-<%@ include file = "../include/header.jsp" %>
-<div id="back_div">
-	<h2 id="title">게시물 수정</h2>
-<%-- 	${board_list} --%>
+<body>
+	<h2>게시물 수정</h2>
+	${board_list}
 	<form action="${path}/board/boardmodify" method="post" name="modifyform" enctype="multipart/form-data">
 	<table id="board_table">
 		<tr>
@@ -118,9 +73,8 @@
 		</tr>
 		<tr>
 			<th>기존 파일</th>
-			<td> 
-				<c:forEach var="bflist" items="${board_list.bflist}">
-					<img alt="사진" src="${path}/uploadimg/${bflist.board_file_name}" width="200">
+			<td> <c:forEach var="bflist" items="${board_list.bflist}">
+					<img alt="사진" src="${path}/uploadimg/${bflist.board_file_name}" width="100">
 					<input type="checkbox" name="filedelete" value="${bflist.board_file_num}">삭제
 				</c:forEach> 
 			</td>
@@ -128,18 +82,17 @@
 		<tr>
 			<th>파일 수정</th>
 			<td>
-			<div><button class="button" id="btnfileadd">파일 추가</button></div>
+			<div><button id="btnfileadd">파일 추가</button></div>
 			<ol id="filelist">
-				<li><input type="file" name="files" class="files"><button class="button btnfileremove">삭제</button></li>
+				<li><input type="file" name="files" class="files"><button class="btnfileremove">삭제</button></li>
 			</ol>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"> <button class="button" id="btnupdate">수정</button> </td>
+			<td colspan="2" align="center"> <button id="btnupdate">수정</button> </td>
 		</tr>
 	
 	</table>
 	</form>	
-</div><!-- back_div -->
 </body>
 </html>

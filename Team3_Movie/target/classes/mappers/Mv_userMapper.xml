@@ -13,6 +13,11 @@
 		WHERE USER_ID = #{user_id}
 	</select>
 	
+	<select id="findMyId" resultType="Mv_user">
+		SELECT * FROM MV_USER
+		WHERE EMAIL = #{email}
+	</select>
+	
 	<select id="emailChecked" resultType="java.util.Map">
 		SELECT * FROM MV_USER WHERE EMAIL = #{email}
 	</select>

@@ -1,26 +1,15 @@
 @charset "UTF-8";
 
 table {
-	font-style :normal;
-	margin-left: auto;
-    	margin-right: auto;						
+	margin-top : 20px;
+	width: 100%;
+	font-size: 18px;
 }
 
-a {
+#back_div a {
 	text-decoration: none;
-	color: black;
-}
-table input {
-	width: 300px;
-	height: 40px;
-	margin-bottom: 15px;
-}
-
-table button {
-	color: white;
-}
-table button:hover {
-	cursor: pointer;
+	font-size: 18px;
+	margin: 10px;
 }
 
 .imgBox {
@@ -35,4 +24,25 @@ table button:hover {
 img {
 	width: 230px;
 	object-fit: cover;
+}
+button {
+	background-color: #d3af71;
+	width: 100px;
+	height: 40px;
+	color: white;
+	vertical-align: middle;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border: 2px solid #d3af71;
+}
+
+button:hover {
+	background-color: white;
+	color: black;
+	cursor: pointer;
 }

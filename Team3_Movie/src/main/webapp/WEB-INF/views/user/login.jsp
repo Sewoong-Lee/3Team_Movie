@@ -41,8 +41,7 @@
 
 </script>
 </head>
-<body>
-<%@ include file = "../include/header.jsp" %>
+<body id = "back_color_body">
 	<form action = "${path}/user/loginCheck" method="post" id = "login">
 		<table>
 			<tr>
@@ -61,7 +60,7 @@
 				<td><input type = "password" id = "passwd" name = "passwd" autocomplete="current-password" placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
-				<td><button id = "checkLogin">입장</button></td>
+				<td><button id = "checkLogin" class = "button">입장</button></td>
 			</tr>
 			<tr>
 				<td>
@@ -76,5 +75,6 @@
 			</tr>
 		</table>
 	</form>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

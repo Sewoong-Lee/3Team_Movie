@@ -31,15 +31,6 @@ public class User_tagServiceImpl implements User_tagService {
 		return user_tagDAO.getUserTag(user_id);
 	}
 	@Override
-	public void tagUpdate(List<String> newTag, String user_id) {
-		for(int i = 0 ; i <newTag.size() ; i ++) {
-			Map<String, String> tagMap = new HashMap<>();
-			tagMap.put("user_id", user_id);
-			tagMap.put("tag", newTag.get(i));
-			user_tagDAO.tagUpdate(tagMap);
-		}
-	}
-	@Override
 	public void delete(String user_id) {
 		user_tagDAO.delete(user_id);
 	}

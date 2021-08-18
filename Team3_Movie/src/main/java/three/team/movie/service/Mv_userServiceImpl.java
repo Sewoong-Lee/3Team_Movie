@@ -160,5 +160,10 @@ public class Mv_userServiceImpl implements Mv_userService{
 	public List<Map<String, Object>> getsaleslist(String user_id) {
 		return mv_userDAO.getsaleslist(user_id);
 	}
+	@Override
+	public Mv_user findMyId(String email) {
+		return mv_userDAO.findMyId(email);
+
+	}
 
 }

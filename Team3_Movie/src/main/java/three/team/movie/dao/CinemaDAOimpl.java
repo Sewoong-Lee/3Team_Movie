@@ -20,9 +20,8 @@ public class CinemaDAOimpl implements CinemaDAO {
 	@Autowired
 	private SqlSession SqlSession;
 	
-	@Autowired
+	@Override
 	public List<Mv_city> cityselectlist() {
-		
 		return SqlSession.selectList("three.team.movie.CinemaMapper.cityselectlist");
 	}
 

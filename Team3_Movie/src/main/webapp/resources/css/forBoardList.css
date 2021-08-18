@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+
+#board_table {
+	border-collapse: collapse;
+	margin: auto;
+	width: 80%;
+}
+
+div.alignCenter{
+	text-align: center;
+}
+
+#board_table th, #board_table td {
+	padding: 8px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}

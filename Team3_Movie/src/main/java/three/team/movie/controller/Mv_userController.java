@@ -1,5 +1,6 @@
 package three.team.movie.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import three.team.movie.dto.Mv_user;
 import three.team.movie.service.FileService;
+import three.team.movie.service.MailAuthService;
 import three.team.movie.service.Mv_genreService;
 import three.team.movie.service.Mv_userService;
 import three.team.movie.service.NaverService;
@@ -29,6 +31,8 @@ import three.team.movie.service.User_tagService;
 @RequestMapping("user")
 public class Mv_userController {
 	
+	@Autowired
+	private MailAuthService mailAuthService;
 	@Autowired
 	private Mv_genreService mv_genreService;
 	@Autowired
@@ -67,6 +71,50 @@ public class Mv_userController {
 	}
 	@GetMapping("InfoInquiry")
 	public void InfoInquiry() {}
+	
+	@ResponseBody
+	@GetMapping("findMyId")
+	public Map<String, Object> findMyId(String email) throws Exception {
+		Mv_user mv_user = mv_userService.findMyId(email);
+		String msg = "";
+		Map<String, Object> resultMap = new HashMap<>();
+		if (mv_user == null) {
+			//미가입 회원
+			msg = "가입되지 않은 회원입니다.\n메일 주소 확인 또는 회원가입을 진행해주세요.";
+		}
+		else {
+			//메일 전송
+			mailAuthService.findMyId(email, mv_user.getUser_id());
+			msg = "메일 전송이 완료되었습니다.";
+		}
+		resultMap.put("msg", msg);
+		System.out.println("결과 : " + resultMap);
+		return resultMap;
+	}
+	@ResponseBody
+	@GetMapping("findMyPw")
+	public Map<String, Object> findMyPw(String user_id) throws Exception {
+		Mv_user mv_user = mv_userService.selectOne(user_id);
+		String msg = "";
+		int code = 0;
+		Map<String, Object> resultMap = new HashMap<>();
+		if (mv_user == null) {
+			//미가입 회원
+			code = 0;
+			msg = "가입되지 않은 회원입니다.\n 아이디 또는 회원가입을 진행해주세요.";
+		}
+		else {
+			//메일 전송
+			mailAuthService.findMyPw(mv_user.getEmail(), user_id);
+			code = 1;
+			msg = "회원 인증이 완료되었습니다.\n회원 정보에 등록한 이메일을 확인해주세요.";
+		}
+		resultMap.put("msg", msg);
+		resultMap.put("code", code);
+		System.out.println("결과 : " + resultMap);
+		return resultMap;
+	}
+	
 
 	@PostMapping("loginCheck")
 	public String loginCheck(String user_id, String passwd, HttpSession session, RedirectAttributes rattr) throws Exception {
@@ -138,8 +186,7 @@ public class Mv_userController {
 	public void changePw() {}
 	
 	@PostMapping("updatePw")
-	public String updatePw(HttpSession session, Model model, String newPw, RedirectAttributes rattr) {
-		String user_id = (String) session.getAttribute("user_id");
+	public String updatePw(String user_id, Model model, String newPw, RedirectAttributes rattr) {
 		mv_userService.updatePw(user_id, newPw);
 		rattr.addAttribute("user_id", user_id);
 		return "redirect:myInfo";
@@ -162,7 +209,7 @@ public class Mv_userController {
 		return code;
 	}
 	@GetMapping("modifyPw")
-	public void modifyPw() {}
+	public void modifyPw(@ModelAttribute("user_id") String user_id) {}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
@@ -170,10 +217,11 @@ public class Mv_userController {
 		return "redirect:/CCV";
 	}
 	
+	//탈퇴
 	@GetMapping("withdraw")
 	public String withdraw(String user_id, HttpSession session, RedirectAttributes rattr) {
 		mv_userService.delete(user_id);
-		//session.invalidate();
+		session.invalidate();
 		String msg = "그동안 이용해주셔서 감사드립니다.";
 		rattr.addFlashAttribute("msg", msg);
 		return "redirect:/CCV";

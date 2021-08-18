@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.loc {
+	font-size: 30px;
+	margin: 20px;
+}
+
+.area img{
+	width: 60%;
+	margin: 10px;
+}
+
+.loc-address {
+	font-size: 16px;
+	vertical-align: middle;
+}

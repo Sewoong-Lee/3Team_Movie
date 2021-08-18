@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
-<c:set var="path" value="${pageContext.request.contextPath}"/>      
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>  
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>CCV</title>
 <style>
 .paging a {
     font-size: 19px;
@@ -47,33 +45,20 @@
 	//검색 조건
 	$('#btnFind').click(function() {
 		var findMovie = $('#findMovie').val();
-		alert(findMovie);
 		location.href="${path}/moviedata/list?findkey="+findMovie;
 	});
-	
 });
- 
 </script>
-
 </head>
 <body>
- ${sessionScope.user_id} : 세션아이디 
-
-<div style="padding: 0 100px;">
-	<div style="background-color: aqua; height: 60px" >
-		<div style="display: inline-block;">사이트소개</div>
-		<div style="display: inline-block;">영화리스트</div>
-		<div style="display: inline-block;">극장</div>
-		<div style="display: inline-block;">이벤트</div>
-	</div>
-</div>
+<%@ include file = "../include/header.jsp" %>
 	<!-- 검색조회 -->
-	<fieldset style=" width: 300;">
+<!-- 	<fieldset style=" width: 300;">
 		<input type="text" style=" height:30; width: 250;" id="findMovie">
 		<button id="btnFind" type="button">조회</button>
-	</fieldset>
+	</fieldset> -->
 	
- 	<h2 align="center" style="padding: 30px">영화 리스트</h2>
+ 	<h2 align="center" style="padding: 30px">상영 중인 영화</h2>
  		<div style="text-align: center;">
 	 		<c:forEach var="list" items="${movieList}">
 		 		<div style="display: inline-block; margin: 0 20px;">
@@ -86,7 +71,6 @@
 						 color: #925e5e;
 						 font-weight: bold;
 						 font-size: 18px;">
-				 		 ${list.movie_name}
 		 			</div>
 	 			</div>
 	 		</c:forEach>
@@ -112,7 +96,6 @@
 	</c:if>
  	</div>
 <!--  	유튜브 실시간 링크갖고오기...?? -->
- 	
  	
 </body>
 </html>
