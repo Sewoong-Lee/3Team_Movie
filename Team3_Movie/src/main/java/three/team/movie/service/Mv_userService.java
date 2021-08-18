@@ -24,5 +24,7 @@ public interface Mv_userService {
 
 	public void updatePw(String user_id, String newPw);
 
+	public Mv_user findMyId(String email);
+
 
 }

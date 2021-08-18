@@ -156,4 +156,9 @@ public class Mv_userServiceImpl implements Mv_userService{
 		mv_userDAO.updatePw(newPwMap);
 	}
 
+	@Override
+	public Mv_user findMyId(String email) {
+		return mv_userDAO.findMyId(email);
+	}
+
 }

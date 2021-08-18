@@ -19,4 +19,6 @@ public interface Mv_userDAO {
 
 	public void updatePw(Map<String, String> newPwMap);
 
+	public Mv_user findMyId(String email);
+
 }

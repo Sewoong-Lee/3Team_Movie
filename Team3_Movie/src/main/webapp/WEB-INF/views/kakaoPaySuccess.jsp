@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="include.jsp" %>
+<%@ include file = "./include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,6 @@
 	상품수량:    [[${info.quantity}]]<br/>
 	결제금액:    [[${info.amount.total}]]<br/>
 	결제방법:    [[${info.payment_method_type}]]<br/>
-	 
-	 
 	 
 	<h2>[[${info}]]</h2>
 </body>

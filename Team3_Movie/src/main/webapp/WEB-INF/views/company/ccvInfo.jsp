@@ -25,22 +25,32 @@ $(function(){
 });
 </script>
 <style type="text/css">
-	#maps {
-		border-style: solid;
-		border-color: gray;
-	}
+
+#ccvInfo_wrapper{
+	margin: 10px;
+}
+
+#maps {
+	border-style: solid;
+	border-color: gray;
+}
+#address{
+	font-weight:100;
+	font-size : 18px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
 </style>
 </head>
-<body>
-<%@ include file = "../include/header.jsp" %>
+<body id = "back_color_body">
+<div id = "ccvInfo_wrapper">
 	<h2>CCV(주) 오시는 길</h2>
 	<div id="maps" style="width:70%;height:400px;"></div>
 	<div id = "address">
 		주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소 : 서울 관악구 신림로 340, 6층<br>
 		대표 전화 : 0507-1358-1859
 	</div>
-	<footer>
-		Copyright 2021 CCV. All Rights Reserved.
-	</footer>
+</div>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

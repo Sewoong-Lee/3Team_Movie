@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,18 +36,10 @@ public class CinemaController {
 	@Autowired
 	private CinemaService cinemaservice;
 	
-	//영상 테스트
-	@RequestMapping("test")
-	public void test() {
-
-	}
-	
 	//지역을 누르면 영화관 보이게
 	@ResponseBody
 	@GetMapping("city/{city_code}")
 	public List<Cinema> cine(@PathVariable("city_code") String city_code) {
-		// System.out.println("zzz"+city_code);
-
 		List<Cinema> Cinemalist = cinemaservice.cinemaselectlist(city_code);
 		logger.info(Cinemalist.toString());
 		return Cinemalist;
@@ -113,7 +106,9 @@ public class CinemaController {
 //		
 //		return null;
 //	}
-	
-	 
+	@GetMapping("location")
+	 public void location() {}
 
+	@GetMapping("location_d")
+	public void location_detail(@ModelAttribute("areaNum") int areaNum) {}
 }

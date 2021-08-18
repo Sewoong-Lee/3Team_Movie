@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.spring.my.MovieMapper">
+<mapper namespace="three.team.movie.MovieMapper">
 	<sql id="find">
 	<choose>
 	    <when test="findkey=='판타지'">
@@ -55,7 +55,7 @@
 		<include refid="find"></include>
 	</select>
 	
-		<!-- 영화 회원관심 리스트 조회수 구하기 -->
+	<!-- 영화 회원관심 리스트 조회수 구하기 -->
 	<select id="selectTotCntUser" resultType="int">
 		SELECT count(*) totCnt from MV_USER m inner join MV_USER_TAG t on (m.USER_ID = t.USER_ID)
 		left join MV_MOVIE_DATA mv on(t.GENRE_CODE = mv.GENRE_CODE)

@@ -8,8 +8,6 @@ public interface User_tagService {
 
 	public List<Map<String, String>> getUserTag(String user_id);
 
-	public void tagUpdate(List<String> newTag, String user_id);
-
 	public void delete(String user_id);
 
 }

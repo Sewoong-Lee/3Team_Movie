@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include.jsp" %>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CCV</title>
 <style type="text/css">
 	/* 하이퍼링크 밑줄 및 글색 변경 */
 	a {
@@ -91,8 +91,6 @@ $(function() {
 		$(this).attr('id','select_style');
 		var city_code = $(this).attr('href');
 		$('#city_code').val(city_code);
-		//alert(city_code);
-		
 		$.ajax({
 			url:'${path}/cinema/city/'+city_code,  //restfull하게 설계
 			type:'get',  //메소드 방식
@@ -119,7 +117,6 @@ $(function() {
 				console.log(err);
 				alert('실패');
 			}
-			
 		});
 	});
 	
@@ -247,18 +244,12 @@ $(function() {
   		var salesprice = 10000;
   		salesprice = checked * salesprice;
   		$('#price').val(salesprice);
-  		
   	});
-  	
-  	
-  	
-  	
 });
-
-
 </script>
 </head>
 <body>
+<%@ include file = "../include/header.jsp" %>
 	<h2>영화 예매</h2>
 	<form method="post" action="${path}/KakaoService" name="cinemaform" id="cinemaform">
 	<%-- <form action="${path}/cinema/sales" name="cinemaform" id="cinemaform"> --%>

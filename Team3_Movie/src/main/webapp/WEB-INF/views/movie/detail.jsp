@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
-<c:set var="path" value="${pageContext.request.contextPath}"/>     
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영화 디테일</title>
+<title>CCV</title>
+<link href = "${path}/resources/css/forMovieDetail.css" rel = "stylesheet"/>
 <script type="text/javascript">
-
 $(function() {
-	
-	
-	
 	//댓글 추가 클릭시
 	$('#btnRepSave').click(function(e) {
 		e.preventDefault();
@@ -35,8 +30,8 @@ $(function() {
 			dataType:'text',
 			success: function(data) {
 				console.log(data);
-				alert("댓글추가 완료되었습니다")
-			    $('#repAdd').hide(); 
+				alert("댓글 추가 완료되었습니다.")
+			    	$('#repAdd').hide(); 
 			},
 			error: function(err) {
 				console.log(err);
@@ -160,120 +155,51 @@ function rederReplyDetail(data) {
 	};
 	$('#repAdd').hide();
 });
-
-
 </script>
-<style>
-
-#repAdd{
-	float: left;
-    display: block;
-    margin: auto;
-    margin-top: 30;
-    margin-left: 500;
-}
-
-#imgDiv{
-    top: 30; 
-    left: 30;
-    right: 30;
-    bottom: 30;
-    margin: 30;
-    margin-left:300;
-    padding-left :50;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-}
-#movieInfoDiv{
-	position: absolute; left: 700px; height: 48px; width: 600px; top: 110px; font-size: 19px;
-}
-#nameDiv{top: 20px; font-size: 30px}
-#directorDiv{margin-top: 25px;}
-#actorDiv{margin-top: 12px}
-#genreDiv{margin-top: 12px}
-#courtryDiv{margin-top: 12px}
-#starDiv{margin-top:12px}
-#Ticketing{margin-top: 20px}
-.story{margin-left: 250px}
-
-/* 별 반쪽 포함 */
-.starR1{
-    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
-    background-size: auto 100%;
-    width: 15px;
-    height: 30px;
-    float:left;
-    text-indent: -9999px;
-    cursor: pointer;
-}
-.starR2{
-    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
-    background-size: auto 100%;
-    width: 15px;
-    height: 30px;
-    float:left;
-    text-indent: -9999px;
-    cursor: pointer;
-}
-.starR1.on{background-position:0 0;}
-.starR2.on{background-position:-15px 0;}
-
-
-
-</style>
 </head>
 <body>
-${sessionScope.user_id}
-
-<!-- <button type="button" id="btnList">리스트 </button> -->
- <h2>디테일</h2>
+<%@ include file = "../include/header.jsp" %>
 <%-- ${movieDetail} <br> --%>
 
-
-<div id="imgDiv">
+<div id="posterDiv">
 	<img alt="이미지링크" src="${movieDetail.MOVIE_POSTER_LINK}" width="250px">
 </div>
 <div id="movieInfoDiv">
-	<div id="nameDiv">제목: ${movieDetail.MOVIE_NAME}</div>
-	<div id="directorDiv">감독: ${movieDetail.DIRECTOR}</div>
-	<div id="actorDiv">배우: ${movieDetail.ACTOR_NAME}</div>
-	<div id="genreDiv">대표장르: ${movieDetail.GENRE_NAME}</div>
-	<!-- 영화소개는없다 api에 없음-->
-	<div id="courtryDiv">제작국가명: ${movieDetail.COUNTRY_NAME}   </div>
 	<div id="starDiv"> 
-	<c:choose>
-		<c:when test="${starResult>=5.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star10.png"></c:when>
-		<c:when test="${starResult>=4.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star9.png"></c:when>
-		<c:when test="${starResult>=4.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star8.png"></c:when>
-		<c:when test="${starResult>=3.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star7.png"></c:when>
-		<c:when test="${starResult>=3.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star6.png"></c:when>
-		<c:when test="${starResult>=2.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star5.png"></c:when>
-		<c:when test="${starResult>=2.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star4.png"></c:when>
-		<c:when test="${starResult>=1.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star3.png"></c:when>
-		<c:when test="${starResult>=1.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star2.png"></c:when>
-		<c:when test="${starResult>=0.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star1.png"></c:when>
-		<c:when test="${starResult==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
-	</c:choose>	: ${starResult}</div>
-	<div id="storyContainer">
-		<button type="button" id="Ticketing">지금 예매</button>
-		<!-- <img alt="" class="story" src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png" width="40%"> -->
+		<c:choose>
+			<c:when test="${starResult>=5.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star10.png"></c:when>
+			<c:when test="${starResult>=4.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star9.png"></c:when>
+			<c:when test="${starResult>=4.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star8.png"></c:when>
+			<c:when test="${starResult>=3.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star7.png"></c:when>
+			<c:when test="${starResult>=3.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star6.png"></c:when>
+			<c:when test="${starResult>=2.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star5.png"></c:when>
+			<c:when test="${starResult>=2.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star4.png"></c:when>
+			<c:when test="${starResult>=1.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star3.png"></c:when>
+			<c:when test="${starResult>=1.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star2.png"></c:when>
+			<c:when test="${starResult>=0.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star1.png"></c:when>
+			<c:when test="${starResult==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
+		</c:choose>${starResult}
 	</div>
+	<h1 id="nameDiv" class = "movieTitle">${movieDetail.MOVIE_NAME}</h1>
+	<div id="outlineDiv" class = "movieInfo">개요 : ${movieDetail.GENRE_NAME} | ${movieDetail.COUNTRY_NAME}</div>
+	<div id="directorDiv" class = "movieInfo">감독 : ${movieDetail.DIRECTOR}</div>
+	<div id="actorDiv" class = "movieInfo">배우 : ${movieDetail.ACTOR_NAME}</div>
+	<!-- 영화소개는없다 api에 없음-->
+	<button type="button" id="Ticketing">지금 예매</button>
 </div>
-	
-	<button type="button" id="btnRepAdd">댓글</button>
 	<hr id="reply0">
+	<button type="button" id="btnRepAdd">한 줄 평</button>
 <%--   ${replyList}  --%>
- 	<table border="1" style=" margin-left:350px;  margin-top: 50px" >
- 		<tr style="font-size: 17px">
- 			<th width="50">No</th>
- 			<th width="150px">작성자</th>
- 			<th width="150px">평점</th>
- 			<th width="700px">한줄평</th>
- 			<th width="250px">등록일자</th>
+ 	<table id="replyBox">
+ 		<tr>
+ 			<th>No</th>
+ 			<th>작성자</th>
+ 			<th>평점</th>
+ 			<th>한 줄 평</th>
+ 			<th>등록일자</th>
  		</tr>
 		<c:forEach var="reList" items="${replyList}">
-		<tr style="text-align: center"> 
+		<tr> 
 			<td>${reList.MR_NUM}</td>
 			<td>${reList.USER_ID}</td>
 			<td class="cStar">	
@@ -292,25 +218,26 @@ ${sessionScope.user_id}
 		</tr>
 		</c:forEach>
 	</table> 
-	<!-- 댓글 추가  -->
+	<!-- 한 줄 평 남기기  -->
 	<div id="repAdd">
-		<h2 style="padding-left: 200px">리뷰 작성하기</h2>
 		<input type="hidden" id="reStep"  value="0">
 		<input type="hidden" id="relevel" value="0">
 		<input type="hidden" id="movieNum" value="${movieDetail.MOVIE_NUM}">
 		<table style="padding-top: 20px;">
-			<div class="starRev" style="padding-left: 100px">
-			  <span class="starR1">0.5</span>
-			  <span class="starR2">1.0</span>
-			  <span class="starR1">1.5</span>
-			  <span class="starR2">2.0</span>
-			  <span class="starR1">2.5</span>
-			  <span class="starR2">3.0</span>
-			  <span class="starR1">3.5</span>
-			  <span class="starR2">4.0</span>
-			  <span class="starR1">4.5</span>
-			  <span class="starR2">5.0</span>
-			</div>
+		<tr>
+			<td class="starRev" style="padding-left: 100px">
+				  <span class="starR1">0.5</span>
+				  <span class="starR2">1.0</span>
+				  <span class="starR1">1.5</span>
+				  <span class="starR2">2.0</span>
+				  <span class="starR1">2.5</span>
+				  <span class="starR2">3.0</span>
+				  <span class="starR1">3.5</span>
+				  <span class="starR2">4.0</span>
+				  <span class="starR1">4.5</span>
+				  <span class="starR2">5.0</span>
+			</td>
+		</tr>
 			<tr>
 				<th>작성자</th>
 				<td><input type="text" id="reUserid" value="${sessionScope.user_id}" size="60" readonly="readonly"
@@ -380,11 +307,5 @@ ${sessionScope.user_id}
 			</tr>
 		</table> 
  	</form>
-
-
-
-
-
-
 </body>
 </html>

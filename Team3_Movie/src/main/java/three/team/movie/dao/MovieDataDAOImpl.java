@@ -22,44 +22,44 @@ public class MovieDataDAOImpl implements MovieDataDAO{
 	@Override
 	public  Map<String, Object> selectOne(int movie_num) {
 		System.out.println("dao:"+movie_num);
-		return sqlsession.selectOne("org.spring.my.MovieMapper.selectOne",movie_num);
+		return sqlsession.selectOne("three.team.movie.MovieMapper.selectOne",movie_num);
 	}
 
 	//영화 전체 리스트 
 	@Override
 	public List<Mv_movie_data> selectList(Mv_Page page) {
-		return sqlsession.selectList("org.spring.my.MovieMapper.selectList",page);
+		return sqlsession.selectList("three.team.movie.MovieMapper.selectList",page);
 	}
 
 	//회원 관심 리스트
 	@Override
 	public List<Map<String, Object>> selectListUser(Map<String, Object> findmap) {
-		return sqlsession.selectList("org.spring.my.MovieMapper.selectListUser",findmap);
+		return sqlsession.selectList("three.team.movie.MovieMapper.selectListUser",findmap);
 	}
 
 	//영화 전체 수 구하기 
 	@Override
 	public int selectTotCnt(Mv_Page page) {
-		return sqlsession.selectOne("org.spring.my.MovieMapper.selectTotCnt",page);
+		return sqlsession.selectOne("three.team.movie.MovieMapper.selectTotCnt",page);
 	}
 	//회원 관심영화 리스트 수 구하기
 	@Override
 	public int selectTotCntUser(String user_id) {
 	
-		return sqlsession.selectOne("org.spring.my.MovieMapper.selectTotCntUser",user_id);
+		return sqlsession.selectOne("three.team.movie.MovieMapper.selectTotCntUser",user_id);
 	}
 
 	//영화 추가 
 	@Override
 	public void insert(Mv_movie_data mv_movie_data) {
-		sqlsession.insert("org.spring.my.MovieMapper.insert", mv_movie_data);
+		sqlsession.insert("three.team.movie.MovieMapper.insert", mv_movie_data);
 	}
 
 	//별평점 계산 
 	@Override
 	public Double starRating(int movie_num) {
 	
-		return sqlsession.selectOne("org.spring.my.MovieMapper.starRating",movie_num);
+		return sqlsession.selectOne("three.team.movie.MovieMapper.starRating",movie_num);
 	}
 	
 	

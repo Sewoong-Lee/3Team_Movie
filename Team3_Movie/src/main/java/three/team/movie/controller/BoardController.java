@@ -40,11 +40,12 @@ public class BoardController {
 		return "redirect:boardlist";  //세션에 저장후 리스트 실행
 	}
 	
-	
 	@GetMapping("boardlist")
-	public void  getevent(Model model, @ModelAttribute("mv_board_page") MV_Board_Page mv_board_page ) {
+	public void  getevent(Model model, @ModelAttribute("mv_board_page") MV_Board_Page mv_board_page, HttpSession session) {
 		List<Map<String,Object>> boardlist =  boardService.boardlist(mv_board_page);
+		String admin = (String) session.getAttribute("admin");
 		model.addAttribute("boardlist",boardlist);
+		model.addAttribute("admin",admin);
 	}
 	
 	//이벤트 공지 등록으로

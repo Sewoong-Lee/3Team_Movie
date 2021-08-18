@@ -36,8 +36,7 @@ import three.team.movie.service.MovieApiService;
 import three.team.movie.service.MovieDataService;
 import three.team.movie.service.ReplyService;
 
-
-@Controller()
+@Controller
 @RequestMapping("moviedata")
 @SessionAttributes("page") 
 public class MovieDataController {
@@ -56,8 +55,6 @@ public class MovieDataController {
 	@Autowired
 	private ReplyService replyService;
 	
-	//세션유저아이디 체크..로그인시 뷰 보이게..
-	
 	//인서트는 관리자만 가능 (우선DB에서만 인서트해서 보류중.)
 	
 	//페이지 생성 
@@ -66,7 +63,7 @@ public class MovieDataController {
 		model.addAttribute("mv_Page",mv_Page);
 		session.setAttribute("curpageTot",1);
 		session.setAttribute("curpageUser",1);
-		session.setAttribute("user_id","ssm1234"); // 세션아이디 임의등록 
+		//session.setAttribute("user_id","ssm1234"); // 세션아이디 임의등록 
 		return "redirect:list";
 	}
 	
@@ -128,7 +125,7 @@ public class MovieDataController {
 		
 		Map<String, Object> movieMap = movieDataService.selectList(mv_Page);
 		System.out.println("무비리스트===: "+movieMap);
-		model.addAttribute("movieList", (List<Mv_movie_data>) movieMap.get("list"));//전체 리스트
+		model.addAttribute("movieList", movieMap.get("list"));//전체 리스트
 	
 		return "movie/mainlist";
 	}

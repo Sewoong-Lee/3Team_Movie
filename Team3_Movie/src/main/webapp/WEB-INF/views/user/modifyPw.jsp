@@ -40,6 +40,7 @@
 <%@ include file = "../include/header.jsp" %>
 	<h2>비밀번호 변경</h2>
 	<form action="${path}/user/updatePw" method="post" id = "updatePw">
+	<input type = "hidden" id = "user_id" name = "user_id" value = "${user_id}">
 		<table>
 			<tr>
 				<td>새로운 비밀번호</td>	

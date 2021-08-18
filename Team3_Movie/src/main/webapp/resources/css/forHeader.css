@@ -1,18 +1,43 @@
 @charset "UTF-8";
 
+body {
+	font-family: "Noto Sans CJK KR", sans-serif;
+}
+
+.logo img {
+	width: 15%;
+}
+.logo {
+	padding: 10px;
+	margin-top: 20px;
+	margin-bottom : 20px;
+	font-size: 16px;
+	font-weight: lighter;
+}
+
+#back_color_body{
+	background-color: #1a1313;
+	color: white;
+}
+#back_div{
+   width: 100%;
+   max-width: 80%;
+   margin: auto;
+}
+
 .menu-bar{
-	background-color: #b39ddb;
+	background-color: #0d0909;
 	display: flex;
 	justify-content: center;
 }
 
 .dropbtn {
-	background-color: #b39ddb;
+	background-color: #0d0909;
 	color: white;
-	padding: 16px;
-	padding-left: 70px;
-	padding-right: 70px;
-	font-size: 16px;
+	padding-top: 16px;
+	padding-bottom:16px;
+	width : 200px;
+	font-size: 22px;
 	border: none;
 	cursor: pointer;
 }
@@ -25,7 +50,7 @@
 .dropdown-content {
 	display: none;
 	position: absolute;
-	background-color: #f9f9f9;
+	background-color: white;
 	min-width: 200px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
@@ -47,7 +72,7 @@
 }
 
 .dropdown:hover .dropbtn {
-	background-color: #826fa9;
+	background-color: #d3af71;
 }
 a {
 	text-decoration: none;

@@ -49,5 +49,10 @@ public class Mv_userDAOImpl implements Mv_userDAO{
 		sqlSession.update("three.team.movie.Mv_userMapper.updatePw", newPwMap);
 	}
 
+	@Override
+	public Mv_user findMyId(String email) {
+		return sqlSession.selectOne("three.team.movie.Mv_userMapper.findMyId", email);
+	}
+
 
 }

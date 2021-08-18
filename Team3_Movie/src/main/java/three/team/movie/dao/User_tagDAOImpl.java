@@ -22,10 +22,6 @@ public class User_tagDAOImpl implements User_tagDAO {
 		return sqlSession.selectList("three.team.movie.User_tagMapper.getUserTag", user_id);
 	}
 	@Override
-	public void tagUpdate(Map<String, String> tagMap) {
-		sqlSession.update("three.team.movie.User_tagMapper.tagUpdate", tagMap);
-	}
-	@Override
 	public void delete(String user_id) {
 		sqlSession.delete("three.team.movie.User_tagMapper.delete", user_id);
 	}

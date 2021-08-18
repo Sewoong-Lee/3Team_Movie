@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
-<c:set var="path" value="${pageContext.request.contextPath}"/>      
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script> 
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리스트</title>
+<title>CCV</title>
 <script type="text/javascript">
 $(function() {
 	<%
@@ -201,8 +199,6 @@ function renderUserMovie(data) {
 		alert(curPageListUser);
 		ajaxListUser(curPageListUser);
 	}); 
-
-
 }
 </script>
 <style>
@@ -267,16 +263,11 @@ function renderUserMovie(data) {
 	display: table;
 	margin: auto;
 }
-
-
 </style>
-
-
 </head>
 <body>
 ${sessionScope.curpageUser}:유저 컬페이지 <br>
  ${sessionScope.curpageTot}:전체 컬페이지 수 <br>
- ${sessionScope.user_id} <br>
 <%--  ${sessionScope.curpageListTot}  --%>
 <%-- ${movieListUser} <br> --%>
 <input type="hidden" id="curPageSave" value="">
@@ -335,8 +326,6 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
 			<a href="#" curPage="${mv_Page.endPage+1}"  class="aList" >다음</a>
 		</c:if>
  --%> 	</div>
-
-
 </body>
 </html>
 

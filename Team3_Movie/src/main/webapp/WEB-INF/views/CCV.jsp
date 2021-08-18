@@ -12,16 +12,12 @@
 	}
 </script>
 </head>
-<body>
-<%@ include file = "./include/header.jsp" %>
-	<section class = "container" style = "max-width:560px;">
-		<%-- <img src = "${path}/resources/img/ironMan.png"> --%>
+<body id = "back_color_body">
+<div id = "back_div">
 		<video muted autoplay loop>
        		<source src="${path}/video/movie_ccv.mp4" type="video/mp4">
     </video>
-	</section>
-	<footer>
-		Copyright 2021 CCV All Rights Reserved.
-	</footer>
+</div>
+<%@ include file = "./include/footer.jsp" %>
 </body>
 </html>

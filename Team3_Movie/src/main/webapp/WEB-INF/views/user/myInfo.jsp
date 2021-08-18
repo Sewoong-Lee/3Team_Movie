@@ -20,13 +20,14 @@
 	});
 </script>
 </head>
-<body>
-<%@ include file = "../include/header.jsp" %>
-	<section class = "container" style = "max-width:560px;">
-	<div><a href = "${path}/user/modifyInfo?user_id=${member.user_id}">회원 정보 수정</a></div>
+<body id = "back_color_body">
+<div id = "back_div">
+<h2>| 회원가입 |</h2>
+	<div align="right"><a href = "${path}/user/modifyInfo?user_id=${member.user_id}">회원 정보 수정</a></div>
+	<fieldset>
 	<table>
 		<tr>
-			<td rowspan="6">
+			<td rowspan="7" align="center">
 				<div class = "imgBox">
 					<c:if test="${member.file_name != null}">
 						<img src = "${path}/uploadimg/${member.file_name}" id = "profile"><br>
@@ -37,15 +38,15 @@
 				</div>
 				${member.user_id}
 			</td>
-			<td>이름</td>
+			<td align="right">이름 |&nbsp;</td>
 			<td>${member.user_name}</td>
 		</tr>
 		<tr>
-			<td>등급</td>
+			<td align="right">등급 |&nbsp;</td>
 			<td>${member.admin}</td>
 		</tr>
 		<tr>
-			<td>관심 태그</td>
+			<td align="right">관심 태그 |&nbsp;</td>
 			<td>
 				<c:forEach var = "tag" items = "${tagList}">
 					<li>${tag.GENRE_NAME}</li>
@@ -53,13 +54,13 @@
 			</td>
 		</tr>
 		<tr>
-			<td>비밀번호</td>
+			<td align="right">비밀번호 |&nbsp;</td>
 			<td>
 				<button onclick="location.href = '${path}/user/changePw'">변경하기</button>
 			</td>
 		</tr>
 		<tr>
-			<td>연락처</td>
+			<td align="right">연락처 |&nbsp;</td>
 			<td id = "phoneNumber">
 				<script type="text/javascript">
 					var s = "${member.tel}"
@@ -71,17 +72,16 @@
 			</td>
 		</tr>
 		<tr>
-			<td>주소</td>
+			<td align="right">주소 |&nbsp;</td>
 			<td>${member.addr1} ${member.addr2}</td>
 		</tr>
 		<tr>
-			<td>회원 탈퇴</td>
+			<td align="right">회원 탈퇴 |&nbsp;</td>
 			<td><button id = "withdraw">탈퇴하기</button></td>
 		</tr>
 	</table>
-	</section>
-	<footer>
-		Copyright 2021 CCV All Rights Reserved.
-	</footer>
+	</fieldset>
+</div>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

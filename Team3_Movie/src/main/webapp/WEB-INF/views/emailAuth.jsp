@@ -30,7 +30,9 @@
 			}
 			else {
 				var email = $('#email').val();
-				$.ajax({
+				//다이렉트 가입 경로
+				//location.href = "${path}/getSignUpF?email="+email+"&msg=ok";
+				 $.ajax({
 					url:'${path}/emailCheck',
 					type:'get',
 				        data:{email}, 
@@ -54,15 +56,17 @@
 	});
 </script>
 </head>
-<body>
-<%@ include file = "./include/header.jsp" %>
+<body id = "back_color_body">
+<div class = "emailAuth-form">
 	<div class = "phase">
 		<h3>STEP 1. 회원가입을 위한 본인 인증 단계입니다.</h3>
 	</div>
 	<div class = "wrapper">
 		<label for = "email">E-mail</label><br>
 		<input type="email" id = "email" name = "email" placeholder="@를 포함한 이메일을 입력해주세요."><br>
-		<button id = "emailAuth">이메일 전송</button>
+		<button id = "emailAuth" class="button">이메일 전송</button>
 	</div>
+</div>
+<%@ include file = "./include/footer.jsp" %>
 </body>
 </html>
