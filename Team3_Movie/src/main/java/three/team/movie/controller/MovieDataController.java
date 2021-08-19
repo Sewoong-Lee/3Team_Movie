@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,12 +33,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import three.team.movie.dao.MovieDataDAO;
 import three.team.movie.dto.Mv_Page;
 import three.team.movie.dto.Mv_movie_data;
+import three.team.movie.dto.Mv_movie_reply;
 import three.team.movie.service.MovieApiService;
 import three.team.movie.service.MovieDataService;
 import three.team.movie.service.ReplyService;
 
 
-@Controller
+@Controller()
 @RequestMapping("moviedata")
 @SessionAttributes("page") 
 public class MovieDataController {
@@ -62,20 +64,19 @@ public class MovieDataController {
 	
 	//페이지 생성 
 	@RequestMapping("/")
-	public String home(Mv_Page mv_Page,Model model,HttpSession session, HttpServletRequest request) {
-		String user_id = (String) session.getAttribute("user_id");
-		System.out.println("user_id"+user_id);
+	public String home(Mv_Page mv_Page,Model model,HttpSession session) {
 		model.addAttribute("mv_Page",mv_Page);
 		session.setAttribute("curpageTot",1);
 		session.setAttribute("curpageUser",1);
-		
-		if(user_id != null) {
-			return "redirect:listuser";
-		}else {
+//		session.setAttribute("user_id", "ssm1234"); //지워도 됨 
+		String session_userid = (String) session.getAttribute("user_id");
+		System.out.println("세션유저아이디 값"+session_userid);
+		if (session_userid==null) {
 			return "redirect:list";
+		}else {
+			return "redirect:listuser";
 		}
-		
-		
+			
 	}
 	
 	//상세조회 폼으로 detail 
@@ -83,9 +84,9 @@ public class MovieDataController {
 	public String detail(HttpServletRequest request, Model model,HttpServletResponse response,HttpSession session,RedirectAttributes rattr){ 
 		int movie_num = Integer.parseInt(request.getParameter("movie_num"));
 		//영화 한건 조회 (detail)
-		System.out.println(movie_num);
+		
 		 Map<String, Object> mv_movie_data = movieDataService.selectOne(movie_num);
-		 logger.info("info디테일"+mv_movie_data.toString());
+		 logger.info("=====info디테일"+mv_movie_data.toString());
 	
 //		 Cookie c = new Cookie("curpageTot",request.getParameter("curPage"));
 //		 response.addCookie(c);
@@ -104,11 +105,13 @@ public class MovieDataController {
 		 session.setAttribute("curpageUser",curPageListUser);
 		 
 		 int curPageReply=1;
-		 if(request.getParameter("curPageReply")==null) {curPageReply=1;}
-		 else { curPageReply=Integer.parseInt(request.getParameter("curPageReply")); }
+		 if(request.getParameter("curPageReply")==null) {
+			 curPageReply=1;
+		 }
+		 else {curPageReply=Integer.parseInt(request.getParameter("curPageReply")); }
 	
+		 System.out.println("리플 컬페이지"+curPageReply);
 		 //별 평점 계산 
-		 
 		 Double starResult = movieDataDAO.starRating(movie_num);
 		 if(starResult==null) {
 			 starResult=0.0;
@@ -124,6 +127,9 @@ public class MovieDataController {
 		 model.addAttribute("replyMap",replyMap);
 		 model.addAttribute("replyList",replyList);
 		 logger.info("댓글 전체리스트 "+replyList.toString());
+		 logger.info("댓글 리스트"+mv_movie_data.toString());
+		 
+		 
 		 return "movie/detail";
 	}
 
@@ -132,9 +138,10 @@ public class MovieDataController {
 	public String list(@ModelAttribute("mv_Page")Mv_Page mv_Page,Model model,HttpServletResponse response) {
 		System.out.println("파인드키:==="+mv_Page.getFindkey());
 		System.out.println("페이지====="+mv_Page);
-		//쿠키영화 등록
 		
-		Map<String, Object> movieMap = movieDataService.selectList(mv_Page);
+		/* Map<String, Object> movieMap = movieDataService.selectList(mv_Page); */
+		Map<String, Object> movieMap = movieDataService.selectMainList(mv_Page); 
+		
 		System.out.println("무비리스트===: "+movieMap);
 		model.addAttribute("movieList", (List<Mv_movie_data>) movieMap.get("list"));//전체 리스트
 	
@@ -215,27 +222,32 @@ public class MovieDataController {
 	}
 	
 	
-	//테스트 
+	//유튜브 링크 추가  
+	@ResponseBody
+	@RequestMapping(value = "/youtubeInset",method = RequestMethod.POST)
+	public void add(HttpServletRequest request) {
+		String youtube_link = request.getParameter("youtube_link");
+		int movie_num = Integer.parseInt(request.getParameter("movie_num"));
+		System.out.println("유튜브링크"+youtube_link);
+		System.out.println("영화넘버"+movie_num);
+		
+		movieDataDAO.youtubeLink_Inset(youtube_link,movie_num);
+		
+	}
+
 	@GetMapping("test")
 	public String test() {
 		return "movie/test";
 	}
 	
 	
-	
-	//메인화면 구성시 selectList 2개  (main 화면 뷰)
-	//1 회원관심영화 리스트 2 인기개봉자(최신영화순부터) 리스트 출력 2개 같이 출력
-	
-	//해더화면 검색창에 장르별+제목	
-	
 	//네이버 api 호출
 	@RequestMapping("api")
 	public void getApi_naver() {
-		String codeName="크루엘라";
+		String codeName="이도 공간";
 		movieApiService.MovieApiCall(codeName);
+		
 	}
-	
-	
 	
 	
 }

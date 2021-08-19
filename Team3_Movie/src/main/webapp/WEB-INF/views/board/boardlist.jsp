@@ -19,11 +19,34 @@
 		color: white;
 	}
 	
+	/* 페이지 기본 */
+	.alist {
+		text-align: center;
+	}
+	.alist{
+		 font-size: 19px;
+    color: black;
+    line-height: 2.9em;
+	text-decoration: unset;
+	background-color: #fffbfb;
+    padding: 5px 7px;
+    font-weight: bold;
+    display: inline;
+  	border: 1px outset;
+  	margin: 3px;
+  	text-align: center;
+	
+	}
+	
 	/* 페이지 선택 하면 */
 	#acurpage{
-		font-size: large;
+		/* font-size: large;
 		background-color: #000000;
-		color: white;
+		color: white; */
+		background-color: #d3af71;
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
 	}
 	
 	#center {  

@@ -1,5 +1,7 @@
 package three.team.movie.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -232,7 +234,22 @@ public class Mv_userController {
 		String user_id = (String) session.getAttribute("user_id");
 		List<Map<String, Object>> saleslist = mv_userService.getsaleslist(user_id);
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String now = sdf.format(new Date());
+		model.addAttribute("now", now);
 		model.addAttribute("saleslist", saleslist);
+	}
+	
+	@GetMapping("salcancel")
+	public String salcancel(int sal_num, Model model) {
+		
+		mv_userService.sal_delete(sal_num);
+		
+		String  msg = "예매가 취소되었습니다.";
+		model.addAttribute("msg", msg);
+		
+		return "redirect:saleslist";
 	}
 	
 	

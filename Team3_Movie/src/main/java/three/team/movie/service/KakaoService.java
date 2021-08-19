@@ -32,7 +32,7 @@ public class KakaoService {
     private static KakaoPayApprovalVO kakaoPayApprovalVO;
     
     @SuppressWarnings("deprecation")
-	public String kakaoPayReady(Mv_sales mv_sales) {
+	public String kakaoPayReady(Mv_sales mv_sales, String path) {
  
         RestTemplate restTemplate = new RestTemplate();
  
@@ -51,9 +51,9 @@ public class KakaoService {
         params.add("quantity", Integer.toString(mv_sales.getTickets()));  //수량
         params.add("total_amount", Integer.toString(mv_sales.getPrice()));  //총 금액
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "http://localhost:8081/movie/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8081/movie/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8081/movie/kakaoPaySuccessFail");
+        params.add("approval_url", "http://localhost:8081"+path+"/kakaoPaySuccess");
+        params.add("cancel_url", "http://localhost:8081"+path+"/kakaoPayCancel");
+        params.add("fail_url", "http://localhost:8081"+path+"/kakaoPaySuccessFail");
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  

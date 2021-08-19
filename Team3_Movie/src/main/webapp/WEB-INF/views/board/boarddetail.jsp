@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 <link href="${path}/resources/css/table.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
 <style type="text/css">
+	#title{
+	color: white;
+	text-align: center;
+	}
 	img{
 		width: 80%;
 	}
@@ -102,7 +106,9 @@
 		</tr>
 		<tr>
 			<td colspan="4" id="zz">
+			<p>
 			${board_detail_map.mv_board.content} <br>
+			</p>
 			<c:forEach var="file" items="${board_detail_map.bflist}">
 				<img alt="사진" src="${path}/uploadimg/${file.board_file_name}">
 			</c:forEach>

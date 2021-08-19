@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 <link href="${path}/resources/css/table.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
 <style type="text/css">
+	#title{
+	color: white;
+	text-align: center;
+	}
 	input{
 		width: 80%;
 		height: 40px;

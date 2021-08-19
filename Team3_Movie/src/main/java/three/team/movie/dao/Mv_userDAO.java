@@ -24,5 +24,7 @@ public interface Mv_userDAO {
 
 	public Mv_user findMyId(String email);
 
+	public void sal_delete(int sal_num);
+
 
 }

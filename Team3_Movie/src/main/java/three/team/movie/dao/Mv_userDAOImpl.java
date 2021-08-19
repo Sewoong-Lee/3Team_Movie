@@ -62,5 +62,11 @@ public class Mv_userDAOImpl implements Mv_userDAO{
 
 	}
 
+	@Override
+	public void sal_delete(int sal_num) {
+		sqlSession.delete("three.team.movie.Mv_userMapper.sal_delete", sal_num);
+		
+	}
+
 
 }

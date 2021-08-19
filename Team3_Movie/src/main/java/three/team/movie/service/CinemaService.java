@@ -25,5 +25,7 @@ public interface CinemaService {
 
 	public int slectmaxsal_num();
 
+	public void seate_delete(int sal_num);
+
 
 }

@@ -25,6 +25,8 @@ public class Mv_userServiceImpl implements Mv_userService{
 	private User_tagService user_tagService;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder ;
+	@Autowired
+	private CinemaService cinemaService;
 	
 	@Override
 	public void insert(Mv_user mv_user, MultipartFile profile) {
@@ -164,6 +166,14 @@ public class Mv_userServiceImpl implements Mv_userService{
 	public Mv_user findMyId(String email) {
 		return mv_userDAO.findMyId(email);
 
+	}
+
+	@Override
+	public void sal_delete(int sal_num) {
+		cinemaService.seate_delete(sal_num);
+		
+		mv_userDAO.sal_delete(sal_num);
+		
 	}
 
 }

@@ -7,6 +7,53 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="${path}/resources/css/table.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
+<style type="text/css">
+	#title{
+	color: white;
+	text-align: center;
+	}
+/* 	.img_div{
+		width: 600px;
+		margin: auto;
+	} */
+	input{
+		width: 80%;
+		height: 40px;
+		font-size: small;
+	}
+	input[type=checkbox]{
+		margin:15px;
+		width: 20px;
+		height: 20px;
+		font-size: small;
+	}
+	textarea {
+		width: 80%;
+		height: 150px;
+		font-size: small;
+	}
+	/* 버튼 css */
+	.button {
+	   background-color: #d3af71;
+	   color: white;
+	   width: 120px;
+	   height: 40px;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 16px;
+	   margin: 4px 2px;
+	   transition-duration: 0.4s;
+	   cursor: pointer;
+	   border: 2px solid #d3af71;
+		}
+	
+	.button:hover {
+	   background-color: white;
+	   color: black;
+	   cursor: pointer;
+	}
+</style>
 <script type="text/javascript">
 	$(function() {
 		//파일 추가버튼
@@ -50,9 +97,11 @@
 	
 </script>
 </head>
-<body>
-	<h2>게시물 수정</h2>
-	${board_list}
+<body id="back_color_body">
+<%@ include file = "../include/header.jsp" %>
+<div id="back_div">
+	<h2 id="title">게시물 수정</h2>
+<%-- 	${board_list} --%>
 	<form action="${path}/board/boardmodify" method="post" name="modifyform" enctype="multipart/form-data">
 	<table id="board_table">
 		<tr>
@@ -94,5 +143,6 @@
 	
 	</table>
 	</form>	
+</div><!-- back_div -->
 </body>
 </html>

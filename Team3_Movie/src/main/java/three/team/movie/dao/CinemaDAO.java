@@ -26,5 +26,7 @@ public interface CinemaDAO {
 	public void sales_seatsinsert(Map<String,Object> seatsmap);
 
 	public int slectmaxsal_num();
+
+	public void seate_delete(int sal_num);
 	
 }

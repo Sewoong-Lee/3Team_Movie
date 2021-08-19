@@ -28,5 +28,7 @@ public interface Mv_userService {
 
 	public Mv_user findMyId(String email);
 
+	public void sal_delete(int sal_num);
+
 
 }

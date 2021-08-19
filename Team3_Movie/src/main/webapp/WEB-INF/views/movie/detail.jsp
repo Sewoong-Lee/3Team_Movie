@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <c:set var="path" value="${pageContext.request.contextPath}"/>     
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<%@ include file="../include/include.jsp" %>
 <%-- <%@ include file = "../include/header.jsp" %> --%>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,8 @@ $(function() {
 			return; 
 		}
 	 	$.ajax({
-			url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&order=date',
+	 		url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&videoDuration=short&order=date',
+	 		/* url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&order=date', */
 			type:'get',
 			success:function(data){
 				console.log(data);
@@ -201,6 +202,7 @@ function rederReplyDetail(data) {
 		var MOVIE_NUM = ${movieDetail.MOVIE_NUM} 
 		alert(MOVIE_NUM);
 		alert("예매");
+		location.href="${path}/cinema/city?movie_num="+MOVIE_NUM;
 	});
 	
 	//페이지 번호 클릭시 

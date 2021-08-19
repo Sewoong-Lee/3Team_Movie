@@ -18,6 +18,22 @@
 	}
 
 </style>
+<script type="text/javascript">
+	$(function() {
+		$('.cancel_btn').click(function(e) {
+			e.preventDefault();
+			var sal_num = $(this).val();
+			
+			if(confirm("예매를 취소 하시겠습니까?")){
+				location.href = '${path}/user/salcancel?sal_num='+sal_num;
+			}
+		});
+		
+		
+	});
+
+
+</script>
 </head>
 <body id="back_color_body">
 <%@ include file = "../include/header.jsp" %>
@@ -48,6 +64,11 @@
 		<tr>
 			<th>예매 매수 </th> <td>${saleslist.TICKETS}</td>
 		</tr>	
+		<c:if test="${now <= saleslist.TIME_DAY}">
+		<tr>
+			<td colspan="2"><button value="${saleslist.SAL_NUM}" class="cancel_btn">예매 취소</button></td>
+		</tr>
+		</c:if>
 	</table>
 	<hr>
 </c:forEach>

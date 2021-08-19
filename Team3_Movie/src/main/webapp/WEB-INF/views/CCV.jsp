@@ -13,6 +13,7 @@
 </script>
 </head>
 <body id = "back_color_body">
+<%@ include file = "./include/header.jsp" %>
 <div id = "back_div">
 		<video muted autoplay loop>
        		<source src="${path}/video/movie_ccv.mp4" type="video/mp4">

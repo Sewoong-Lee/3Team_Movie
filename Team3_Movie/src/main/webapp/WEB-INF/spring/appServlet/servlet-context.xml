@@ -35,13 +35,6 @@
 		<beans:property name="maxUploadSize" value="10485760"/>
 	</beans:bean>
 	
-	<!-- 인터셉터 -->
-	<interceptors>
-        <interceptor>
-            <mapping path="/**"/>
-            <beans:bean class="three.team.movie.interceptor.AuthInterceptor" />
-        </interceptor>
-    </interceptors>
 	
 	<!-- aop설정을 통해서 자동으로 proxy객체 생성 -->
 	<aop:aspectj-autoproxy/>

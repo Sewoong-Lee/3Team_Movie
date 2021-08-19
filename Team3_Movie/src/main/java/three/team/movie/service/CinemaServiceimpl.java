@@ -72,5 +72,11 @@ public class CinemaServiceimpl implements CinemaService{
 		return cinemaDAO.slectmaxsal_num();
 	}
 
+	@Override
+	public void seate_delete(int sal_num) {
+		cinemaDAO.seate_delete(sal_num);
+		
+	}
+
 	
 }

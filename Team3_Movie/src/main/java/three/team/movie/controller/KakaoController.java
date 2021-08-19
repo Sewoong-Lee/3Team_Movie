@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -42,12 +43,13 @@ public class KakaoController {
 //    }
     
     @PostMapping("/KakaoService")
-    public String kakaoPay(Mv_sales mv_sales, HttpSession session, Model model) {
+    public String kakaoPay(Mv_sales mv_sales, HttpSession session, Model model, HttpServletRequest request) {
     	logger.info("KakaoService post............................................");
-        
+    	//컨텍스트 패스 가져오기
+    	String path = request.getContextPath();
     	// Mv_sales DTO에 값 넣기
-    	//session.getAttribute("userid"); //세션에 저장된 아이디 가져오기
-    	String user_id = "ddd"; //아이디 잠깐 하드코딩
+    	String user_id = (String) session.getAttribute("user_id"); //세션에 저장된 아이디 가져오기
+//    	String user_id = "ddd"; //아이디 잠깐 하드코딩
     	mv_sales.setUser_id(user_id); //아이디 넣기
     	//예매 번호 넣기
     	int sal_num = cinemaservice.slectmaxsal_num();
@@ -61,12 +63,12 @@ public class KakaoController {
     	//모델을 생성해서 @SessionAttributes 에 생성
     	model.addAttribute("Mv_sales", mv_sales);  //위의 @SessionAttributes("mv_sales")에도 생성
     	
-        return "redirect:" + kakaoService.kakaoPayReady(mv_sales); 
+        return "redirect:" + kakaoService.kakaoPayReady(mv_sales, path); 
  
     }
     
     @GetMapping("kakaoPaySuccess")
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,@ModelAttribute("mv_sales") Mv_sales mv_sales) {
+    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,@ModelAttribute("mv_sales") Mv_sales mv_sales) {
     	logger.info("kakaoPaySuccess get............................................");
     	logger.info("kakaoPaySuccess pg_token : " + pg_token);
     	
@@ -75,5 +77,21 @@ public class KakaoController {
     	cinemaservice.salesinsert(mv_sales);
     	
     	model.addAttribute("info", KakaoService.kakaoPayInfo(pg_token,mv_sales));
+    	return "redirect:/user/saleslist";
+    }
+    
+    @GetMapping("kakaoPayCancel")
+    public String kakaoPayCancel(Model model) {
+    	String msg = "결제 취소";
+    	
+    	model.addAttribute("msg", msg);
+    	return "/moviedata/";
+    }
+    @GetMapping("kakaoPaySuccessFail")
+    public String kakaoPaySuccessFail(Model model) {
+    	String msg = "결제 실패";
+    	
+    	model.addAttribute("msg", msg);
+    	return "/moviedata/";
     }
 }

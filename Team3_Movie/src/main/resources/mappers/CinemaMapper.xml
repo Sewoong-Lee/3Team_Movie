@@ -75,4 +75,10 @@
 		select max(sal_num) maxsal_num from mv_sales
 		<!-- select SALES_NUM.nextval from dual -->
 	</select>
+	
+	<delete id="seate_delete">
+		delete from MV_SALES_SEATS
+		where SAL_NUM = #{sal_num}
+	</delete>
+	
 </mapper>

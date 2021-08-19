@@ -54,6 +54,11 @@
 	    JOIN CINEMA CI
 	      ON MT.CINEMA_CODE = CI.CINEMA_CODE
 		WHERE MS.USER_ID = #{user_id}
+		<!-- AND MT.TIME_DAY > TO_CHAR(sysdate-1,'YYYY-MM-DD') -->
 		order by SAL_NUM DESC
 	</select>
+	<delete id="sal_delete">
+		DELETE FROM MV_SALES
+		where SAL_NUM = #{sal_num}
+	</delete>
 </mapper>

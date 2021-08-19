@@ -63,5 +63,11 @@ public class CinemaDAOimpl implements CinemaDAO {
 		return SqlSession.selectOne("three.team.movie.CinemaMapper.slectmaxsal_num");
 	}
 
+	@Override
+	public void seate_delete(int sal_num) {
+		SqlSession.delete("three.team.movie.CinemaMapper.seate_delete", sal_num);
+		
+	}
+
 
 }
