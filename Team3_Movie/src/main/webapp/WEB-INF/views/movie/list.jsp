@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
 <c:set var="path" value="${pageContext.request.contextPath}"/>      
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script> 
-<%-- <%@ include file = "../include/header.jsp" %> --%>
+<%@ include file = "../include/header.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,7 +91,8 @@ function renderListMovie(data) {
 		var div = $("<div></div>").addClass("TotListDiv");
 		var aTag = $("<a></a>");
 		aTag.attr("href", path + "/moviedata/detail?movie_num=" + movieObj["movie_num"] +"&curPage="+ page['curPage']);
-		var imgTag = $("<img></img>");
+		/* var imgTag = $("<img> </img>"); */
+		var imgTag = $("<img> </img>").addClass("imgList");
 		imgTag.css("width", "200px");							
 		imgTag.attr("src", movieObj["movie_poster_link"]);
 		var spanTag = $("<span></span>").text(movieObj["movie_name"]);
@@ -150,7 +151,7 @@ function renderUserMovie(data) {
 		var div = $("<div></div>").addClass("userListDiv");
 		var aTag = $("<a></a>");
 		aTag.attr("href", path + "/moviedata/detail?movie_num=" + movieObj["MOVIE_NUM"]+'&curPageListUser='+curPageListUser);
-		var imgTag = $("<img></img>");
+		var imgTag = $("<img></img>").addClass("imgList");
 		imgTag.css("width", "200px");
 		imgTag.attr("src", movieObj["MOVIE_POSTER_LINK"]);
 		var spanTag = $("<span></span>").text(movieObj["MOVIE_NAME"]);
@@ -235,7 +236,7 @@ function renderUserMovie(data) {
 }
 
 .paging a.on {
-    background-color: #de9999;
+    background-color: #d3af71;
 	color: white;
 	font-size: 22px;
 	font-weight: bold;
@@ -278,27 +279,29 @@ function renderUserMovie(data) {
    max-width: 80%;
    margin: auto;
 }
-img[src]{
+/* img[src]{
+	border: 1px solid white;
+	border-radius:10px;
+}   */
+.imgList{
 	border: 1px solid white;
 	border-radius:10px;
 }
-
-
 
 </style>
 
 
 </head>
 <body id="back_color_body">
-${sessionScope.curpageUser}:유저 컬페이지 <br>
+<%-- ${sessionScope.curpageUser}:유저 컬페이지 <br>
  ${sessionScope.curpageTot}:전체 컬페이지 수 <br>
- ${sessionScope.user_id} <br>
+ ${sessionScope.user_id} <br> --%>
 <%--  ${sessionScope.curpageListTot}  --%>
 <%-- ${movieListUser} <br> --%>
 <input type="hidden" id="curPageSave" value="">
 <input type="hidden" id="curPageUserSave" value="">
 <!-- 회원관심 영화리스트 -->
-<h2 align="center">취향저격</h2> 
+<h2 align="center" style="margin-top: 100px">취향저격</h2> 
 	<div id="userListWrap">
 	 	<c:forEach var="UserList" items="${movieListUser}">
 	 		<div class="userListDiv">

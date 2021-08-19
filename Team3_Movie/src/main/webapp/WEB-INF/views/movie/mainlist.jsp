@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <c:set var="path" value="${pageContext.request.contextPath}"/>      
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>  
-<%-- <%@ include file = "../include/header.jsp" %> --%>
+ <%@ include file = "../include/header.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +27,7 @@
 }
 
 #aCurPage{
-	background-color: #de9999;
+	background-color: #d3af71;
 	color: white;
 	font-size: 22px;
 	font-weight: bold;
@@ -82,16 +82,14 @@
 
 </head>
 <body id="back_color_body">
- ${sessionScope.user_id} : 세션아이디 
-
+<%--  ${sessionScope.user_id} : 세션아이디  --%>
 	<!-- 검색조회 -->
 	<fieldset id="searchIn" style=" width: 380; ">
 		<input type="text" style=" height:40; width: 300; margin-bottom: 10;" id="findMovie" placeholder="장르 및 영화제목을 입력해주세요"; 
 			onkeypress="javascript:if(event.keyCode==13) $('#btnFind').click()">
 		<button id="btnFind" type="button" style="padding:8px; padding-right:15px; padding-left:15px" >조회</button>
 	</fieldset>
-	
- 	<h2 align="center" style="padding: 30px">영화 리스트</h2>
+ 	<h2 align="center" style="padding: 30px;margin-top: 100;font-size: 30;">영화 리스트</h2>
  	<div id="mainDiv">
  		<div id="imgListDiv" style="text-align: center;">
 	 		<c:forEach var="list" items="${movieList}">

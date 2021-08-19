@@ -69,7 +69,8 @@ public class MovieDataDAOImpl implements MovieDataDAO{
 		Map<String, Object> youtubemap = new HashMap<String, Object>();
 		youtubemap.put("youtube_link",youtube_link);
 		youtubemap.put("movie_num",movie_num);
-		sqlsession.update("org.spring.my.MovieMapper.youtubeLink_Inset",youtubemap);
+		System.out.println("youtub확인==="+youtubemap);
+		sqlsession.update("three.team.movie.MovieMapper.youtubeLink_Inset",youtubemap);
 	}
 	
 	

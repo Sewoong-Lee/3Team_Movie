@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <c:set var="path" value="${pageContext.request.contextPath}"/>     
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-<%-- <%@ include file = "../include/header.jsp" %> --%>
+<%@ include file = "../include/header.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,16 +14,15 @@ $(function() {
 	//youtube api 우선 youtube api 제재로 인해 주석처리
   	function youtube() {
   		var movieCode = $('#movieName').val().replace(/|(<([^>]+)>)|/ig,""); 
-	 	var movieName = movieCode.replace('|','')
+	 	var movieName = movieCode.replace('|','');
 	 	var youtube_link = $('#youtube_link').val();
-	 	alert(movieName);
 		if(youtube_link !=''){ 
-			alert('비디오코드 등록됨');
 			$("#movieFrame").attr("src","https://www.youtube.com/embed/"+youtube_link+'?allow="autoplay=1"');
 			return; 
 		}
 	 	$.ajax({
-			url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&order=date',
+	 		url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&videoDuration=short&order=date',
+/* 			url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&order=date', */
 			type:'get',
 			success:function(data){
 				console.log(data);
@@ -50,6 +49,8 @@ $(function() {
 //영화 유튜브링크 등록 
 function youtubeInsert(video) {
 	var movie_num = $('#movieNum').val();
+	alert(movie_num);
+	alert(video);
 	$.ajax({
 		url:'${path}/moviedata/youtubeInset?youtube_link='+video+'&movie_num='+movie_num,
 		type:'post',
@@ -133,7 +134,6 @@ function rederReplyDetail(data) {
 	$('#reDdate').html(reg_date);
 	$('#movie_num').val(movie_num);
 }	
-
 	//원본 댓글 클릭 햇을때 추가
 	$('#btnRepAdd').click(function(e) {
 		e.preventDefault();
@@ -143,6 +143,7 @@ function rederReplyDetail(data) {
 		}
 		$('#reDtable').hide();
 		$('#repAdd').show();
+		$('#reContent').focus();
 	});
 	
  	//수정버튼 
@@ -228,32 +229,32 @@ function rederReplyDetail(data) {
 }
 
 #imgDiv{
-    margin-left: 310;
+    margin-left: 200;
     left: 30;
     right: 30;
     bottom: 30;
-    padding-left :50;
+    padding-left :200;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
 #movieInfoDiv{
-	position: absolute; left: 650px; height: 420px; width: 480px; top: 110px; font-size: 19px;
+	position: absolute; left: 800px; height: 420px; width: 480px; top: 140px; font-size: 19px;
 	color: black;
 	margin-top: 460;
 }
-#nameDiv{top: 22px; font-size: 30px}
+#nameDiv{margin-top: 310px; font-size: 30px}
 #directorDiv{margin-top: 25px;}
-#actorDiv{margin-top: 12px}
+#actorDiv{margin-top: 14px}
 #genreDiv{width: 450px;
     margin-top: -26;
     margin-left: 400;
 }
-#courtryDiv{margin-top: 12px}
-#starDiv{margin-top:12px}
+#courtryDiv{margin-top: 14px}
+#starDiv{margin-top:14px}
 #Ticketing{
-    margin-top: -60;
-    margin-left: 400;
+	margin-top:-50;
+    margin-left: 600;
     position: relative;
     height: 45px;
     padding: 0 40px;
@@ -268,6 +269,8 @@ function rederReplyDetail(data) {
     white-space: nowrap;
     display: inline-block !important;
     min-width: 200px;
+    background: #606ed0;
+    color: white;
 }
 .storyVideo{margin-left: 500px}
 
@@ -310,11 +313,72 @@ function rederReplyDetail(data) {
 #movieFrameDiv{
 	 background-color: #1a1313;
 	 height:480px;
-	 padding-top: 50;
+	 padding-top: 100;
+	 padding-left: 150;
 }
 #movieFrame{
 	margin-left: 700px;
 }
+
+.repPaging a {
+    font-size: 19px;
+    color: black;
+    text-align: center;
+    line-height: 2.9em;
+	text-decoration: unset;
+	background-color: #fffbfb;
+    padding: 5px 7px;
+    font-weight: bold;
+    display: inline;
+  	border: 1px outset;
+}
+.repPaging{
+	margin: 0px;
+}
+#repCurpage{
+	background-color: #d3af71;
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+
+.logo{
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    padding-top: 20;
+    font-weight: lighter;
+    background-color: #1a1313;
+}
+#loginCheck{
+ background-color: #1a1313;
+}
+#reContent{
+font-size: 20px;
+}
+#btnRepSave{
+	padding-left: 16;
+	padding-right: 16;
+	font-size: 20;
+	margin-top: 20px;
+    margin-bottom: 30px;
+}
+#btnRepReset{
+	padding-left: 16;
+	font-size: 20;
+	padding-right: 16;
+	margin-top: 20px;
+    margin-bottom: 30px;
+}
+#reUserid{
+border: 0; 
+outline: none; 
+font-size: 22px;
+padding-bottom: 20px;
+}
+
 </style>
 </head>
 <body >
@@ -330,7 +394,7 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 		<iframe id="movieFrame" width="600" height="450" src="https://www.youtube.com/embed/${movieDetail.YOUTUBE_LINK}?autoplay=1&mute=1";frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 		<div id="imgDiv">
-			<img alt="이미지링크"  src="${movieDetail.MOVIE_POSTER_LINK}" width="230px" style="margin-top: -70;">
+			<img alt="이미지링크"  src="${movieDetail.MOVIE_POSTER_LINK}" width="300px" style="margin-top: -160;">
 		</div>
 			<div id="movieInfoDiv">
 				<div id="nameDiv">제목: ${movieDetail.MOVIE_NAME}</div>
@@ -356,10 +420,11 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 					<button type="button" id="Ticketing">지금 예매</button>
 		</div>
 	
-	<button type="button" id="btnRepAdd">댓글</button>
+	<button type="button" id="btnRepAdd" style="margin-left: 30; padding-left: 15; padding-right: 15; font-size: 19;
+			background-color: #d3af71; color: white">댓글</button>
 	<hr id="reply0">
 <%--   ${replyList}  --%>
- 	<table border="1" style=" margin-left:350px;  margin-top: 50px" id="repTable">
+ 	<table border="1" style=" margin-left:400px;  margin-top: 50px" id="repTable">
  		<tr style="font-size: 17px">
  			<th width="50">No</th>
  			<th width="150px">작성자</th>
@@ -419,13 +484,12 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 			</div>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" id="reUserid" value="${sessionScope.user_id}" size="60" readonly="readonly"
-					style="border: 0; outline: none;">
+				<td><input type="text" id="reUserid" value=" ${sessionScope.user_id}" size="60" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<th>댓글</th>
-				<td><textarea rows="3" cols="80" id="reContent" maxlength="100"></textarea></td>
+				<td><textarea rows="3" cols="100" id="reContent" maxlength="100"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center"> 
@@ -445,7 +509,7 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 	
 	<c:forEach  var="i"  begin="${replyMap.replypage.startPage}" end="${replyMap.replypage.endPage}">
 		<c:if test="${replyMap.replypage.curPageReply==i}">
-			<a href="#" curPage="${i}" class="rList" >${i}</a>
+			<a href="#" curPage="${i}" class="rList" id="repCurpage">${i}</a>
 		</c:if>
 		<c:if test="${replyMap.replypage.curPageReply!=i}">
 			<a href="#" curPage="${i}" class="rList" >${i}</a>

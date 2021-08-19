@@ -14,14 +14,21 @@
 				location.href = "${path}/user/login";
 			}
 		});
+		
+ 		$('#listUserBtn').click(function(e){
+			if(${sessionScope.user_id == null}) {
+				e.preventDefault();
+				alert("로그인 후 이용 가능합니다.");
+			}
+		});
+		
 	});
 </script>
 </head>
 <body>
 	<header class = "logo">
 		<%-- <h2 onclick = "location.href ='${path}/CCV'" style = "cursor: pointer">CCV</h2> --%>
-		<a href = "${path}/CCV"><img src = "${path}/resources/img/logo.png"></a><br>
-		당신의 취향에 가장 완벽한 선택
+		<a href = "${path}/moviedata/"><img src = "${path}/resources/img/logo.png" style=" display: block;  margin: 0 auto;"></a><br>
 	</header>
 	<div id = "loginCheck">
 		<c:if test="${sessionScope.user_id == null}">
@@ -44,8 +51,8 @@
 			<div class="dropdown">
 			<button class="dropbtn">영화</button>
 				<div class="dropdown-content">
-					<a href="#">박스 오피스</a>
-				        <a href="#">맞춤 영화</a>
+					<a href="${path}/moviedata/list">박스 오피스</a>
+				        <a href="${path}/moviedata/listuser" id="listUserBtn">맞춤 영화</a>
 				</div>
 			</div>
 		  
