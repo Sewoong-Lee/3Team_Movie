@@ -9,6 +9,7 @@
 <link href = "${path}/resources/css/forSignUp.css" rel = "stylesheet"/>
 </head>
 <body onload = "emailOk()" id = "back_color_body">
+<%@ include file = "./include/header.jsp" %>
 <div id = "back_div">
 <h2>| 회원가입 |</h2>
 	<form name = "signUpF" action="${path}/user/insert" method = "post" enctype="multipart/form-data">

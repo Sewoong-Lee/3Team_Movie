@@ -21,5 +21,7 @@ public interface MovieDataDAO {
 	public void insert(Mv_movie_data mv_movie_data);
 
 	public Double starRating(int movie_num);
+
+	void youtubeLink_Inset(String youtube_link, int movie_num);
 	
 }

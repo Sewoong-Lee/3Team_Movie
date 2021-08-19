@@ -34,9 +34,6 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@GetMapping("CCV")
-	public void main() {}
-	
 	@GetMapping("emailAuth")
 	public void emailAuth() {}
 	

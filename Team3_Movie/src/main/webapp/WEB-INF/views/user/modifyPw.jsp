@@ -36,7 +36,7 @@
 	});
 </script>
 </head>
-<body>
+<body id = "back_color_body">
 <%@ include file = "../include/header.jsp" %>
 	<h2>비밀번호 변경</h2>
 	<form action="${path}/user/updatePw" method="post" id = "updatePw">
@@ -57,5 +57,6 @@
 			</tr>
 		</table>
 	</form>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

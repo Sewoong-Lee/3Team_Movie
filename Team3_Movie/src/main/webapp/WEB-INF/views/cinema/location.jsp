@@ -24,6 +24,7 @@ $(function() {
 </script>
 </head>
 <body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 <section id="ccv_cinema" class="ccv_cinema">
 	<div class="container" data-aos="fade-up">
 

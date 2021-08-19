@@ -124,7 +124,7 @@ public class Mv_userController {
 			session.setAttribute("user_id", user_id);
 			System.out.println("user_id:"+ user_id);
 			session.setAttribute("admin", member.getAdmin());
-			return "redirect:/CCV";
+			return "redirect:/moviedata/";
 		}
 		else {
 			rattr.addFlashAttribute("msg", loginResult.get("msg"));
@@ -214,7 +214,7 @@ public class Mv_userController {
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/CCV";
+		return "redirect:/moviedata/";
 	}
 	
 	//탈퇴

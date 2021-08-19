@@ -43,6 +43,7 @@ $(function(){
 </style>
 </head>
 <body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 <div id = "ccvInfo_wrapper">
 	<h2>CCV(주) 오시는 길</h2>
 	<div id="maps" style="width:70%;height:400px;"></div>

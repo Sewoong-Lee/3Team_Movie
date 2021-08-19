@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
-<c:set var="path" value="${pageContext.request.contextPath}"/>      
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script> 
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리스트</title>
+<title>CCV</title>
 <script type="text/javascript">
+function init(){
+	if (${sessionScope.user_id == null}){
+		alert("로그인 후 이용 가능합니다.");
+		location.href = "${path}/user/login";
+	}
+}
 $(function() {
 	<%
 	Cookie[] cookies = request.getCookies();
@@ -29,7 +33,6 @@ $(function() {
 		$('.uList').click(function(e) {
 			e.preventDefault();
 			var curPageListUser = $(this).attr('curPageListUser');
-			alert(curPageListUser);
 			ajaxListUser(curPageListUser);
 		});	
 		/*  ajaxListUser(1);  */
@@ -38,7 +41,6 @@ $(function() {
 		$('.aList').click(function(e) {
 			e.preventDefault();
 			var curPage = $(this).attr('curPage');	
-			alert(curPage);
 			ajaxListTotAjax(curPage);
 		});
 /* 		ajaxListTotAjax(1); */
@@ -48,7 +50,6 @@ $(function() {
 
 //ajax 영화리스트 
 function ajaxListTotAjax(curPage) {
-	alert(curPage);
 	var ajaxParm = {
 		url:'${path}/moviedata/listTotAjax?curPage='+curPage,
 		type:'get',
@@ -198,7 +199,6 @@ function renderUserMovie(data) {
 		e.preventDefault();
 		var curPageListUser = $(this).attr('curPageListUser');	
 		curPageListUser;
-		alert(curPageListUser);
 		ajaxListUser(curPageListUser);
 	}); 
 
@@ -241,7 +241,7 @@ function renderUserMovie(data) {
 }
 
 .paging a.on {
-    background-color: #de9999;
+	background-color: #de9999;
 	color: white;
 	font-size: 22px;
 	font-weight: bold;
@@ -249,8 +249,8 @@ function renderUserMovie(data) {
 #userListWrap{
 	text-align: center;
 	color: #925e5e;
-    font-weight: bold;
-    font-size: 18px;
+	font-weight: bold;
+	font-size: 18px;
 }
 #TotListWrap{
 	text-align: center;
@@ -270,13 +270,9 @@ function renderUserMovie(data) {
 
 
 </style>
-
-
 </head>
-<body>
-${sessionScope.curpageUser}:유저 컬페이지 <br>
- ${sessionScope.curpageTot}:전체 컬페이지 수 <br>
- ${sessionScope.user_id} <br>
+<body id = "back_color_body" onload = "init()">
+<%@ include file = "../include/header.jsp" %>
 <%--  ${sessionScope.curpageListTot}  --%>
 <%-- ${movieListUser} <br> --%>
 <input type="hidden" id="curPageSave" value="">
@@ -312,7 +308,7 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
  <!-- 	페이징 처리 -->
  	<div class="paging paging2">
  	</div>
-
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>
 

@@ -1,10 +1,9 @@
 @charset "UTF-8";
 
 table {
-  	margin-left: auto;
-  	margin-right: auto;
-  	margin-top: 20px;
-  	margin-bottom: 20px;
+	margin-top : 20px;
+	width: 100%;
+	font-size: 18px;
 }
 
 table th {
@@ -14,6 +13,10 @@ table td {
 	vertical-align: middle;
 }
 
+.modifyInfo-form {
+	margin: 10px;
+}
+
 table .inputSize{
 	width: 300px;
 	height: 40px;
@@ -21,21 +24,6 @@ table .inputSize{
 	margin-bottom: 1px;
 }
 
-.checkBtn {
-	width: 100px;
-	height: 40px;
-	color: white;
-	vertical-align: middle;
-}
-.btn{
-	width: 147px;
-	height: 40px;
-	color: white;
-}
-
-table button:hover {
-	cursor: pointer;
-}
 .genreName{
 	display:inline-block;
 	width: 100px;
@@ -58,4 +46,25 @@ input::-webkit-inner-spin-button {
 img {
 	width: 230px;
 	object-fit: cover;
+}
+.modifyBtn {
+	background-color: #d3af71;
+	width: 100px;
+	height: 40px;
+	color: white;
+	vertical-align: middle;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border: 2px solid #d3af71;
+}
+
+.modifyBtn:hover {
+	background-color: white;
+	color: black;
+	cursor: pointer;
 }

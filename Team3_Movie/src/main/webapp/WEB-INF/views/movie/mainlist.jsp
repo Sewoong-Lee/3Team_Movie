@@ -50,7 +50,7 @@
 });
 </script>
 </head>
-<body>
+<body id = "back_color_body">
 <%@ include file = "../include/header.jsp" %>
 	<!-- 검색조회 -->
 <!-- 	<fieldset style=" width: 300;">
@@ -95,7 +95,6 @@
 		<a href="#" curPage="${mv_Page.endPage+1}"  class="aList"  style="margin-left:20px; background-color:gainsboro" > > </a>
 	</c:if>
  	</div>
-<!--  	유튜브 실시간 링크갖고오기...?? -->
- 	
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

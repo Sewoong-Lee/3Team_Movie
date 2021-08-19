@@ -158,7 +158,7 @@ function rederReplyDetail(data) {
 });
 </script>
 </head>
-<body>
+<body id = "back_color_body">
 <%@ include file = "../include/header.jsp" %>
 <%-- ${movieDetail} <br> --%>
 
@@ -308,5 +308,6 @@ function rederReplyDetail(data) {
 			</tr>
 		</table> 
  	</form>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

@@ -80,13 +80,12 @@
 			}
 				
 		});
-		
-		
 	});
 
 </script>
 </head>
 <body id="back_color_body">
+<%@ include file = "../include/header.jsp" %>
 <%@ include file = "../include/header.jsp" %>
 <div id="back_div">
 	<h2 id="title">이벤트 게시물 등록</h2>
@@ -127,5 +126,6 @@
 	
 	</form>	
 </div><!-- back_div -->
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

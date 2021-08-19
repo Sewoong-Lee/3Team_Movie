@@ -42,6 +42,7 @@
 </script>
 </head>
 <body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 	<form action = "${path}/user/loginCheck" method="post" id = "login">
 		<table>
 			<tr>

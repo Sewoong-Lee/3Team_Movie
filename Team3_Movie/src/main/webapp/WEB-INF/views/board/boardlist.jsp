@@ -144,6 +144,6 @@
 	</form>
 	</div><!-- crnter -->
 	</div><!-- back_div -->
-	
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

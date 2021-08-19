@@ -50,7 +50,8 @@
 	
 </script>
 </head>
-<body>
+<body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 	<h2>게시물 수정</h2>
 	${board_list}
 	<form action="${path}/board/boardmodify" method="post" name="modifyform" enctype="multipart/form-data">
@@ -93,6 +94,7 @@
 		</tr>
 	
 	</table>
-	</form>	
+	</form>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

@@ -5,9 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CCV</title>
 <link href="${path}/resources/css/table.css" rel="stylesheet" type="text/css"><!-- 리소스폴더의 css파일 -->
-
 <style type="text/css">
 	#saleslist_box{
 		color: white;
@@ -16,7 +15,6 @@
 		color: white;
 		text-align: center;
 	}
-
 </style>
 </head>
 <body id="back_color_body">
@@ -24,6 +22,9 @@
 <div id="back_div">
 <h2 id="title">예매 확인</h2>
 <hr>
+<c:if test="${fn:length(saleslist) eq 0}">
+	<p align="center" style="font-size: 50px">예매 내역이 없습니다.</p>
+</c:if>
 <div id="saleslist_box">
 <c:forEach var="saleslist" items="${saleslist}">
 	<table class="sales_table">
