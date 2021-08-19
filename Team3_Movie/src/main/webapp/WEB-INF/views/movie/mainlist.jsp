@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ include file = "../include/include.jsp" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +27,7 @@
 }
 
 #aCurPage{
-	background-color: #de9999;
+	background-color: #d3af71;
 	color: white;
 	font-size: 22px;
 	font-weight: bold;
@@ -50,16 +53,19 @@
 });
 </script>
 </head>
-<body id = "back_color_body">
+
+<body id="back_color_body">
+
 <%@ include file = "../include/header.jsp" %>
-	<!-- 검색조회 -->
-<!-- 	<fieldset style=" width: 300;">
-		<input type="text" style=" height:30; width: 250;" id="findMovie">
-		<button id="btnFind" type="button">조회</button>
-	</fieldset> -->
-	
- 	<h2 align="center" style="padding: 30px">상영 중인 영화</h2>
- 		<div style="text-align: center;">
+	<fieldset id="searchIn" style=" width: 380; ">
+		<input type="text" style=" height:40; width: 300; margin-bottom: 10;" id="findMovie" placeholder="장르 및 영화제목을 입력해주세요"; 
+			onkeypress="javascript:if(event.keyCode==13) $('#btnFind').click()">
+		<button id="btnFind" type="button" style="padding:8px; padding-right:15px; padding-left:15px" >조회</button>
+	</fieldset>
+ 	<h2 align="center" style="padding: 30px;margin-top: 100;font-size: 30;">영화 리스트</h2>
+ 	<div id="mainDiv">
+ 		<div id="imgListDiv" style="text-align: center;">
+
 	 		<c:forEach var="list" items="${movieList}">
 		 		<div style="display: inline-block; margin: 0 20px;">
 		 			<div>

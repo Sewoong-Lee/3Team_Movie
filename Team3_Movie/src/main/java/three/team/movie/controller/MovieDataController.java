@@ -70,15 +70,12 @@ public class MovieDataController {
 		session.setAttribute("curpageUser",1);
 //		session.setAttribute("user_id", "ssm1234"); //지워도 됨 
 		String session_userid = (String) session.getAttribute("user_id");
-		System.out.println("세션유저아이디 값"+session_userid);
 		if (session_userid==null) {
 			return "redirect:list";
 		}else {
 			return "redirect:listuser";
 		}
-			
 	}
-	
 	//상세조회 폼으로 detail 
 	@RequestMapping("detail")
 	public String detail(HttpServletRequest request, Model model,HttpServletResponse response,HttpSession session,RedirectAttributes rattr){ 
@@ -117,18 +114,15 @@ public class MovieDataController {
 			 starResult=0.0;
 		 }
 		 
-		 System.out.println("별평점=="+starResult);
 		 //댓글 페이징
 		 Map<String, Object> replyMap = movieDataService.replyPaging(movie_num,curPageReply);
 		 replyMap.put("movie_num", movie_num);
 		 List<Map<String, Object>> replyList = replyService.selectList(replyMap);
-		 
 		 model.addAttribute("starResult",starResult);
 		 model.addAttribute("replyMap",replyMap);
 		 model.addAttribute("replyList",replyList);
 		 logger.info("댓글 전체리스트 "+replyList.toString());
 		 logger.info("댓글 리스트"+mv_movie_data.toString());
-		 
 		 
 		 return "movie/detail";
 	}

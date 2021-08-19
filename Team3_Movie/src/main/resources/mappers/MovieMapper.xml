@@ -105,8 +105,8 @@
 	
 	<update id="youtubeLink_Inset">
 		update MV_MOVIE_DATA
-		set youtube_link = #{youtube_link}
-		where MOVIE_NUM = #{movie_num}
+		set youtube_link =#{youtube_link}
+		where movie_num =#{movie_num}
 	</update>
 	
 	

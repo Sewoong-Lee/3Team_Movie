@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ include file = "../include/include.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,57 @@
 <link href = "${path}/resources/css/forMovieDetail.css" rel = "stylesheet"/>
 <script type="text/javascript">
 $(function() {
+	//youtube api 우선 youtube api 제재로 인해 주석처리
+  	function youtube() {
+  		var movieCode = $('#movieName').val().replace(/|(<([^>]+)>)|/ig,""); 
+	 	var movieName = movieCode.replace('|','');
+	 	var youtube_link = $('#youtube_link').val();
+		if(youtube_link !=''){ 
+			$("#movieFrame").attr("src","https://www.youtube.com/embed/"+youtube_link+'?allow="autoplay=1"');
+			return; 
+		}
+	 	$.ajax({
+	 		url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&videoDuration=short&order=date',
+/* 			url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&order=date', */
+			type:'get',
+			success:function(data){
+				console.log(data);
+				youtubeData(data);
+			},
+			error:function(err){
+				console.log(err);
+			}
+		});  
+	}; 
+	 youtube();
+	//유튜뷰 result 
+   	function youtubeData(data) {
+		console.log(data);
+		var object = data['items'];
+		var items = object[0];
+	 	var id = items['id'];
+	 	var video = id['videoId'];
+	 	youtubeInsert(video);
+		/*  $("#movieFrame").prop("src", "https://www.youtube.com/embed/"+video)  */
+ 		/* $("#movieFrame").attr("src","https://www.youtube.com/embed/"+video+'?allow="autoplay=1"'); */
+	} 
+
+//영화 유튜브링크 등록 
+function youtubeInsert(video) {
+	var movie_num = $('#movieNum').val();
+	alert(movie_num);
+	alert(video);
+	$.ajax({
+		url:'${path}/moviedata/youtubeInset?youtube_link='+video+'&movie_num='+movie_num,
+		type:'post',
+		success: function(data) {
+			$("#movieFrame").attr("src","https://www.youtube.com/embed/"+video+'?allow="autoplay=1"');
+		},error: function(err) {
+			console.log('실패');
+		}
+	});
+}
+	
 	//댓글 추가 클릭시
 	$('#btnRepSave').click(function(e) {
 		e.preventDefault();
@@ -75,13 +128,13 @@ function rederReplyDetail(data) {
 	$('#reDdate').html(reg_date);
 	$('#movie_num').val(movie_num);
 }	
-
 	//원본 댓글 클릭 햇을때 추가
 	$('#btnRepAdd').click(function(e) {
 		e.preventDefault();
 		alert("원본댓글");
 		$('#reDtable').hide();
 		$('#repAdd').show();
+		$('#reContent').focus();
 	});
 	
  	//수정버튼 
@@ -157,6 +210,168 @@ function rederReplyDetail(data) {
 	$('#repAdd').hide();
 });
 </script>
+<style>
+
+#repAdd{
+	float: left;
+    display: block;
+    margin: auto;
+    margin-top: 30;
+    margin-left: 500;
+}
+
+#imgDiv{
+    margin-left: 200;
+    left: 30;
+    right: 30;
+    bottom: 30;
+    padding-left :200;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+#movieInfoDiv{
+	position: absolute; left: 800px; height: 420px; width: 480px; top: 140px; font-size: 19px;
+	color: black;
+	margin-top: 460;
+}
+#nameDiv{margin-top: 310px; font-size: 30px}
+#directorDiv{margin-top: 25px;}
+#actorDiv{margin-top: 14px}
+#genreDiv{width: 450px;
+    margin-top: -26;
+    margin-left: 400;
+}
+#courtryDiv{margin-top: 14px}
+#starDiv{margin-top:14px}
+#Ticketing{
+	margin-top:-50;
+    margin-left: 600;
+    position: relative;
+    height: 45px;
+    padding: 0 40px;
+    border: 1px solid transparent;
+    border-radius: 56px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: 6px;
+    font-weight: 700;
+    font-size: 18px;
+    white-space: nowrap;
+    display: inline-block !important;
+    min-width: 200px;
+    background: #606ed0;
+    color: white;
+}
+.storyVideo{margin-left: 500px}
+
+/* 별 반쪽 포함 */
+.starR1{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.starR2{
+    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+    background-size: auto 100%;
+    width: 15px;
+    height: 30px;
+    float:left;
+    text-indent: -9999px;
+    cursor: pointer;
+}
+.starR1.on{background-position:0 0;}
+.starR2.on{background-position:-15px 0;}
+
+#movieFrame{
+	margin-left: 520px;
+	width: 650px;
+	height: 363px;
+}
+
+#back_color_body{
+   background-color: #1a1313;
+}
+#back_div{
+   width: 100%;
+   max-width: 80%;
+   margin: auto;
+}
+#movieFrameDiv{
+	 background-color: #1a1313;
+	 height:480px;
+	 padding-top: 100;
+	 padding-left: 150;
+}
+#movieFrame{
+	margin-left: 700px;
+}
+
+.repPaging a {
+    font-size: 19px;
+    color: black;
+    text-align: center;
+    line-height: 2.9em;
+	text-decoration: unset;
+	background-color: #fffbfb;
+    padding: 5px 7px;
+    font-weight: bold;
+    display: inline;
+  	border: 1px outset;
+}
+.repPaging{
+	margin: 0px;
+}
+#repCurpage{
+	background-color: #d3af71;
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+
+.logo{
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    padding-top: 20;
+    font-weight: lighter;
+    background-color: #1a1313;
+}
+#loginCheck{
+ background-color: #1a1313;
+}
+#reContent{
+font-size: 20px;
+}
+#btnRepSave{
+	padding-left: 16;
+	padding-right: 16;
+	font-size: 20;
+	margin-top: 20px;
+    margin-bottom: 30px;
+}
+#btnRepReset{
+	padding-left: 16;
+	font-size: 20;
+	padding-right: 16;
+	margin-top: 20px;
+    margin-bottom: 30px;
+}
+#reUserid{
+border: 0; 
+outline: none; 
+font-size: 22px;
+padding-bottom: 20px;
+}
+</style>
+
 </head>
 <body id = "back_color_body">
 <%@ include file = "../include/header.jsp" %>
@@ -181,23 +396,47 @@ function rederReplyDetail(data) {
 			<c:when test="${starResult==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
 		</c:choose>${starResult}
 	</div>
-	<h1 id="nameDiv" class = "movieTitle">${movieDetail.MOVIE_NAME}</h1>
-	<div id="outlineDiv" class = "movieInfo">개요 : ${movieDetail.GENRE_NAME} | ${movieDetail.COUNTRY_NAME}</div>
-	<div id="directorDiv" class = "movieInfo">감독 : ${movieDetail.DIRECTOR}</div>
-	<div id="actorDiv" class = "movieInfo">배우 : ${movieDetail.ACTOR_NAME}</div>
-	<!-- 영화소개는없다 api에 없음-->
-	<button type="button" id="Ticketing">지금 예매</button>
-</div>
+		<div id="imgDiv">
+			<img alt="이미지링크"  src="${movieDetail.MOVIE_POSTER_LINK}" width="300px" style="margin-top: -160;">
+		</div>
+			<div id="movieInfoDiv">
+				<div id="nameDiv"  class = "movieTitle">${movieDetail.MOVIE_NAME}</div>
+				<div id="directorDiv" class = "movieInfo">감독: ${movieDetail.DIRECTOR}</div>
+				<div id="genreDiv" class = "movieInfo">대표장르: ${movieDetail.GENRE_NAME}</div>
+				<div id="actorDiv" class = "movieInfo">배우 : ${movieDetail.ACTOR_NAME}</div>
+				<!-- 영화소개는없다 api에 없음-->
+				<div id="courtryDiv">제작국가명: ${movieDetail.COUNTRY_NAME}   </div>
+				<div id="starDiv"> 
+				<c:choose>
+					<c:when test="${starResult>=5.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star10.png"></c:when>
+					<c:when test="${starResult>=4.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star9.png"></c:when>
+					<c:when test="${starResult>=4.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star8.png"></c:when>
+					<c:when test="${starResult>=3.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star7.png"></c:when>
+					<c:when test="${starResult>=3.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star6.png"></c:when>
+					<c:when test="${starResult>=2.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star5.png"></c:when>
+					<c:when test="${starResult>=2.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star4.png"></c:when>
+					<c:when test="${starResult>=1.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star3.png"></c:when>
+					<c:when test="${starResult>=1.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star2.png"></c:when>
+					<c:when test="${starResult>=0.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star1.png"></c:when>
+					<c:when test="${starResult==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
+				</c:choose>	: ${starResult}</div>
+					<button type="button" id="Ticketing">지금 예매</button>
+		</div>
+	
+	<button type="button" id="btnRepAdd" style="margin-left: 30; padding-left: 15; padding-right: 15; font-size: 19;
+			background-color: #d3af71; color: white">댓글</button>
+
 	<hr id="reply0">
 	<button type="button" id="btnRepAdd">한 줄 평</button>
 <%--   ${replyList}  --%>
- 	<table id="replyBox">
- 		<tr>
- 			<th>No</th>
- 			<th>작성자</th>
- 			<th>평점</th>
- 			<th>한 줄 평</th>
- 			<th>등록일자</th>
+ 	<table border="1" style=" margin-left:400px;  margin-top: 50px" id="repTable">
+ 		<tr style="font-size: 17px">
+ 			<th width="50">No</th>
+ 			<th width="150px">작성자</th>
+ 			<th width="150px">평점</th>
+ 			<th width="700px">한줄평</th>
+ 			<th width="250px">등록일자</th>
+
  		</tr>
 		<c:forEach var="reList" items="${replyList}">
 		<tr> 
@@ -241,13 +480,12 @@ function rederReplyDetail(data) {
 		</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" id="reUserid" value="${sessionScope.user_id}" size="60" readonly="readonly"
-					style="border: 0; outline: none;">
+				<td><input type="text" id="reUserid" value=" ${sessionScope.user_id}" size="60" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<th>댓글</th>
-				<td><textarea rows="3" cols="80" id="reContent" maxlength="100"></textarea></td>
+				<td><textarea rows="3" cols="100" id="reContent" maxlength="100"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center"> 
@@ -267,7 +505,7 @@ function rederReplyDetail(data) {
 	
 	<c:forEach  var="i"  begin="${replyMap.replypage.startPage}" end="${replyMap.replypage.endPage}">
 		<c:if test="${replyMap.replypage.curPageReply==i}">
-			<a href="#" curPage="${i}" class="rList" >${i}</a>
+			<a href="#" curPage="${i}" class="rList" id="repCurpage">${i}</a>
 		</c:if>
 		<c:if test="${replyMap.replypage.curPageReply!=i}">
 			<a href="#" curPage="${i}" class="rList" >${i}</a>
