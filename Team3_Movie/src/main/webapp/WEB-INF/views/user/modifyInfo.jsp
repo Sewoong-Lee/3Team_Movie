@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file = "../include/include.jsp" %>
 <%@ include file = "../include/forSignUp.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -55,8 +55,11 @@ function setThumbnail(e) {
 </script>
 </head>
 <body id= "back_color_body">
+<%@ include file = "../include/header.jsp" %>
+<div id = "back_div">
 	<form name = "signUpF" method="post" action="${path}/user/modifyInfo" enctype="multipart/form-data">
 		<input type = "hidden" name = "user_id" value="${member.user_id}" >
+		<fieldset class = "modifyInfo-form">
 		<table style="width:80%">
 			<tr>
 				<td rowspan="5" align="center">
@@ -74,7 +77,7 @@ function setThumbnail(e) {
 				</td>
 			</tr>
 			<tr>
-				<th>취향</th>
+				<th>취향 |</th>
 				<td>
 					<div id = "genre">
 						<c:forEach var = "genre" items= "${genreList}" varStatus = "status">
@@ -99,30 +102,32 @@ function setThumbnail(e) {
 				</td>
 			</tr>
 			<tr>
-				<th>연락처</th>
+				<th>연락처 |</th>
 				<td>
 					<input type = "number" id = "tel" name = "tel" value = "${member.tel}" class = "inputSize">
 				</td>
 			</tr>
 			<tr>
-				<th>주소</th>
+				<th>주소 |</th>
 				<td>
 					<div>
 						<input type = "text" id = "zip" name = "zip" readonly="readonly" class = "inputSize" value = "${member.zip}">
-						<button type = "button" id = "findZip" class = "checkBtn">주소 찾기</button><br>
+						<button type = "button" id = "findZip" class = "modifyBtn">주소 찾기</button><br>
 						<input type = "text" name = "addr1" readonly="readonly" class = "inputSize" value = "${member.addr1}"><br>
 						<input type = "text" name = "addr2" class = "inputSize" placeholder="상세 주소를 입력하세요.">
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right">
-					<button id = "modify">확인</button>
-					<button type="reset">취소</button>
+				<td colspan="2" align="center">
+					<button id = "modify" class = "modifyBtn">확인</button>
+					<button type="reset" class = "modifyBtn">취소</button>
 				</td>
 			</tr>
 		</table>
+	</fieldset>
 	</form>
+</div>
 <%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

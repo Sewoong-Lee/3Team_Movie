@@ -57,6 +57,7 @@
 </script>
 </head>
 <body id = "back_color_body">
+<%@ include file = "./include/header.jsp" %>
 <div class = "emailAuth-form">
 	<div class = "phase">
 		<h3>STEP 1. 회원가입을 위한 본인 인증 단계입니다.</h3>

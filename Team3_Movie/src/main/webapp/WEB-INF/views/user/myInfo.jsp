@@ -21,6 +21,7 @@
 </script>
 </head>
 <body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 <div id = "back_div">
 <h2>| 회원가입 |</h2>
 	<div align="right"><a href = "${path}/user/modifyInfo?user_id=${member.user_id}">회원 정보 수정</a></div>

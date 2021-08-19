@@ -102,6 +102,7 @@
 </script>
 </head>
 <body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 	<h5>내 정보 찾기</h5>
 <ul>
 	<li><a href="" class = "clickState clicked" id = "findId">아이디 찾기</a></li>
@@ -131,5 +132,6 @@
 		</p>
 	</div>
 </fieldset>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

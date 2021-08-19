@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
-<c:set var="path" value="${pageContext.request.contextPath}"/>      
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>  
-<%-- <%@ include file = "../include/header.jsp" %> --%>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>CCV</title>
 <style>
 .paging a {
     font-size: 19px;
@@ -23,7 +20,7 @@
   	border: 1px outset;
 }
 .paging{
-	margin: 0px;
+	margin: 30px;
 }
 
 #aCurPage{
@@ -32,31 +29,6 @@
 	font-size: 22px;
 	font-weight: bold;
 }
-#imgListDiv{
-    text-align: center;
-    width: 1600;
-    display: block;
-    margin: auto;
-}
-#back_color_body{
-   background-color: #1a1313;
-}
-#back_div{
-   width: 100%;
-   max-width: 80%;
-   margin: auto;
-}
-#searchIn{
-    float: right;
-    margin: 30px;
-    flex: auto;
-    margin-right: 15%;
-    padding-block-end: inherit;
-}
-#btnFind{
-	font-size: 18px;
-}
-
 
 </style>
 <script type="text/javascript">
@@ -73,45 +45,39 @@
 	//검색 조건
 	$('#btnFind').click(function() {
 		var findMovie = $('#findMovie').val();
-		alert(findMovie);
 		location.href="${path}/moviedata/list?findkey="+findMovie;
 	});
 });
- 
 </script>
-
 </head>
-<body id="back_color_body">
- ${sessionScope.user_id} : 세션아이디 
-
+<body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 	<!-- 검색조회 -->
-	<fieldset id="searchIn" style=" width: 380; ">
-		<input type="text" style=" height:40; width: 300; margin-bottom: 10;" id="findMovie" placeholder="장르 및 영화제목을 입력해주세요"; 
-			onkeypress="javascript:if(event.keyCode==13) $('#btnFind').click()">
-		<button id="btnFind" type="button" style="padding:8px; padding-right:15px; padding-left:15px" >조회</button>
-	</fieldset>
+<!-- 	<fieldset style=" width: 300;">
+		<input type="text" style=" height:30; width: 250;" id="findMovie">
+		<button id="btnFind" type="button">조회</button>
+	</fieldset> -->
 	
- 	<h2 align="center" style="padding: 30px">영화 리스트</h2>
- 	<div id="mainDiv">
- 		<div id="imgListDiv" style="text-align: center;">
+ 	<h2 align="center" style="padding: 30px">상영 중인 영화</h2>
+ 		<div style="text-align: center;">
 	 		<c:forEach var="list" items="${movieList}">
-		 		<div style="display: inline-block;  margin-bottom: 40; width: 270px">
+		 		<div style="display: inline-block; margin: 0 20px;">
 		 			<div>
 			 			<a href="${path}/moviedata/detail?movie_num=${list.movie_num}"> 
-			 			<img alt="이미지링크" src="${list.movie_poster_link}" width="220px" style="border: 1px solid white; border-radius: 10px"></a>
+			 			<img alt="이미지링크" src=" ${list.movie_poster_link} " width="150px"></a>
 			 		</div>
-				 	<div style=" margin-top: 10px; margin-bottom: 30px;
-					 	 text-align: center;  color: white;
-						 font-weight: bold;	 font-size: 18px;">
-				 		 ${list.movie_name}
+				 	<div style=" margin-top: 10px;
+					 	 text-align: center;
+						 color: #925e5e;
+						 font-weight: bold;
+						 font-size: 18px;">
 		 			</div>
 	 			</div>
 	 		</c:forEach>
  		</div>
- 	</div>
- 		
  	<br>
  	
+<%--  	${mv_Page} --%>
  	<input type="hidden" id="cfindKey" value="${mv_Page.findkey}">
  	<div class="paging" align="center">
  	<c:if test="${mv_Page.startPage != 1}">
@@ -129,8 +95,6 @@
 		<a href="#" curPage="${mv_Page.endPage+1}"  class="aList"  style="margin-left:20px; background-color:gainsboro" > > </a>
 	</c:if>
  	</div>
-
- 	
- 	
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

@@ -48,8 +48,9 @@
 	});
 </script>
 </head>
-<body>
+<body id= "back_color_body">
 <%@ include file = "../include/header.jsp" %>
+<div id = "back_div">
 	<div class = "phase">
 		<h3>비밀번호 변경을 위한 본인 인증 단계입니다.</h3>
 	</div>
@@ -60,5 +61,7 @@
 			<button id = "changePw">변경</button>
 		</form>
 	</div>
+</div>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>

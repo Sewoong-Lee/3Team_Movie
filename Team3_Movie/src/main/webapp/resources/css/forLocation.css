@@ -2,6 +2,7 @@
 
 .row-loc .box{
 	position: relative;
+	cursor: pointer;
 }
 
 .row-loc p{

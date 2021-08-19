@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
-<c:set var="path" value="${pageContext.request.contextPath}"/>      
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script> 
-<%-- <%@ include file = "../include/header.jsp" %> --%>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리스트</title>
+<title>CCV</title>
 <script type="text/javascript">
+function init(){
+	if (${sessionScope.user_id == null}){
+		alert("로그인 후 이용 가능합니다.");
+		location.href = "${path}/user/login";
+	}
+}
 $(function() {
 	<%
 	Cookie[] cookies = request.getCookies();
@@ -44,6 +47,7 @@ $(function() {
 		ajaxListTotAjax(${sessionScope.curpageTot});
 });
 
+
 //ajax 영화리스트 
 function ajaxListTotAjax(curPage) {
 	var ajaxParm = {
@@ -55,6 +59,7 @@ function ajaxListTotAjax(curPage) {
 		},
 		error: function(err){
 			console.log(err);
+			alert("실패");
 		}
 	};
 	$.ajax(ajaxParm);
@@ -70,6 +75,7 @@ function ajaxListUser(curPageListUser) {
 			renderUserMovie(data);
 		},
 		error: function(err) {
+			alert('실패');
 			console.log(err);
 		}
 	};
@@ -202,14 +208,15 @@ function renderUserMovie(data) {
 <style>
 .userListDiv {
 	display: inline-block;
-	margin-bottom: 40;
+	margin: 30px;
 }
 .TotListDiv{
 	display: inline-block;
-	margin-bottom: 40;
+	margin: 30px;
 }
 .paging {
 	text-align: center;
+	margin: 30px;
 }
 .paging a {
     font-size: 19px;
@@ -226,7 +233,6 @@ function renderUserMovie(data) {
  }
 #Nextpage{
 	margin-left: 20px;
-/* 	background-color: gainsboro; */
 	background-color: gainsboro;
 }
 #Befpage{
@@ -235,20 +241,20 @@ function renderUserMovie(data) {
 }
 
 .paging a.on {
-    background-color: #de9999;
+	background-color: #de9999;
 	color: white;
 	font-size: 22px;
 	font-weight: bold;
 }
 #userListWrap{
 	text-align: center;
-	color: white;
-    font-weight: bold;
-    font-size: 18px;
+	color: #925e5e;
+	font-weight: bold;
+	font-size: 18px;
 }
 #TotListWrap{
 	text-align: center;
-	color: white;
+	color: #925e5e;
     font-weight: bold;
     font-size: 18px;
 }
@@ -262,37 +268,11 @@ function renderUserMovie(data) {
 	margin: auto;
 }
 
-.userListDiv span{
-	margin-top: 10px;
-	width: 260px;
-}
-.TotListDiv span{
-	margin-top: 10px;
-	width: 260px;
-}
-#back_color_body{
-   background-color: #1a1313;
-}
-#back_div{
-   width: 100%;
-   max-width: 80%;
-   margin: auto;
-}
-img[src]{
-	border: 1px solid white;
-	border-radius:10px;
-}
-
-
 
 </style>
-
-
 </head>
-<body id="back_color_body">
-${sessionScope.curpageUser}:유저 컬페이지 <br>
- ${sessionScope.curpageTot}:전체 컬페이지 수 <br>
- ${sessionScope.user_id} <br>
+<body id = "back_color_body" onload = "init()">
+<%@ include file = "../include/header.jsp" %>
 <%--  ${sessionScope.curpageListTot}  --%>
 <%-- ${movieListUser} <br> --%>
 <input type="hidden" id="curPageSave" value="">
@@ -303,13 +283,15 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
 	 	<c:forEach var="UserList" items="${movieListUser}">
 	 		<div class="userListDiv">
 		 		<a href="${path}/moviedata/detail?movie_num=${UserList.MOVIE_NUM}" > 
-		 			<img class="imgList" alt="이미지" src="${UserList.MOVIE_POSTER_LINK}" width="150px"></a>
+		 			<img alt="이미지" src="${UserList.MOVIE_POSTER_LINK}" width="150px"></a>
 		 		<span>${UserList.MOVIE_NAME}</span>
 	 		</div> 
 	 	</c:forEach>
  	</div>
  <!-- 	페이징 처리 -->
-	<div class="paging paging1"> </div>
+	<div class="paging paging1"> 
+ 	</div>
+ 	
  	<h2></h2>
   <!-- 전체영화리스트 -->
 	<h2 align="center" style="padding-top: 30;">인기(최신) 상영작</h2>
@@ -317,15 +299,16 @@ ${sessionScope.curpageUser}:유저 컬페이지 <br>
 	 	<c:forEach var="list" items="${movieList}">
 	 		<div class="TotListDiv">
  				<a href="${path}/moviedata/detail?movie_num=${list.movie_num}"> 
- 					<img alt="이미지링크" src=" ${list.movie_poster_link} " width="150px"></a>
+ 					<img alt="이미지링크" src=" ${list.movie_poster_link}" width="150px"> </a>
  				<span>${list.movie_name}</span>	
 	 		</div>
  		</c:forEach>
 	</div>
+ 
  <!-- 	페이징 처리 -->
- <div class="paging paging2"></div>
-
-
+ 	<div class="paging paging2">
+ 	</div>
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>
 

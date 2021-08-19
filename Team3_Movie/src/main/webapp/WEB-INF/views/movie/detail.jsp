@@ -1,68 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
-<c:set var="path" value="${pageContext.request.contextPath}"/>     
-<%@ include file="../include/include.jsp" %>
-<%-- <%@ include file = "../include/header.jsp" %> --%>
+<%@ include file = "../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영화 디테일</title> 
+<title>CCV</title>
+<link href = "${path}/resources/css/forMovieDetail.css" rel = "stylesheet"/>
 <script type="text/javascript">
 $(function() {
-	//youtube api 우선 youtube api 제재로 인해 주석처리
-  	function youtube() {
-  		var movieCode = $('#movieName').val().replace(/|(<([^>]+)>)|/ig,""); 
-	 	var movieName = movieCode.replace('|','')
-	 	var youtube_link = $('#youtube_link').val();
-	 	alert(movieName);
-		if(youtube_link !=''){ 
-			alert('비디오코드 등록됨');
-			$("#movieFrame").attr("src","https://www.youtube.com/embed/"+youtube_link+'?allow="autoplay=1"');
-			return; 
-		}
-	 	$.ajax({
-	 		url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&videoDuration=short&order=date',
-	 		/* url:'https://www.googleapis.com/youtube/v3/search?part=id&key=AIzaSyApW5dfgmSQHb26-5tazfF0HYUucH5wGhs&q='+movieName+" 메인 예고편"+'&type=video&videoEmbeddable=true&videoType=videoTypeUnspecified&maxResults=1&order=date', */
-			type:'get',
-			success:function(data){
-				console.log(data);
-				youtubeData(data);
-			},
-			error:function(err){
-				console.log(err);
-			}
-		});  
-	}; 
-	 youtube();
-	//유튜뷰 result 
-   	function youtubeData(data) {
-		console.log(data);
-		var object = data['items'];
-		var items = object[0];
-	 	var id = items['id'];
-	 	var video = id['videoId'];
-	 	youtubeInsert(video);
-		/*  $("#movieFrame").prop("src", "https://www.youtube.com/embed/"+video)  */
- 		/* $("#movieFrame").attr("src","https://www.youtube.com/embed/"+video+'?allow="autoplay=1"'); */
-	} 
-
-//영화 유튜브링크 등록 
-function youtubeInsert(video) {
-	var movie_num = $('#movieNum').val();
-	$.ajax({
-		url:'${path}/moviedata/youtubeInset?youtube_link='+video+'&movie_num='+movie_num,
-		type:'post',
-		success: function(data) {
-			$("#movieFrame").attr("src","https://www.youtube.com/embed/"+video+'?allow="autoplay=1"');
-		},error: function(err) {
-			console.log('실패');
-		}
-	});
-}
-	
-	
 	//댓글 추가 클릭시
 	$('#btnRepSave').click(function(e) {
 		e.preventDefault();
@@ -72,15 +18,10 @@ function youtubeInsert(video) {
 		var relevel = $('#relevel').val();
 		var movie_num = $('#movieNum').val();
 		var star_rating = $('.starRev').find('.on').last().text();
-		if(content==''){
-			alert('글을 작성해주세요');
-			$('#reContent').focus();
-			return;
-		}		
-		if(star_rating ==''){	
-			alert('평점을 선택해주세요');
-			return;
-		} 
+		alert("별평점")
+		alert(star_rating);
+		alert(movie_num);
+		
  		$.ajax({
 			url:'${path}/reply/',
 			type:'post',
@@ -89,12 +30,12 @@ function youtubeInsert(video) {
 			dataType:'text',
 			success: function(data) {
 				console.log(data);
-				alert("댓글추가 완료되었습니다")
-			    $('#repAdd').hide(); 
-				location.replace("${path}/moviedata/detail?movie_num="+$('#movieNum').val());
+				alert("댓글 추가 완료되었습니다.")
+			    	$('#repAdd').hide(); 
 			},
 			error: function(err) {
 				console.log(err);
+				alert("실패");
 			}
 		}); 
 	});
@@ -104,6 +45,7 @@ function youtubeInsert(video) {
 		e.preventDefault();
 		$('#repAdd').hide();
 		var mr_num = $(this).attr("mr_num");
+		alert(mr_num);
 		$.ajax({ 
 			url:'${path}/reply/detail?mr_num='+mr_num,
 			type:'get',
@@ -118,7 +60,6 @@ function youtubeInsert(video) {
 		});
 	});
 
-	
 //내용선택시 ajax로 data받은값	
 function rederReplyDetail(data) {
 	$('#reDtable').show();
@@ -138,10 +79,7 @@ function rederReplyDetail(data) {
 	//원본 댓글 클릭 햇을때 추가
 	$('#btnRepAdd').click(function(e) {
 		e.preventDefault();
-		if(${sessionScope.user_id==null}){
-			alert('로그인을 해주세요')
-			return;
-		}
+		alert("원본댓글");
 		$('#reDtable').hide();
 		$('#repAdd').show();
 	});
@@ -153,19 +91,17 @@ function rederReplyDetail(data) {
 		var user_id = $('#reDUser_id').text();	
 		var content = $('#reDContent').val();
 		//권한체크 
-		if(user_id !='${sessionScope.user_id}'){
+			if(user_id !='${sessionScope.user_id}'){
 			alert('수정권한이 없습니다');
 			return;
-		};
+			};
 		$.ajax ({
 			url:'${path}/reply/modify',
 			type:'post',
 			data:{mr_num,movie_num,user_id,content},
 			success: function(data) {
-				alert("수정하였습니다");
-				$("tr[reDmr_num='" + $('#reDmr_num').val() + "']").find(".repContent").text(content);
+				alert("수정하였습니다")
 				$('#reDtable').hide();
-				location.reload()
 			},
 			error: function(err) {
 				alert("실패");
@@ -179,6 +115,7 @@ function rederReplyDetail(data) {
 		var user_id = $('#reDUser_id').text();	
 		var mr_num = $('#reDmr_num').val();
 		var movie_num = $('#movie_num').val();
+		
 		if(user_id !='${sessionScope.user_id}'){
 			alert('수정권한이 없습니다');
 			return;
@@ -193,22 +130,25 @@ function rederReplyDetail(data) {
  	$('.starRev span').click(function(){
 		  $(this).parent().children('span').removeClass('on');
 		  $(this).addClass('on').prevAll('span').addClass('on');
+		  alert($(this).html());
 		  return false;
 		});
 	
 	//예매클릭 햇을때 
 	$('#Ticketing').click(function(e) {
 		e.preventDefault()
-		var MOVIE_NUM = ${movieDetail.MOVIE_NUM} 
-		alert(MOVIE_NUM);
+		var movie_num = ${movieDetail.MOVIE_NUM};
+		alert(movie_num);
 		alert("예매");
-		location.href="${path}/cinema/city?movie_num="+MOVIE_NUM;
+		location.href="${path}/cinema/city?movie_num="+movie_num;
 	});
 	
 	//페이지 번호 클릭시 
 	$('.rList').click(function() {
 		var curPage = $(this).attr('curPage');
 		var movie_num = $('#movieNum').val();
+		alert(curPage);
+		alert(movie_num);
 		location.href="${path}/moviedata/detail?curPageReply="+curPage+"&movie_num="+movie_num;
 	});
 	if('${msg}'){
@@ -216,161 +156,51 @@ function rederReplyDetail(data) {
 	};
 	$('#repAdd').hide();
 });
-
-
 </script>
-<style>
-
-#repAdd{
-	float: left;
-    display: block;
-    margin: auto;
-    margin-top: 30;
-    margin-left: 500;
-}
-
-#imgDiv{
-    margin-left: 310;
-    left: 30;
-    right: 30;
-    bottom: 30;
-    padding-left :50;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-}
-#movieInfoDiv{
-	position: absolute; left: 650px; height: 420px; width: 480px; top: 110px; font-size: 19px;
-	color: black;
-	margin-top: 460;
-}
-#nameDiv{top: 22px; font-size: 30px}
-#directorDiv{margin-top: 25px;}
-#actorDiv{margin-top: 12px}
-#genreDiv{width: 450px;
-    margin-top: -26;
-    margin-left: 400;
-}
-#courtryDiv{margin-top: 12px}
-#starDiv{margin-top:12px}
-#Ticketing{
-    margin-top: -60;
-    margin-left: 400;
-    position: relative;
-    height: 45px;
-    padding: 0 40px;
-    border: 1px solid transparent;
-    border-radius: 56px;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    line-height: 6px;
-    font-weight: 700;
-    font-size: 18px;
-    white-space: nowrap;
-    display: inline-block !important;
-    min-width: 200px;
-}
-.storyVideo{margin-left: 500px}
-
-/* 별 반쪽 포함 */
-.starR1{
-    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
-    background-size: auto 100%;
-    width: 15px;
-    height: 30px;
-    float:left;
-    text-indent: -9999px;
-    cursor: pointer;
-}
-.starR2{
-    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
-    background-size: auto 100%;
-    width: 15px;
-    height: 30px;
-    float:left;
-    text-indent: -9999px;
-    cursor: pointer;
-}
-.starR1.on{background-position:0 0;}
-.starR2.on{background-position:-15px 0;}
-
-#movieFrame{
-	margin-left: 520px;
-	width: 650px;
-	height: 363px;
-}
-
-#back_color_body{
-   background-color: #1a1313;
-}
-#back_div{
-   width: 100%;
-   max-width: 80%;
-   margin: auto;
-}
-#movieFrameDiv{
-	 background-color: #1a1313;
-	 height:480px;
-	 padding-top: 50;
-}
-#movieFrame{
-	margin-left: 700px;
-}
-</style>
 </head>
-<body >
-<%--  ${sessionScope.user_id}
-${movieDetail}<Br>
-${movieDetail.YOUTUBE_LINK}  --%>
-
+<body id = "back_color_body">
+<%@ include file = "../include/header.jsp" %>
 <%-- ${movieDetail} <br> --%>
-<input type="hidden" id="movieName" value="${movieDetail.MOVIE_NAME}">
-<input type="hidden" id="youtube_link" value="${movieDetail.YOUTUBE_LINK}">
 
-	<div id="movieFrameDiv">
-		<iframe id="movieFrame" width="600" height="450" src="https://www.youtube.com/embed/${movieDetail.YOUTUBE_LINK}?autoplay=1&mute=1";frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div id="posterDiv">
+	<img alt="이미지링크" src="${movieDetail.MOVIE_POSTER_LINK}" width="250px">
+</div>
+<div id="movieInfoDiv">
+	<div id="starDiv"> 
+		<c:choose>
+			<c:when test="${starResult>=5.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star10.png"></c:when>
+			<c:when test="${starResult>=4.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star9.png"></c:when>
+			<c:when test="${starResult>=4.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star8.png"></c:when>
+			<c:when test="${starResult>=3.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star7.png"></c:when>
+			<c:when test="${starResult>=3.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star6.png"></c:when>
+			<c:when test="${starResult>=2.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star5.png"></c:when>
+			<c:when test="${starResult>=2.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star4.png"></c:when>
+			<c:when test="${starResult>=1.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star3.png"></c:when>
+			<c:when test="${starResult>=1.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star2.png"></c:when>
+			<c:when test="${starResult>=0.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star1.png"></c:when>
+			<c:when test="${starResult==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
+		</c:choose>${starResult}
 	</div>
-		<div id="imgDiv">
-			<img alt="이미지링크"  src="${movieDetail.MOVIE_POSTER_LINK}" width="230px" style="margin-top: -70;">
-		</div>
-			<div id="movieInfoDiv">
-				<div id="nameDiv">제목: ${movieDetail.MOVIE_NAME}</div>
-				<div id="directorDiv">감독: ${movieDetail.DIRECTOR}</div>
-				<div id="genreDiv">대표장르: ${movieDetail.GENRE_NAME}</div>
-				<div id="actorDiv">배우: ${movieDetail.ACTOR_NAME}</div>
-				<!-- 영화소개는없다 api에 없음-->
-				<div id="courtryDiv">제작국가명: ${movieDetail.COUNTRY_NAME}   </div>
-				<div id="starDiv"> 
-				<c:choose>
-					<c:when test="${starResult>=5.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star10.png"></c:when>
-					<c:when test="${starResult>=4.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star9.png"></c:when>
-					<c:when test="${starResult>=4.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star8.png"></c:when>
-					<c:when test="${starResult>=3.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star7.png"></c:when>
-					<c:when test="${starResult>=3.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star6.png"></c:when>
-					<c:when test="${starResult>=2.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star5.png"></c:when>
-					<c:when test="${starResult>=2.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star4.png"></c:when>
-					<c:when test="${starResult>=1.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star3.png"></c:when>
-					<c:when test="${starResult>=1.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star2.png"></c:when>
-					<c:when test="${starResult>=0.5}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star1.png"></c:when>
-					<c:when test="${starResult==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
-				</c:choose>	: ${starResult}</div>
-					<button type="button" id="Ticketing">지금 예매</button>
-		</div>
-	
-	<button type="button" id="btnRepAdd">댓글</button>
+	<h1 id="nameDiv" class = "movieTitle">${movieDetail.MOVIE_NAME}</h1>
+	<div id="outlineDiv" class = "movieInfo">개요 : ${movieDetail.GENRE_NAME} | ${movieDetail.COUNTRY_NAME}</div>
+	<div id="directorDiv" class = "movieInfo">감독 : ${movieDetail.DIRECTOR}</div>
+	<div id="actorDiv" class = "movieInfo">배우 : ${movieDetail.ACTOR_NAME}</div>
+	<!-- 영화소개는없다 api에 없음-->
+	<button type="button" id="Ticketing">지금 예매</button>
+</div>
 	<hr id="reply0">
+	<button type="button" id="btnRepAdd">한 줄 평</button>
 <%--   ${replyList}  --%>
- 	<table border="1" style=" margin-left:350px;  margin-top: 50px" id="repTable">
- 		<tr style="font-size: 17px">
- 			<th width="50">No</th>
- 			<th width="150px">작성자</th>
- 			<th width="150px">평점</th>
- 			<th width="700px">한줄평</th>
- 			<th width="250px">등록일자</th>
+ 	<table id="replyBox">
+ 		<tr>
+ 			<th>No</th>
+ 			<th>작성자</th>
+ 			<th>평점</th>
+ 			<th>한 줄 평</th>
+ 			<th>등록일자</th>
  		</tr>
 		<c:forEach var="reList" items="${replyList}">
-		<tr style="text-align: center" reDmr_num="${reList.MR_NUM}"> 
+		<tr> 
 			<td>${reList.MR_NUM}</td>
 			<td>${reList.USER_ID}</td>
 			<td class="cStar">	
@@ -384,41 +214,31 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 					<c:when test="${reList.STAR_RATING==0.0}"><img alt="star" src="https://image.aladin.co.kr/img/shop/2012/icon_star0.png"></c:when>
 				</c:choose> ${reList.STAR_RATING}
 			</td>
-			<td>
-				<c:choose>
-					<c:when test="${sessionScope.user_id eq reList.USER_ID}">
-						<a href="#" class="repContent" mr_num="${reList.MR_NUM}">${reList.CONTENT}</a>
-					</c:when>
-					<c:otherwise>
-						${reList.CONTENT}
-					</c:otherwise>
-				</c:choose> 
-			</td>
+			<td><a href="#" class="repContent" mr_num="${reList.MR_NUM}">${reList.CONTENT}</a></td>
 			<td>${reList.REG_DATE}</td>
 		</tr>
 		</c:forEach>
 	</table> 
-
-
-	<!-- 댓글 추가  -->
+	<!-- 한 줄 평 남기기  -->
 	<div id="repAdd">
-		<h2 style="padding-left: 200px">리뷰 작성하기</h2>
 		<input type="hidden" id="reStep"  value="0">
 		<input type="hidden" id="relevel" value="0">
 		<input type="hidden" id="movieNum" value="${movieDetail.MOVIE_NUM}">
 		<table style="padding-top: 20px;">
-			<div class="starRev" style="padding-left: 100px">
-			  <span class="starR1">0.5</span>
-			  <span class="starR2">1.0</span>
-			  <span class="starR1">1.5</span>
-			  <span class="starR2">2.0</span>
-			  <span class="starR1">2.5</span>
-			  <span class="starR2">3.0</span>
-			  <span class="starR1">3.5</span>
-			  <span class="starR2">4.0</span>
-			  <span class="starR1">4.5</span>
-			  <span class="starR2">5.0</span>
-			</div>
+		<tr>
+			<td class="starRev" style="padding-left: 100px">
+				  <span class="starR1">0.5</span>
+				  <span class="starR2">1.0</span>
+				  <span class="starR1">1.5</span>
+				  <span class="starR2">2.0</span>
+				  <span class="starR1">2.5</span>
+				  <span class="starR2">3.0</span>
+				  <span class="starR1">3.5</span>
+				  <span class="starR2">4.0</span>
+				  <span class="starR1">4.5</span>
+				  <span class="starR2">5.0</span>
+			</td>
+		</tr>
 			<tr>
 				<th>작성자</th>
 				<td><input type="text" id="reUserid" value="${sessionScope.user_id}" size="60" readonly="readonly"
@@ -437,7 +257,7 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 			</tr>
 		</table>
 	</div>
-	
+
 <%-- ${replyMap} --%>
 	<!-- 댓글 페이징 -->
  	<div class="repPaging" style=" margin-top:10px; margin-left: 1000px; margin-top: 30px ">
@@ -458,7 +278,6 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 		<a href="#" curPage="${replyMap.replypage.endPage+1}"  class="rList" >다음</a>
 	</c:if>
  	</div>
- 	<h2> </h2><br>
 
 
 	<!-- 댓글 수정삭제 -->
@@ -489,10 +308,6 @@ ${movieDetail.YOUTUBE_LINK}  --%>
 			</tr>
 		</table> 
  	</form>
-
-	
-
-
-
+<%@ include file = "../include/footer.jsp" %>
 </body>
 </html>
