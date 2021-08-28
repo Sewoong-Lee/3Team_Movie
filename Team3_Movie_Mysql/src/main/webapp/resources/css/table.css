@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/* 테이블 css */
+	#board_table {
+	  font-family: Arial, Helvetica, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+/* 	  max-width: 95%; */
+	  margin: auto;
+	  border: 1px solid #ffffff;
+	}
+	
+	#board_table td, #customers th {
+		border: 1px solid #ffffff;
+		padding: 8px;
+	}
+	
+	#board_table {color: white;}
+	
+	#board_table th {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	  text-align: center;
+	  background-color: #000000;
+	  color: white;
+	  font-size: medium;
+	}
+	#board_table td {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	  text-align: center;
+	  background-color: #211d1d;
+	  font-size: small;
+	}
+	
+	/* sales_table 테이블 css */
+	.sales_table {
+	  font-family: Arial, Helvetica, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	  max-width: 75%;
+	  margin: auto;
+	  border: 1px solid #ffffff;
+	}
+	
+	.sales_table td, #customers th {
+		border: 1px solid #ffffff;
+		padding: 8px;
+	}
+	
+	.sales_table {color: white;}
+	
+	.sales_table th {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	  text-align: center;
+	  background-color: #000000;
+	  color: white;
+	  font-size: medium;
+	}
+	.sales_table td {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	  text-align: center;
+	  background-color: #211d1d;
+	  font-size: small;
+	}

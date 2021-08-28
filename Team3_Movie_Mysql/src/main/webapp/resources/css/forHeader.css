@@ -1,0 +1,78 @@
+@charset "UTF-8";
+
+body {
+	font-family: "Noto Sans CJK KR", sans-serif;
+}
+
+header .logo {
+	display: block;
+	margin: 0 auto;
+}
+.logo img {
+	width: 15%;
+	display: block;
+    margin: 0 auto;
+}
+
+#back_color_body{
+	background-color: #1a1313;
+	color: white;
+}
+#back_div{
+   width: 100%;
+   max-width: 80%;
+   margin: auto;
+}
+
+.menu-bar{
+	background-color: #0d0909;
+	display: flex;
+	justify-content: center;
+}
+
+.dropbtn {
+	background-color: #0d0909;
+	color: white;
+	padding-top: 16px;
+	padding-bottom:16px;
+	width : 200px;
+	font-size: 22px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: white;
+	min-width: 200px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown:hover .dropbtn {
+	background-color: #d3af71;
+}
+a {
+	text-decoration: none;
+}

@@ -211,11 +211,11 @@ function renderUserMovie(data) {
 <style>
 .userListDiv {
 	display: inline-block;
-	margin: 30px;
+	/* margin: 30px; */
 }
 .TotListDiv{
 	display: inline-block;
-	margin: 30px;
+	/* margin: 30px; */
 }
 .paging {
 	text-align: center;
@@ -266,11 +266,13 @@ function renderUserMovie(data) {
 .userListDiv span{
 	display: table;
 	margin: auto;
+	color: white; /* 추가 */
 }
 
 .TotListDiv span{
 	display: table;
 	margin: auto;
+	color: white; /* 추가 */
 }
 
 
@@ -313,6 +315,7 @@ function renderUserMovie(data) {
 <input type="hidden" id="curPageUserSave" value="">
 <!-- 회원관심 영화리스트 -->
 <h2 align="center" style="margin-top: 100px">취향저격</h2> 
+<br>
 	<div id="userListWrap">
 	 	<c:forEach var="UserList" items="${movieListUser}">
 	 		<div class="userListDiv">

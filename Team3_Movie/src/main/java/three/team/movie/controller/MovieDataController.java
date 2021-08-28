@@ -34,6 +34,8 @@ import three.team.movie.dao.MovieDataDAO;
 import three.team.movie.dto.Mv_Page;
 import three.team.movie.dto.Mv_movie_data;
 import three.team.movie.dto.Mv_movie_reply;
+import three.team.movie.dto.Mv_time;
+import three.team.movie.service.CinemaService;
 import three.team.movie.service.MovieApiService;
 import three.team.movie.service.MovieDataService;
 import three.team.movie.service.ReplyService;
@@ -58,6 +60,9 @@ public class MovieDataController {
 	@Autowired
 	private ReplyService replyService;
 	
+	@Autowired
+	private CinemaService cinemaservice;
+	
 	//세션유저아이디 체크..로그인시 뷰 보이게..
 	
 	//인서트는 관리자만 가능 (우선DB에서만 인서트해서 보류중.)
@@ -80,6 +85,14 @@ public class MovieDataController {
 	@RequestMapping("detail")
 	public String detail(HttpServletRequest request, Model model,HttpServletResponse response,HttpSession session,RedirectAttributes rattr){ 
 		int movie_num = Integer.parseInt(request.getParameter("movie_num"));
+		
+		// 예매 가능 날짜 가져오기 (지금 추가)
+		List<Mv_time> timelist = cinemaservice.timeselectlist(movie_num);
+		if(timelist.isEmpty()) {
+			String movie_time = "0"; //0이면 예매정보 없음
+			model.addAttribute("movie_time", movie_time);
+		}
+		
 		//영화 한건 조회 (detail)
 		
 		 Map<String, Object> mv_movie_data = movieDataService.selectOne(movie_num);

@@ -1,0 +1,56 @@
+package three.team.movie.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import three.team.movie.dao.ReplyDAO;
+import three.team.movie.dto.Mv_movie_reply;
+
+@Service
+public class ReplyServiceImpl implements ReplyService{
+
+	@Autowired
+	private ReplyDAO replyDAO;
+	
+	//댓글 추가 
+	@Override
+	public void insert(Mv_movie_reply reply) throws Exception  {
+		replyDAO.insert(reply);
+	}
+
+	//댓글리스트
+	@Override
+	public List<Map<String, Object>> selectList(Map<String, Object> replyMap) throws Exception  {
+		return replyDAO.selectList(replyMap);
+	}
+
+	//댓글 디테일
+	@Override
+	public Mv_movie_reply selectOne(int mr_num) throws Exception  {
+		return replyDAO.selectOne(mr_num);
+	}
+
+	//원본글 삭제 
+	@Override
+	public void delete(int mr_num) throws Exception  {
+		replyDAO.delete(mr_num);
+	}
+
+	//원본글 수정
+	@Override
+	public void modify(Mv_movie_reply reply) throws Exception  {
+		replyDAO.modify(reply);
+	}
+
+	//회원 세션아이디 게시물번호 일치여부 확인 
+	@Override
+	public int selectOneUpCheck(int mr_num, String user_id) throws Exception  {
+		return replyDAO.selectOneUpCheck(mr_num,user_id);
+	}
+
+
+
+}

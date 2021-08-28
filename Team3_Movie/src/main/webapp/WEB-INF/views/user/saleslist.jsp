@@ -15,6 +15,27 @@
 		color: white;
 		text-align: center;
 	}
+	
+	.cancel_btn {
+	   background-color: #d3af71;
+	   color: white;
+	   width: 120px;
+	   height: 40px;
+	   text-align: center;
+	   text-decoration: none;
+	   display: inline-block;
+	   font-size: 16px;
+	   margin: 4px 2px;
+	   transition-duration: 0.4s;
+	   cursor: pointer;
+	   border: 2px solid #d3af71;
+		}
+	
+	.cancel_btn:hover {
+	   background-color: white;
+	   color: black;
+	   cursor: pointer;
+	}
 </style>
 <script type="text/javascript">
 	$(function() {

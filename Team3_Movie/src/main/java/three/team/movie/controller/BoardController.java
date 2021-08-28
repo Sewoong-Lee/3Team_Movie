@@ -65,9 +65,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("boarddetail")
-	public void  eventdetail(Model model, int board_num, HttpSession seeeion) {
+	public void  eventdetail(Model model, int board_num, HttpSession seeeion, HttpServletRequest request) {
 		logger.info(board_num+"");
 		String user_id =(String) seeeion.getAttribute("user_id");
+		System.out.println("디테일 아이디"+user_id);
+		if(user_id == null) {
+			user_id =request.getRemoteAddr();
+		}
 		boardService.readcountadd(board_num, user_id);
 		
 		Map<String, Object> board_detail_map = boardService.selectone(board_num);

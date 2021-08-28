@@ -72,7 +72,7 @@
 		)mss
 	</insert>
 	<select id="slectmaxsal_num" resultType="int">
-		select max(sal_num) maxsal_num from mv_sales
+		select NVL(max(sal_num),0) maxsal_num from mv_sales
 		<!-- select SALES_NUM.nextval from dual -->
 	</select>
 	

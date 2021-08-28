@@ -32,6 +32,8 @@
 	<!-- String uploadDir = new String("D:/upload"); -->
 	<bean id="uploadDir" class="java.lang.String">
 		<constructor-arg value="D:/upload"/>
+		<!-- 실서버에서 실행하기 위한 리눅스 경로 -->
+		<!-- <constructor-arg value="/var/lib/tomcat9/webapps/upload"/> -->
 	</bean>
 	
 	<!-- 암호화 bean생성 -->
@@ -52,8 +54,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com"/>
 		<property name="port" value="587"/>
-		<property name="username" value="ruddms5576@gmail.com"/>
-		<property name="password" value="9goo9lee"/>
+		<property name="username" value="stpnlsw@gmail.com"/>
+		<property name="password" value="090366lsw!"/>
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>

@@ -185,7 +185,7 @@ public class Mv_userController {
 	}
 	
 	@GetMapping("changePw")
-	public void changePw() {}
+	public void changePw(@ModelAttribute("user_id") String user_id) {}
 	
 	@PostMapping("updatePw")
 	public String updatePw(String user_id, Model model, String newPw, RedirectAttributes rattr) {
@@ -210,8 +210,11 @@ public class Mv_userController {
 		}
 		return code;
 	}
-	@GetMapping("modifyPw")
-	public void modifyPw(@ModelAttribute("user_id") String user_id) {}
+	@GetMapping("modifyPw") 
+	public void modifyPw(HttpSession session, Model model) {
+		String user_id = (String) session.getAttribute("user_id");
+		model.addAttribute("user_id", user_id);
+	}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
@@ -226,7 +229,7 @@ public class Mv_userController {
 		session.invalidate();
 		String msg = "그동안 이용해주셔서 감사드립니다.";
 		rattr.addFlashAttribute("msg", msg);
-		return "redirect:/CCV";
+		return "redirect:/moviedata/";
 	}
 	
 	@GetMapping("saleslist")

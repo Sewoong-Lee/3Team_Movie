@@ -60,8 +60,7 @@
 		$('#btnfileadd').click(function(e) {
 			//alert('추가');
 			e.preventDefault();  //버튼의 기본기능 제거
-			$('#filelist').append('<li><input type="file" name="files" class="files"><button class="btnfileremove">삭제</button></li>');
-			
+			$('#filelist').append('<li><input type="file" name="files" class="files"><button class="button btnfileremove">삭제</button></li>');
 		});
 		
 		//파일 삭제버튼
@@ -131,14 +130,14 @@
 		<tr>
 			<th>파일 수정</th>
 			<td>
-			<div><button id="btnfileadd">파일 추가</button></div>
+			<div><button id="btnfileadd" class="button">파일 추가</button></div>
 			<ol id="filelist">
-				<li><input type="file" name="files" class="files"><button class="btnfileremove">삭제</button></li>
+				<li><input type="file" name="files" class="files"><button class="button btnfileremove">삭제</button></li>
 			</ol>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"> <button id="btnupdate">수정</button> </td>
+			<td colspan="2" align="center"> <button id="btnupdate" class="button">수정</button> </td>
 		</tr>
 	
 	</table>

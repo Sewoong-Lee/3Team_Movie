@@ -4,6 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+#loginCheck{
+	color : white;
+	padding-left: 100px;
+}
+#back_color_body{
+	background-color: #1a1313;
+}
+</style>
 <link href ="${path}/resources/css/forHeader.css" rel = "stylesheet"/>
 <script type="text/javascript">
 	$(function(){
@@ -66,7 +75,7 @@
 			<div class="dropdown">
 			<button class="dropbtn">나의 CCV</button>
 				<div class="dropdown-content" id = "myCcv">
-					<a href="#">영화 예매 내역</a>
+					<a href="${path}/user/saleslist">영화 예매 내역</a>
 					<a href="#">이벤트 참여 내역</a>
 					<a href="${path}/user/myInfo?user_id=${sessionScope.user_id}">나의 정보</a>
 				</div>

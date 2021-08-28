@@ -135,7 +135,7 @@
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 <!-- 영화관 리스트 탬플릿 -->
-<script id="replylist_template" type="text/x-handlebars-template">
+<script id="cinema_list_template" type="text/x-handlebars-template">
 	<br>
 	{{#each .}}
      <li><a href="{{cinema_code}}" class="cinemaname">{{cinema_name}}</a></li><br>
@@ -196,7 +196,7 @@ $(function() {
 				/* $('#city_name_list').before('<br>'); */
 				$('#city_name_list').attr('class', 'movie_cinema_box'); //박스에 클래스 추가 (css 사용)
 				
-				var source = $('#replylist_template').html();
+				var source = $('#cinema_list_template').html();
 				var template = Handlebars.compile(source);
 		       	$('#city_name_list').html(template(data));
 		        

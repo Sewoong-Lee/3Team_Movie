@@ -55,6 +55,10 @@ public class CinemaController {
 		List<Mv_city> citylist = cinemaservice.cityselectlist();
 		// 예매 가능 날짜 가져오기
 		List<Mv_time> timelist = cinemaservice.timeselectlist(movie_num);
+		//예매정보 있는지 확인
+		if(timelist.isEmpty()) {
+			logger.info("예매정보가 없습니다.");
+		}
 		logger.info(citylist.toString());
 		logger.info("timelist: " + timelist.toString());
 		model.addAttribute("citylist", citylist);

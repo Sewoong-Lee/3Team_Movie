@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+.row-loc {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.area .loc-img{
+	position: relative;
+	cursor: pointer;
+}
+
+.loc {
+	font-size: 30px;
+	margin: 20px;
+}
+.row-loc>* {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.area p{
+	font-size : 18px;
+	position: absolute;
+	bottom: 50px;
+	left: 100px;
+}
+
+.row-loc img:hover{
+	background: black;
+	opacity : 30%;
+	box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.18);
+}
+
+.area img{
+	width: 60%;
+	margin: 10px;
+}
+
+.loc-address {
+	font-size: 16px;
+	vertical-align: middle;
+}

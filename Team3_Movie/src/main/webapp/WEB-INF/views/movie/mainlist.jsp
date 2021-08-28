@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file = "../include/include.jsp" %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +20,7 @@
   	border: 1px outset;
 }
 .paging{
-	margin: 30px;
+	margin: 0px;
 }
 
 #aCurPage{
@@ -31,6 +28,32 @@
 	color: white;
 	font-size: 22px;
 	font-weight: bold;
+}
+/* 아래 추가 */
+#imgListDiv{
+    text-align: center;
+    width: 1600;
+    display: block;
+    margin: auto;
+}
+#back_color_body{
+   background-color: #1a1313;
+}
+#back_div{
+   width: 100%;
+   max-width: 80%;
+   margin: auto;
+}
+#searchIn{
+    float: right;
+    margin: 30px;
+    flex: auto;
+    margin-right: 15%;
+    padding-block-end: inherit;
+    width: 400; 
+}
+#btnFind{
+	font-size: 18px;
 }
 
 </style>
@@ -57,7 +80,8 @@
 <body id="back_color_body">
 
 <%@ include file = "../include/header.jsp" %>
-	<fieldset id="searchIn" style=" width: 380; ">
+	<!-- 검색조회 -->
+	<fieldset id="searchIn">
 		<input type="text" style=" height:40; width: 300; margin-bottom: 10;" id="findMovie" placeholder="장르 및 영화제목을 입력해주세요"; 
 			onkeypress="javascript:if(event.keyCode==13) $('#btnFind').click()">
 		<button id="btnFind" type="button" style="padding:8px; padding-right:15px; padding-left:15px" >조회</button>
@@ -67,20 +91,20 @@
  		<div id="imgListDiv" style="text-align: center;">
 
 	 		<c:forEach var="list" items="${movieList}">
-		 		<div style="display: inline-block; margin: 0 20px;">
+		 		<div style="display: inline-block;  margin-bottom: 40; width: 270px">
 		 			<div>
 			 			<a href="${path}/moviedata/detail?movie_num=${list.movie_num}"> 
-			 			<img alt="이미지링크" src=" ${list.movie_poster_link} " width="150px"></a>
+			 			<img alt="이미지링크" src="${list.movie_poster_link}" width="220px" style="border: 1px solid white; border-radius: 10px"></a>
 			 		</div>
-				 	<div style=" margin-top: 10px;
-					 	 text-align: center;
-						 color: #925e5e;
-						 font-weight: bold;
-						 font-size: 18px;">
+				 	<div style=" margin-top: 10px; margin-bottom: 30px;
+					 	 text-align: center;  color: white;
+						 font-weight: bold;	 font-size: 18px;">
+				 		 ${list.movie_name}
 		 			</div>
 	 			</div>
 	 		</c:forEach>
  		</div>
+ 	</div>
  	<br>
  	
 <%--  	${mv_Page} --%>
