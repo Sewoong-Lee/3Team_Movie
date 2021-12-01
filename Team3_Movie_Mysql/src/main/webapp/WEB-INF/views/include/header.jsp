@@ -37,7 +37,7 @@
 <body>
 	<header class = "logo">
 		<%-- <h2 onclick = "location.href ='${path}/CCV'" style = "cursor: pointer">CCV</h2> --%>
-		<a href = "${path}/moviedata/"><img src = "${path}/resources/img/logo.png" style=" display: block;  margin: 0 auto;"></a><br>
+		<a href = "${path}/moviedata/"><img src = "${path}/resources/img/logo.png" class="himg"></a><br>
 	</header>
 	<div id = "loginCheck">
 		<c:if test="${sessionScope.user_id == null}">

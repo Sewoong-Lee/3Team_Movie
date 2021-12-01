@@ -8,9 +8,13 @@ header .logo {
 	display: block;
 	margin: 0 auto;
 }
+.himg{
+	/* display: block;
+	margin: 0 auto; */
+}
 .logo img {
-	width: 15%;
-	display: block;
+	width: 220px;
+    display: block;
     margin: 0 auto;
 }
 
