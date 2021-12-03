@@ -172,6 +172,18 @@ $(function() {
 		$('#selectday').val(time_code);
 		//var selectday=time_code;
 		//alert(selectday);
+		
+		$('.cityname').attr('id','');
+		
+		$('#city_name_list').html('');
+		$('#city_name_list').hide();
+		
+		$('#sale_time_list').html('');
+		$('#sale_time_list').hide();
+		
+		$('#seats_list').html('');
+		$('#seats_list').hide();
+		
 	});
 	//지역을 누르면
 	$('.cityname').click(function(e) {
@@ -183,6 +195,15 @@ $(function() {
 		$('#city_code').val(city_code);
 		//alert(city_code);
 		
+		$('#city_name_list').html('');
+		$('#city_name_list').hide();
+		
+		$('#sale_time_list').html('');
+		$('#sale_time_list').hide();
+		
+		$('#seats_list').html('');
+		$('#seats_list').hide();
+		
 		$.ajax({
 			url:'${path}/cinema/city/'+city_code,  //restfull하게 설계
 			type:'get',  //메소드 방식
@@ -192,13 +213,21 @@ $(function() {
 			//dataType:'text', //서버에서 받는 타입
 			success:function(data){
 				console.log(data);
+				console.log(data[0]);
 				//alert('성공');
 				/* $('#city_name_list').before('<br>'); */
-				$('#city_name_list').attr('class', 'movie_cinema_box'); //박스에 클래스 추가 (css 사용)
+				if(data[0] !== undefined){
+					$('#city_name_list').show();
+					
+					$('#city_name_list').attr('class', 'movie_cinema_box'); //박스에 클래스 추가 (css 사용)
+					
+					var source = $('#cinema_list_template').html();
+					var template = Handlebars.compile(source);
+			       	$('#city_name_list').html(template(data));
+				}else{
+					alert('상영관 준비중 입니다.');
+				}
 				
-				var source = $('#cinema_list_template').html();
-				var template = Handlebars.compile(source);
-		       	$('#city_name_list').html(template(data));
 		        
 		        /* var results = data;
 	            var str = '';
@@ -227,19 +256,30 @@ $(function() {
 		var selectday = $('#selectday').val();
 		var movie_num = $('#movie_num').val();
 		//alert(cinema_code+' '+ selectday +' '+ movie_num);
+		
+		$('#sale_time_list').html('');
+		$('#sale_time_list').hide();
+		
+		$('#seats_list').html('');
+		$('#seats_list').hide();
+		
 		$.ajax({
 			url:'${path}/cinema/time',  //restfull하게 설계
 			type:'get',  //메소드 방식
 			data:{cinema_code,selectday,movie_num},
 			success:function(data){
 				console.log(data);
-				
-				$('#sale_time_list').attr('class', 'movie_time_box'); //박스에 클래스 추가 (css 사용)
-				
-				var source = $('#sale_time_template').html();
-				var template = Handlebars.compile(source);
-		       	$('#sale_time_list').html(template(data));
-				
+				if(data[0] !== undefined){
+					$('#sale_time_list').show();
+					
+					$('#sale_time_list').attr('class', 'movie_time_box'); //박스에 클래스 추가 (css 사용)
+					
+					var source = $('#sale_time_template').html();
+					var template = Handlebars.compile(source);
+			       	$('#sale_time_list').html(template(data));
+				}else{
+					alert('예매정보가 없습니다.');
+				}
 			},
 			error:function(err){
 				console.log(err);
@@ -258,6 +298,10 @@ $(function() {
 		var time_code = $(this).attr('href');
 		$('#time_code').val(time_code);
 		//alert(time_code);
+		
+		$('#seats_list').html('');
+		$('#seats_list').hide();
+		
 		//좌석 리스트 불러오기
 		$.ajax({
 			url:'${path}/cinema/seats',  //restfull하게 설계
@@ -265,34 +309,38 @@ $(function() {
 			data:{time_code},
 			success:function(data){
 				console.log(data);
+				if(data[0] !== undefined){
+					$('#seats_list').show();
+					
+					$('#seats_list').attr('class', 'movieseatsbox'); //박스에 클래스 추가 (css 사용)
+					
+					$("#seats_list").text('Screen').append('<br>');
+					
+					var cnt = 1;
+					var results = data;
+		            var str = '<br>';
+		            $.each(results, function(i){
+		                /* str += '<button class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code+'</button>&nbsp;&nbsp;'; */
+		                //예매좌석 이라면
+		                if(results[i].time_code == 0){
+		                	//예약좌석이 아니라면
+		                	str += '<input type="checkbox" name="seats_code" class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code;
+		                }else{
+		                	//예약 좌석 이라면
+		                	 str += '<input type="checkbox" class="Already_seatsname" disabled value="'+results[i].seats_code+'">'+results[i].seats_code;
+		                }
+		                
+		                //str += '<input type="checkbox" name="seats_code" class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code;
+		                if(cnt % 4 == 0){
+		                	str += '<br>';
+		                }
+		                cnt++;
+		           });
+		         
+		           $("#seats_list").append(str);
+			       $('.Already_seatsname').css('background-color', '#1a1313'); 
+				}
 				
-				$('#seats_list').attr('class', 'movieseatsbox'); //박스에 클래스 추가 (css 사용)
-				
-				$("#seats_list").text('Screen').append('<br>');
-				
-				var cnt = 1;
-				var results = data;
-	            var str = '<br>';
-	            $.each(results, function(i){
-	                /* str += '<button class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code+'</button>&nbsp;&nbsp;'; */
-	                //예매좌석 이라면
-	                if(results[i].time_code == 0){
-	                	//예약좌석이 아니라면
-	                	str += '<input type="checkbox" name="seats_code" class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code;
-	                }else{
-	                	//예약 좌석 이라면
-	                	 str += '<input type="checkbox" class="Already_seatsname" disabled value="'+results[i].seats_code+'">'+results[i].seats_code;
-	                }
-	                
-	                //str += '<input type="checkbox" name="seats_code" class="seatsname" value="'+results[i].seats_code+'">'+results[i].seats_code;
-	                if(cnt % 4 == 0){
-	                	str += '<br>';
-	                }
-	                cnt++;
-	           });
-	         
-	           $("#seats_list").append(str);
-		       $('.Already_seatsname').css('background-color', '#1a1313'); 
 			},
 			error:function(err){
 				console.log(err);
